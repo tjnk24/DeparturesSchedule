@@ -1,0 +1,69 @@
+// @font-face {
+//     font-family: 'Helios Cond Black C';
+//     src: url('./font/HeliosCondBlackC.woff2') format('woff2'),
+//     url('./font/HeliosCondBlackC.woff') format('woff'),
+//     url('./font/HeliosCondBlackC.ttf') format('truetype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+// @font-face {
+//     font-family: 'HeliosCondC';
+//     src: url('./font/HeliosCondC.woff') format('woff'),
+//     url('./font/HeliosCondC.ttf') format('truetype');
+//     font-weight: normal;
+//     font-style: normal;
+// }
+
+:global {
+
+    * {
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    button,
+    input,
+    body {
+        font-family: "Roboto Condensed", sans-serif;
+    }
+
+    a,
+    input {
+        outline: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    input,
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    iframe,
+    img {
+        border: 0;
+    }
+
+    #root {
+        min-width: 640px;
+    }
+}

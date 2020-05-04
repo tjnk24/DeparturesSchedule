@@ -1,0 +1,36 @@
+{
+    "countries": [
+        "armenia",
+        "australia",
+        "belarus",
+        "belgium",
+        "brazil",
+        "bulgaria",
+        "canada",
+        "czech",
+        "denmark",
+        "finland",
+        "france",
+        "germany",
+        "greece",
+        "ireland",
+        "israel",
+        "italy",
+        "japan",
+        "kazakhstan",
+        "latvia",
+        "luxembourg",
+        "mexico",
+        "netherlands",
+        "new-zealand",
+        "norway",
+        "romania",
+        "russia"
+    ],
+
+    "gates": {
+        "A": 12,
+        "B": 8,
+        "C": 10
+    }
+}

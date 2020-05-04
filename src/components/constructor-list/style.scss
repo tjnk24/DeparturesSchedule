@@ -1,0 +1,20 @@
+:local {
+    .constructor-list {
+        margin: 30px 0;
+
+        p {
+            color: #9c9b9b;
+            font-size: 14px;
+        }
+    }
+
+    .constructor-table {
+
+        tbody {
+
+            tr {
+                cursor: pointer;
+            }
+        }
+    }
+}

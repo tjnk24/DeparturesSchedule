@@ -1,0 +1,15 @@
+:local {
+    .header {
+        height: 100px;
+        background: url('./header-bg.jpg') center no-repeat;
+        background-size: cover;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        &__title {
+            color: #FFF;
+            font-size: 40px;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+:local {
+    .constructor {
+        padding: 20px;
+
+        &__heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h5 {
+                color: #808080;
+            }
+        }
+    }
+}

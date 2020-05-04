@@ -1,0 +1,9 @@
+build/
+node_modules/
+.idea/
+*.log
+.gitmodules
+.DS_Store
+.realsync
+package-lock.json
+yarn.lock
