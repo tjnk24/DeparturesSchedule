@@ -1,18 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Dropdown from '../dropdown';
 import CountriesList from '../countries-list';
 import GatesList from '../gates-list';
 import TimeList from '../time-list';
-
-import { ConstructorContext } from '../../../../reducers/constructor-reducer';
 
 import classnames from 'classnames/bind';
 import style from './style';
 const cn = classnames.bind(style);
 
 const DropdownsList = ({ values, handler, countries, gates }) => {
-
-    const { state, dispatch } = useContext(ConstructorContext);
 
     const {
         country,

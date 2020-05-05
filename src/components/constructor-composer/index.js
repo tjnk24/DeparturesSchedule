@@ -21,33 +21,33 @@ const ConstructorComposer = ({
         minutes: '00'
     })
 
+    //TODO: подвязать к кнопке запись в массив редюсера, сделать массив в редюсере
+
     // const [listValues, setListValues] = useState([]);
 
     useEffect(() => {
-        console.log(state);
+        console.log(composerValues);
     });
 
-    const addToList = () => {
-        dispatch({
-            type: 'add',
-            payload
-        })
-        // setListValues([
-        //     ...listValues,
-        //     composerValues
-        // ])
-    };
+    // const addToList = () => {
+    //     dispatch({
+    //         type: 'add',
+    //         payload
+    //     })
+    //     setListValues([
+    //         ...listValues,
+    //         composerValues
+    //     ])
+    // };
 
     return (
         <div className={cn('constructor-composer')}>
-            <ConstructorContext.Provider value={{ state, dispatch }}>
                 <DropdownsList
-                    values={state}
+                    values={composerValues}
                     handler={setComposerValues}
                     countries={countries}
                     gates={gates}
                 />
-            </ConstructorContext.Provider>
             <button
                 className={cn(bootstrap.btn, bootstrap['btn-success'])}
                 // onClick={addToList}
