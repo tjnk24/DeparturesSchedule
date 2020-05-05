@@ -4,7 +4,15 @@ import bootstrap from '@bootstrap-module';
 import classnames from 'classnames/bind';
 const cn = classnames.bind();
 
-const Dropdown = ({ className, label, value, onChangeHandler, children }) => {
+const Dropdown = ({
+    className,
+    label,
+    name,
+    value,
+    prevValues,
+    onChangeHandler,
+    children }) => {
+
     return (
         <React.Fragment>
             <div className={className}>
@@ -14,8 +22,12 @@ const Dropdown = ({ className, label, value, onChangeHandler, children }) => {
                 }
                 <select
                     className={cn(bootstrap['form-control'])}
+                    name={name}
                     value={value}
-                    onChange={(e) => onChangeHandler(e.target.value)}
+                    onChange={(e) => onChangeHandler({
+                        ...prevValues,
+                        [e.target.name]: e.target.value
+                    })}
                 >
                     {children}
                 </select>

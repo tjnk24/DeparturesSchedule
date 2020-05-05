@@ -1,0 +1,42 @@
+:local {
+    .dropdown-list {
+        display: flex;
+
+        label {
+            font-size: 14px;
+        }
+
+        > div {
+            margin-right: 15px;
+        }
+
+        select,
+        input {
+            height: 30px;
+            font-size: 14px;
+            padding: 4px;
+        }
+
+        span {
+            height: 30px;
+            align-self: flex-end;
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        &__country {
+            width: 60%;
+        }
+
+        &__gate {
+            width: 20%;
+        }
+
+        &__time {
+            margin: 0!important;
+            width: 10%;
+            min-width: 50px;
+            align-self: flex-end;
+        }
+    }
+}
