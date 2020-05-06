@@ -1,7 +1,9 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useReducer } from 'react';
 import DropdownsList from './parts/dropdowns-list';
 
-import { ConstructorContext, initialState, constructorReducer } from '../../reducers/constructor-reducer';
+import { ADD_TO_LIST } from '../../store/actions/actionTypes';
+
+import { initialState, constructorReducer } from '../../store/reducers/constructor-reducer';
 
 import bootstrap from '@bootstrap-module';
 import classnames from 'classnames/bind';
@@ -12,7 +14,7 @@ const ConstructorComposer = ({
     countries,
     gates }) => {
 
-    const [state, dispatch] = useReducer(constructorReducer, initialState);
+    const [, dispatch] = useReducer(constructorReducer, initialState);
 
     const [composerValues, setComposerValues] = useState({
         country: 'Bulgaria',
@@ -21,24 +23,12 @@ const ConstructorComposer = ({
         minutes: '00'
     })
 
-    //TODO: подвязать к кнопке запись в массив редюсера, сделать массив в редюсере
-
-    // const [listValues, setListValues] = useState([]);
-
-    useEffect(() => {
-        console.log(composerValues);
-    });
-
-    // const addToList = () => {
-    //     dispatch({
-    //         type: 'add',
-    //         payload
-    //     })
-    //     setListValues([
-    //         ...listValues,
-    //         composerValues
-    //     ])
-    // };
+    const addToList = () => {
+        dispatch({
+            type: ADD_TO_LIST,
+            payload: composerValues
+        })
+    };
 
     return (
         <div className={cn('constructor-composer')}>
@@ -50,7 +40,7 @@ const ConstructorComposer = ({
                 />
             <button
                 className={cn(bootstrap.btn, bootstrap['btn-success'])}
-                // onClick={addToList}
+                onClick={addToList}
             >
                 ADD TO LIST
             </button>
