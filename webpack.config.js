@@ -91,6 +91,7 @@ const config = {
         alias                 : {
             '@components': path.resolve(__dirname, 'src', 'components'),
             '@pages': path.resolve(__dirname, 'src', 'pages'),
+            '@store': path.resolve(__dirname, 'src', 'store'),
             '@bootstrap-module': path.resolve(__dirname, 'src', 'assets', 'bootstrap.min.module.css')
         }
     }

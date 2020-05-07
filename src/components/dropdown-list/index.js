@@ -1,8 +1,8 @@
 import React from 'react';
-import Dropdown from '../dropdown';
-import CountriesList from '../countries-list';
-import GatesList from '../gates-list';
-import TimeList from '../time-list';
+import Dropdown from './parts/dropdown';
+import CountriesList from './parts/countries-list';
+import GatesList from './parts/gates-list';
+import TimeList from './parts/time-list';
 
 import classnames from 'classnames/bind';
 import style from './style';
@@ -50,16 +50,22 @@ const DropdownsList = ({ values, handler, countries, gates }) => {
     return (
         <div className={cn('dropdown-list')}>
             { dropdownListProps.map(prop =>
-                <Dropdown
-                    key={prop.name}
-                    className={prop.className}
-                    label={prop.label ? prop.label : null}
-                    name={prop.name}
-                    value={prop.value}
-                    prevValues={values}
-                    onChangeHandler={handler}
-                    children={prop.children()}
-                />
+                <React.Fragment key={prop.name}>
+                    <div className={prop.className}>
+                        { prop.label
+                            ? <label>{prop.label}</label>
+                            : null
+                        }
+                        <Dropdown
+                            name={prop.name}
+                            value={prop.value}
+                            prevValues={values}
+                            onChangeHandler={handler}
+                            children={prop.children()}
+                        />
+                    </div>
+                    { prop.label === 'Time' ? <span>:</span> : null }
+                </React.Fragment>
             )}
         </div>
     );

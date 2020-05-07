@@ -1,9 +1,9 @@
-import React, { useState, useReducer } from 'react';
-import DropdownsList from './parts/dropdowns-list';
+import React, { useState, useContext } from 'react';
+import DropdownsList from '../dropdown-list';
 
-import { ADD_TO_LIST } from '../../store/actions/actionTypes';
+import { ADD_TO_LIST } from '@store/actions/actionTypes';
 
-import { initialState, constructorReducer } from '../../store/reducers/constructor-reducer';
+import { ConstructorContext } from '@store/reducers/constructor-reducer';
 
 import bootstrap from '@bootstrap-module';
 import classnames from 'classnames/bind';
@@ -14,7 +14,7 @@ const ConstructorComposer = ({
     countries,
     gates }) => {
 
-    const [, dispatch] = useReducer(constructorReducer, initialState);
+    const { dispatch } = useContext(ConstructorContext);
 
     const [composerValues, setComposerValues] = useState({
         country: 'Bulgaria',
@@ -24,9 +24,15 @@ const ConstructorComposer = ({
     })
 
     const addToList = () => {
+        const payload = {
+            country: composerValues.country,
+            gate: composerValues.gate,
+            time: `${composerValues.hours}:${composerValues.minutes}`
+        };
+
         dispatch({
             type: ADD_TO_LIST,
-            payload: composerValues
+            payload
         })
     };
 

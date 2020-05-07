@@ -1,17 +1,11 @@
-import React from "react";
-import { ADD_TO_LIST } from '../actions/actionTypes';
+import React, { useReducer } from "react";
+import { ADD_TO_LIST } from '@store/actions/actionTypes';
 
-export const ConstructorContext = React.createContext();
-
-export const initialState = {
+const initialState = {
     departures: []
-    // country: 'Belgium',
-    // gate: 'C1',
-    // hours: '00',
-    // minutes: '00'
 }
 
-export const departures = [];
+export const ConstructorContext = React.createContext(initialState);
 
 export const constructorReducer = (state, action) => {
     switch (action.type) {
@@ -23,4 +17,14 @@ export const constructorReducer = (state, action) => {
         default:
             return state;
     }
+};
+
+export const ConstructorProvider = props => {
+    const [state, dispatch] = useReducer(constructorReducer, initialState);
+
+    return (
+        <ConstructorContext.Provider value={ { state, dispatch } }>
+            {props.children}
+        </ConstructorContext.Provider>
+    );
 }

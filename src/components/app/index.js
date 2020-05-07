@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import classnames from 'classnames/bind';
-
 import Header from '../header';
 import Schedule from '@pages/schedule';
 import Constructor from '@pages/constructor';
 
+import { ConstructorProvider } from '@store/reducers/constructor-reducer';
+
+import classnames from 'classnames/bind';
 import style from './style';
 
 const cn = classnames.bind(style);
@@ -15,10 +16,12 @@ const App = () => {
     return (
         <React.Fragment>
             <Header />
-            {scheduleConstructed ?
-                <Schedule /> :
-                <Constructor setConstructed={setScheduleConstructed} />
-            }
+            <ConstructorProvider>
+                {scheduleConstructed ?
+                    <Schedule /> :
+                    <Constructor setConstructed={setScheduleConstructed} />
+                }
+            </ConstructorProvider>
         </React.Fragment>
     )
 }

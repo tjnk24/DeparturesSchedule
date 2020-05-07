@@ -1,0 +1,46 @@
+:local {
+    .table-row {
+
+        td:nth-child(4) {
+            display: flex;
+            border: 0;
+        }
+
+        select {
+            height: 28px;
+            font-size: 14px;
+            padding: 0 5px;
+        }
+
+        span {
+            font-weight: 600;
+            margin: 0 5px;
+        }
+
+        button {
+            width: 45px;
+            height: 30px;
+            border-radius: 8px;
+            border: 0;
+            background-color: #ff6666;
+
+            &:hover {
+                background-color: #d45555;
+            }
+
+            &:last-child {
+                margin-left: 5px;
+                background-color: #08d827;
+
+                &:hover {
+                    background-color: #08b121;
+                }
+            }
+
+            svg {
+                width: 17px;
+                color: #FFF;
+            }
+        }
+    }
+}
