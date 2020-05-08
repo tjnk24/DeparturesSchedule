@@ -8,18 +8,17 @@ import classnames from 'classnames/bind';
 import style from './style';
 const cn = classnames.bind(style);
 
-const ConstructorList = () => {
+const ConstructorTable = () => {
     const { state } = useContext(ConstructorContext);
 
     return (
         <div className={cn('constructor-list')}>
             {
-                !state.departures.length ? <p>There's nothing to show. Add some items to the list!</p> :
+                !state.length ? <p>There's nothing to show. Add some items to the list!</p> :
 
                 <table className={cn(
                     bootstrap.table,
                     bootstrap['table-sm'],
-                    bootstrap['table-hover'],
                     'constructor-table'
                     )}>
                     <thead>
@@ -31,7 +30,7 @@ const ConstructorList = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {state.departures.map((value, index) => {
+                        {state.map((value, index) => {
                             return <TableRow
                                         key={index}
                                         index={index}
@@ -45,4 +44,4 @@ const ConstructorList = () => {
     );
 };
 
-export default ConstructorList;
+export default ConstructorTable;
