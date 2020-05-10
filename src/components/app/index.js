@@ -19,7 +19,7 @@ const App = () => {
             <ConstructorProvider>
                 {scheduleConstructed ?
                     <Schedule /> :
-                    <Constructor setConstructed={setScheduleConstructed} />
+                    <Constructor setConstructed={setScheduleConstructed}/>
                 }
             </ConstructorProvider>
         </React.Fragment>

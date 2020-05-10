@@ -1,15 +1,12 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import TableRow from './parts/table-row/';
-
-import { ConstructorContext } from '@store/reducers/constructor-reducer';
 
 import bootstrap from '@bootstrap-module';
 import classnames from 'classnames/bind';
 import style from './style';
 const cn = classnames.bind(style);
 
-const ConstructorTable = () => {
-    const { state } = useContext(ConstructorContext);
+const ConstructorTable = ({ state }) => {
 
     return (
         <div className={cn('constructor-list')}>
@@ -31,6 +28,7 @@ const ConstructorTable = () => {
                     </thead>
                     <tbody>
                         {state.map((value, index) => {
+                            console.log('constructor-table: ', value);
                             return <TableRow
                                         key={index}
                                         index={index}

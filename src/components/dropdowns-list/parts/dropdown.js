@@ -16,10 +16,14 @@ const Dropdown = ({
             className={cn(bootstrap['form-control'])}
             name={name}
             value={value}
-            onChange={(e) => onChangeHandler({
-                ...prevValues,
-                [e.target.name]: e.target.value
-            })}
+            onChange={(e) => {
+                prevValues
+                    ? onChangeHandler({
+                        ...prevValues,
+                        [e.target.name]: e.target.value
+                    })
+                    : onChangeHandler({[e.target.name]: e.target.value})
+            }}
         >
             {children}
         </select>

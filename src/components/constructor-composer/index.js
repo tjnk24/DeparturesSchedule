@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
-import DropdownsList from '../dropdown-list';
+import DropdownsList from '../dropdowns-list';
 
-import { ADD_TO_LIST } from '@store/actions/actionTypes';
+import { ADD_LIST_ITEM } from '@store/actions/actionTypes';
 
 import { ConstructorContext } from '@store/reducers/constructor-reducer';
 
@@ -25,13 +25,12 @@ const ConstructorComposer = ({
 
     const addToList = () => {
         const payload = {
-            country: composerValues.country,
-            gate: composerValues.gate,
-            time: `${composerValues.hours}:${composerValues.minutes}`
+            ...composerValues,
+            isEditing: false
         };
 
         dispatch({
-            type: ADD_TO_LIST,
+            type: ADD_LIST_ITEM,
             payload
         })
     };
