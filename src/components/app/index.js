@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Header from '../header';
+import Header from '@components/header';
 import Schedule from '@pages/schedule';
 import Constructor from '@pages/constructor';
 
@@ -11,6 +11,7 @@ import style from './style';
 const cn = classnames.bind(style);
 
 const App = () => {
+    // перевести в false для отображения конструктора
     const [scheduleConstructed, setScheduleConstructed] = useState(false);
 
     return (

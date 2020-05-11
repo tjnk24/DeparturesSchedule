@@ -9,25 +9,22 @@ const Dropdown = ({
     value,
     prevValues,
     onChangeHandler,
-    children }) => {
+    children }) =>
 
-    return (
-        <select
-            className={cn(bootstrap['form-control'])}
-            name={name}
-            value={value}
-            onChange={(e) => {
-                prevValues
-                    ? onChangeHandler({
-                        ...prevValues,
-                        [e.target.name]: e.target.value
-                    })
-                    : onChangeHandler({[e.target.name]: e.target.value})
-            }}
-        >
-            {children}
-        </select>
-    );
-};
+    <select
+        className={cn(bootstrap['form-control'])}
+        name={name}
+        value={value}
+        onChange={(e) => {
+            prevValues
+                ? onChangeHandler({
+                    ...prevValues,
+                    [e.target.name]: e.target.value
+                })
+                : onChangeHandler({[e.target.name]: e.target.value})
+        }}
+    >
+        {children}
+    </select>
 
 export default Dropdown;

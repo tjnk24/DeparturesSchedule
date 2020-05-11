@@ -1,0 +1,31 @@
+:local {
+    .schedule {
+        height: calc(100% - 100px);
+        background: url(./img/bg.jpg) center no-repeat;
+        background-size: cover;
+        display: flex;
+    }
+
+    .screen {
+        background-color: rgba(7, 8, 12, .9);
+        color: #FFF;
+        min-width: 700px;
+        width: 50%;
+        margin: auto;
+
+        th,
+        td {
+            text-align: center;
+            width: 35%;
+        }
+
+        th {
+            font-size: 20px;
+            line-height: 55px;
+        }
+
+        tr:last-child td {
+            padding-bottom: 10px;
+        }
+    }
+}
