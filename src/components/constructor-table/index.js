@@ -26,7 +26,6 @@ const ConstructorTable = ({ state }) =>
                 </thead>
                 <tbody>
                     {state.map((value, index) => {
-                        console.log('constructor-table: ', value);
                         return <TableRow
                                     key={index}
                                     index={index}

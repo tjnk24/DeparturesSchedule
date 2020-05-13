@@ -40,21 +40,20 @@ const ScheduleItem = ({ value }) => {
             setTimer('Departed');
         } else {
             const result = hours + ':' + minutes + ":" + seconds;
-            console.log(result);
 
             setTimer(result);
         }
     }
 
     return (
-        <tr className={cn('schedule-item')}>
-            <td>
+        <React.Fragment>
+            <div className={cn('schedule-item__country')}>
                 <img src={require(`./img/${countryLowerCase}.png`)} alt={`${country} logo`} />
                 <div>{country}</div>
-            </td>
-            <td>{gate}</td>
-            <td className={cn(timer === 'Departed' && 'schedule-item__departed')}>{timer}</td>
-        </tr>
+            </div>
+            <div>{gate}</div>
+            <div className={cn(timer === 'Departed' && 'schedule-item__departed')}>{timer}</div>
+        </React.Fragment>
     );
 };
 
