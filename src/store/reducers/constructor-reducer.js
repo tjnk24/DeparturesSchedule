@@ -1,22 +1,25 @@
 import React, { useReducer } from "react";
 import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '@store/actions/actionTypes';
 
-const initialState = [];
-
-export const ConstructorContext = React.createContext(initialState);
+let schedule = [];
 
 export const constructorReducer = (state, action) => {
     switch (action.type) {
         case ADD_LIST_ITEM:
-            return [
+            schedule = [
                 ...state,
                 {
                     ...action.payload,
                     id: state.length
                 }
             ];
+
+            localStorage.setItem('schedule', JSON.stringify(schedule));
+
+            return schedule;
+
         case UPDATE_LIST_ITEM:
-            return state.map((item, index) => {
+            schedule = state.map((item, index) => {
                 if (index !== action.payload.id) {
                     return item;
                 } else {
@@ -25,23 +28,35 @@ export const constructorReducer = (state, action) => {
                         ...action.payload
                     }
                 }
-            })
+            });
+            localStorage.setItem('schedule', JSON.stringify(schedule));
+
+            return schedule;
+
         case REMOVE_LIST_ITEM:
-            const newState = state.filter((item, index) => index !== action.payload.id);
-
-            console.log(newState);
-
-            return newState.map((item, index) => {
+            schedule = state.filter(
+                (item, index) => index !== action.payload.id
+            ).map((item, index) => {
                 item.id = index;
                 return item;
-            })
+            });
+
+            localStorage.setItem('schedule', JSON.stringify(schedule));
+
+            return schedule;
         default:
             return state;
     }
 };
 
+
+
+const localState = JSON.parse(localStorage.getItem('schedule'));
+
+export const ConstructorContext = React.createContext();
+
 export const ConstructorProvider = props => {
-    const [state, dispatch] = useReducer(constructorReducer, initialState);
+    const [state, dispatch] = useReducer(constructorReducer, localState || schedule);
 
     return (
         <ConstructorContext.Provider value={ { state, dispatch } }>

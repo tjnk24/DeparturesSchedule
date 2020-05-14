@@ -46,14 +46,14 @@ const ScheduleItem = ({ value }) => {
     }
 
     return (
-        <React.Fragment>
+        <div className={cn('schedule-item')}>
             <div className={cn('schedule-item__country')}>
                 <img src={require(`./img/${countryLowerCase}.png`)} alt={`${country} logo`} />
                 <div>{country}</div>
             </div>
             <div>{gate}</div>
             <div className={cn(timer === 'Departed' && 'schedule-item__departed')}>{timer}</div>
-        </React.Fragment>
+        </div>
     );
 };
 

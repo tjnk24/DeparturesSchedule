@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@components/header';
 import Schedule from '@pages/schedule';
 import Constructor from '@pages/constructor';
@@ -11,15 +11,20 @@ import style from './style';
 const cn = classnames.bind(style);
 
 const App = () => {
-    const [scheduleConstructed, setScheduleConstructed] = useState(false);
+    // TODO: в localstorage нельзя хранить булевы значения, нужно перевести этот стейт на "0 или 1"
+    const [scheduleConstructing, setScheduleConstructing] = useState(false);
+
+    // useEffect(() => {
+    //     localStorage.setItem('constructing', scheduleConstructing);
+    // }, [scheduleConstructing])
 
     return (
         <React.Fragment>
             <Header />
             <ConstructorProvider>
-                {scheduleConstructed ?
-                    <Schedule /> :
-                    <Constructor setConstructed={setScheduleConstructed}/>
+                {scheduleConstructing ?
+                    <Schedule setConstructed={setScheduleConstructing}/> :
+                    <Constructor setConstructed={setScheduleConstructing}/>
                 }
             </ConstructorProvider>
         </React.Fragment>

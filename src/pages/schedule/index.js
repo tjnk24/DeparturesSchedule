@@ -9,7 +9,7 @@ import classnames from 'classnames/bind';
 import style from './style';
 const cn = classnames.bind(style);
 
-const Schedule = () => {
+const Schedule = ({ setConstructed }) => {
     const { state } = useContext(ConstructorContext);
 
     const [scheduleIn, setScheduleIn] = useState(false);
@@ -19,6 +19,8 @@ const Schedule = () => {
 
     const [screens, setScreens] = useState(chunkedState);
     const [screenIndex, setScreenIndex] = useState(0);
+
+    const [linkVisible, setLinkVisible] = useState(false);
 
     useEffect(() => {
         setScheduleIn(true);
@@ -31,8 +33,6 @@ const Schedule = () => {
             if (count >= screens.length) {
               count = 0;
             }
-
-            console.log(count);
 
             if (count < screens.length) {
               setScreenIndex(count)
@@ -51,15 +51,24 @@ const Schedule = () => {
 
     return <div className={cn('schedule')}>
               <Transition in={scheduleIn} timeout={1500} onEntered={() => setScreenIn(true)}>
-                <div className={cn('screenwrap')}>
+                <div
+                  className={cn('screenwrap')}
+                  onMouseOver={() => setLinkVisible(true)}
+                  onMouseOut={() => setLinkVisible(false)}
+                >
                   <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
-                    <div className={cn('screen')}>
-                      <div>Country</div>
-                      <div>Gate</div>
-                      <div>Time remaining</div>
-                          {screens[screenIndex].map((item, index) => <ScheduleItem key={index} value={item}/>)}
+                    <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
+                      <div className={cn('screen__heading')}>
+                        <div>Country</div>
+                        <div>Gate</div>
+                        <div>Time remaining</div>
+                      </div>
+                      <div className={cn('screen__schedule-wrap')}>
+                        {screens[screenIndex].map((item, index) => <ScheduleItem key={index} value={item}/>)}
+                      </div>
                     </div>
                   </CSSTransition>
+                  <a className={cn('screenwrap__link-hidden', linkVisible && 'screenwrap__link-visible')} href='#' onClick={() => setConstructed(false)}>Edit schedule</a>
                 </div>
               </Transition>
             </div>
