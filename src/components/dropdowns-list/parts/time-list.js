@@ -1,17 +1,15 @@
 import React from 'react';
 
 const TimeList = ({ timeValue }) => {
-    let numsArr = [];
+  const numsArr = [];
 
-    for (let i = 0; i <= timeValue; i++) {
-        i < 10
-        ? numsArr.push('0' + i)
-        : numsArr.push(i.toString(10));
-    }
+  for (let i = 0; i <= timeValue; i++) {
+    i < 10
+      ? numsArr.push(`0${i}`)
+      : numsArr.push(i.toString(10));
+  }
 
-    return numsArr.map((num, index) => {
-        return <option key={index} value={num}>{num}</option>
-    })
+  return numsArr.map((num, index) => <option key={index} value={num}>{num}</option>);
 };
 
 export default TimeList;

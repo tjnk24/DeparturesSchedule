@@ -5,10 +5,7 @@
         "node": true
     },
     "extends": [
-        "airbnb",
-        "rules/eslint-airbnb-fix",
-        "rules/eslint-base",
-        "rules/eslint-react"
+        "airbnb"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -26,6 +23,8 @@
         "react"
     ],
     "rules": {
+        "react/prop-types": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "import/no-unresolved": "off",
         "no-await-in-loop": "off"
     }

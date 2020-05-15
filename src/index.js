@@ -3,6 +3,6 @@ import { render } from 'react-dom';
 import App from 'components/app';
 
 render(
-    <App />,
-    document.querySelector('#root')
+  <App />,
+  document.querySelector('#root'),
 );
