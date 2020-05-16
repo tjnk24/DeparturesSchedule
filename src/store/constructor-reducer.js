@@ -35,10 +35,10 @@ export const constructorReducer = (state, action) => {
     case REMOVE_LIST_ITEM:
       schedule = state.filter(
         (item, index) => index !== action.payload.id,
-      ).map((item, index) => {
-        item.id = index;
-        return item;
-      });
+      ).map((item, index) => ({
+        ...item,
+        id: index,
+      }));
 
       localStorage.setItem('schedule', JSON.stringify(schedule));
 

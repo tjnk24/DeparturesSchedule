@@ -18,16 +18,19 @@
             animation: screen-in-700px 1.5s ease-in-out;
         }
 
-        a {
+        button {
+            background: transparent;
+            line-height: 1;
+            padding: 0;
             color: #212529;
             font-size: 18px;
             margin-left: 5px;
             letter-spacing: 0.2px;
+            border: 0;
             border-bottom: 1px solid #212529;
 
             &:hover {
-                text-decoration: none;
-                border: 0;
+                border-bottom: 0;
             }
         }
 

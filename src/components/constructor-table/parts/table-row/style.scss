@@ -1,12 +1,6 @@
 :local {
     .table-row {
 
-        // td:nth-child(4) {
-        //     display: flex;
-        //     border: 0;
-        //     padding: calc(.3rem - 1px);
-        // }
-
         select {
             height: 28px;
             font-size: 14px;
@@ -25,7 +19,6 @@
             border: 0;
             background-color: #ff6666;
             margin: 0 5px;
-            outline: none;
             transition: color .15s ease-in-out,
                 background-color .15s ease-in-out,
                 border-color .15s ease-in-out,

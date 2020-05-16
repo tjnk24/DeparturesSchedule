@@ -26,6 +26,9 @@
         "react/prop-types": "off",
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "import/no-unresolved": "off",
-        "no-await-in-loop": "off"
+        "import/no-dynamic-require": "off",
+        "no-await-in-loop": "off",
+        "no-unused-expressions": "off",
+        "global-require": "off"
     }
 }

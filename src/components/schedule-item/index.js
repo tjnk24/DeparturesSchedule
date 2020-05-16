@@ -16,6 +16,32 @@ const ScheduleItem = ({ value }) => {
 
   const [timer, setTimer] = useState('');
 
+  const evaluateCount = () => {
+    let countHours = parseInt(duration / 3600, 10);
+    let countMinutes = parseInt((duration % 3600) / 60, 10);
+    let countSeconds = parseInt((duration % 3600) % 60, 10);
+
+    countHours = countHours < 10
+      ? `0${countHours}`
+      : countHours;
+    countMinutes = countMinutes < 10
+      ? `0${countMinutes}`
+      : countMinutes;
+    countSeconds = countSeconds < 10
+      ? `0${countSeconds}`
+      : countSeconds;
+
+    duration -= 1;
+
+    if (duration < 0) {
+      setTimer('Departed');
+    } else {
+      const result = `${countHours}:${countMinutes}:${countSeconds}`;
+
+      setTimer(result);
+    }
+  };
+
   useEffect(() => {
     evaluateCount();
 
@@ -23,30 +49,6 @@ const ScheduleItem = ({ value }) => {
 
     return () => clearInterval(interval);
   }, []);
-
-  const evaluateCount = () => {
-    let hours = parseInt(duration / 3600, 10);
-    let minutes = parseInt((duration % 3600) / 60, 10);
-    let seconds = parseInt((duration % 3600) % 60, 10);
-
-    hours = hours < 10
-      ? `0${hours}`
-      : hours;
-    minutes = minutes < 10
-      ? `0${minutes}`
-      : minutes;
-    seconds = seconds < 10
-      ? `0${seconds}`
-      : seconds;
-
-    if (--duration < 0) {
-      setTimer('Departed');
-    } else {
-      const result = `${hours}:${minutes}:${seconds}`;
-
-      setTimer(result);
-    }
-  };
 
   return (
     <div className={cn('schedule-item')}>

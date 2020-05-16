@@ -55,15 +55,16 @@ const DropdownsList = ({
         <React.Fragment key={prop.name}>
           <div className={prop.className}>
             { prop.label
-              ? <label>{prop.label}</label>
+              ? <h6>{prop.label}</h6>
               : null}
             <Dropdown
               name={prop.name}
               value={prop.value}
               prevValues={values}
               onChangeHandler={handler}
-              children={prop.children()}
-            />
+            >
+              { prop.children() }
+            </Dropdown>
           </div>
           { prop.label === 'Time' ? <span>:</span> : null }
         </React.Fragment>

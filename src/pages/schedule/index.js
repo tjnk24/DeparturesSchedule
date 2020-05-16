@@ -13,17 +13,15 @@ const cn = classnames.bind(style);
 const Schedule = ({ setConstructed }) => {
   const { state } = useContext(ConstructorContext);
 
+  const screens = _.chunk(state, 6);
+
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
-
-  const chunkedState = _.chunk(state, 6);
-
-  const [screens, setScreens] = useState(chunkedState);
   const [screenIndex, setScreenIndex] = useState(0);
-
   const [linkVisible, setLinkVisible] = useState(false);
 
   useEffect(() => {
+    !screens.length && setConstructed(false);
     setScheduleIn(true);
   }, []);
 
@@ -55,7 +53,9 @@ const Schedule = ({ setConstructed }) => {
         <div
           className={cn('screenwrap')}
           onMouseOver={() => setLinkVisible(true)}
+          onFocus={() => setLinkVisible(true)}
           onMouseOut={() => setLinkVisible(false)}
+          onBlur={() => setLinkVisible(false)}
         >
           <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
             <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
@@ -65,11 +65,23 @@ const Schedule = ({ setConstructed }) => {
                 <div>Time remaining</div>
               </div>
               <div className={cn('screen__schedule-wrap')}>
-                {screens[screenIndex].map((item, index) => <ScheduleItem key={index} value={item} />)}
+                {screens.length
+                  ? screens[screenIndex].map(
+                    // without index schedule blinks when maps
+                    // eslint-disable-next-line react/no-array-index-key
+                    (item, index) => <ScheduleItem key={index} value={item} />,
+                  )
+                  : null}
               </div>
             </div>
           </CSSTransition>
-          <a className={cn('screenwrap__link-hidden', linkVisible && 'screenwrap__link-visible')} href="#" onClick={() => setConstructed(false)}>Edit schedule</a>
+          <button
+            type="button"
+            className={cn('screenwrap__link-hidden', linkVisible && 'screenwrap__link-visible')}
+            onClick={() => setConstructed(false)}
+          >
+            Edit schedule
+          </button>
         </div>
       </Transition>
     </div>

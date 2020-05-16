@@ -21,6 +21,7 @@ const Constructor = ({ setConstructed }) => {
       <div className={cn('constructor__heading')}>
         <h5>Сompose your schedule here</h5>
         <button
+          type="button"
           className={cn(
             bootstrap.btn,
             bootstrap[state.length ? 'btn-success' : 'btn-secondary'],

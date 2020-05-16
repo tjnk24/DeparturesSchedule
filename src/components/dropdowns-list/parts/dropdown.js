@@ -17,12 +17,14 @@ const Dropdown = ({
     name={name}
     value={value}
     onChange={(e) => {
-      prevValues
-        ? onChangeHandler({
+      if (prevValues) {
+        onChangeHandler({
           ...prevValues,
           [e.target.name]: e.target.value,
-        })
-        : onChangeHandler({ [e.target.name]: e.target.value });
+        });
+      } else {
+        onChangeHandler({ [e.target.name]: e.target.value });
+      }
     }}
   >
     {children}

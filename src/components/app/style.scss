@@ -34,6 +34,11 @@
         color: inherit;
     }
 
+    button,
+    button:active {
+        outline: none;
+    }
+
     h1,
     h2,
     h3,

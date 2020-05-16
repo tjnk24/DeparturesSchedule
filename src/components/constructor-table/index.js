@@ -10,7 +10,7 @@ const cn = classnames.bind(style);
 const ConstructorTable = ({ state }) => (
   <div className={cn('constructor-list')}>
     {
-            !state.length ? <p>There's nothing to show. Add some items to the list!</p>
+            !state.length ? <p>There&apos;s nothing to show. Add some items to the list!</p>
 
               : (
                 <table className={cn(
@@ -30,7 +30,7 @@ const ConstructorTable = ({ state }) => (
                   <tbody>
                     {state.map((value, index) => (
                       <TableRow
-                        key={index}
+                        key={value.id}
                         index={index}
                         value={value}
                       />
