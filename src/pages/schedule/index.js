@@ -10,6 +10,7 @@ import style from './style';
 
 const cn = classnames.bind(style);
 
+//test
 const Schedule = ({ setConstructed }) => {
   const { state } = useContext(ConstructorContext);
 
