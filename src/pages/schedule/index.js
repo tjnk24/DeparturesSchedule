@@ -10,7 +10,6 @@ import style from './style';
 
 const cn = classnames.bind(style);
 
-// test
 const Schedule = ({ setConstructed }) => {
   const { state } = useContext(ConstructorContext);
 
@@ -30,18 +29,18 @@ const Schedule = ({ setConstructed }) => {
     let count = 0;
 
     const countInterval = setInterval(() => {
-      if (count >= screens.length) {
-        count = 0;
-      }
-
       if (count < screens.length) {
         setScreenIndex(count);
-        count += 1;
+        count = (count + 1) % screens.length;
       }
     }, 3000);
 
     return () => clearInterval(countInterval);
   }, [screenIn]);
+
+  const mapScreen = (screen) => screen.map(
+    (item) => <ScheduleItem key={item.id} value={item} />,
+  );
 
   const screenClasses = {
     enter: cn('screen-enter'),
@@ -67,11 +66,14 @@ const Schedule = ({ setConstructed }) => {
               </div>
               <div className={cn('screen__schedule-wrap')}>
                 {screens.length
-                  ? screens[screenIndex].map(
-                    // without index schedule blinks when maps
-                    // eslint-disable-next-line react/no-array-index-key
-                    (item, index) => <ScheduleItem key={index} value={item} />,
-                  )
+                  ? screens.map((screen, index) => (
+                    <div
+                      key={screen[0].id}
+                      className={cn('screen__schedule-item', index === screenIndex && 'screen__schedule-item-visible')}
+                    >
+                      { mapScreen(screen) }
+                    </div>
+                  ))
                   : null}
               </div>
             </div>

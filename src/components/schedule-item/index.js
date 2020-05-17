@@ -51,13 +51,13 @@ const ScheduleItem = ({ value }) => {
   }, []);
 
   return (
-    <div className={cn('schedule-item')}>
-      <div className={cn('schedule-item__country')}>
+    <div className={cn('schedule-row')}>
+      <div className={cn('schedule-row__country')}>
         <img src={require(`./img/${countryLowerCase}.png`)} alt={`${country} logo`} />
         <div>{country}</div>
       </div>
       <div>{gate}</div>
-      <div className={cn(timer === 'Departed' && 'schedule-item__departed')}>{timer}</div>
+      <div className={cn(timer === 'Departed' && 'schedule-row__departed')}>{timer}</div>
     </div>
   );
 };
