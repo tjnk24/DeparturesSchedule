@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { TimeListProps } from '../types';
 
-const TimeList = ({ timeValue }) => {
+const TimeList: FC<TimeListProps> = ({ timeValue }) => {
   const numsArr = [];
 
   for (let i = 0; i <= timeValue; i += 1) {
@@ -11,7 +12,11 @@ const TimeList = ({ timeValue }) => {
     }
   }
 
-  return numsArr.map((num) => <option key={num} value={num}>{num}</option>);
+  return (
+    <>
+      { numsArr.map((num) => <option key={num} value={num}>{num}</option>) }
+    </>
+  );
 };
 
 export default TimeList;

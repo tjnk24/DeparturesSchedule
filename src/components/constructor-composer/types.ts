@@ -1,6 +1,6 @@
 type ConstructorComposerProps = {
     countries: string[];
-    gates: string[];
+    gates: { [index: string]: number };
 }
 
 export default ConstructorComposerProps;

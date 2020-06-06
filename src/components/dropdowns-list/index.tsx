@@ -7,7 +7,7 @@ import TimeList from './parts/time-list';
 
 import style from './style.scss';
 
-import DropdownsListProps from './types';
+import { DropdownsListProps } from './types';
 
 const cn = classnames.bind(style);
 

@@ -5,10 +5,14 @@ type Values = 'country' | 'gate' | 'hours' | 'minutes';
 type ValuesTypes = Record<Values, string>;
 
 export type DropdownsListProps = {
-    values   : ValuesTypes;
-    handler  : Dispatch<SetStateAction<ValuesTypes>>;
     countries: string[];
-    gates    : string[];
+    values   : ValuesTypes;
+    gates    : { [index: string]: number };
+    handler  : Dispatch<SetStateAction<ValuesTypes>>;
+}
+
+export type CountriesListProps = {
+    countries: string[];
 }
 
 export type DropdownProps = {
@@ -16,4 +20,12 @@ export type DropdownProps = {
     value          : string;
     prevValues?    : ValuesTypes;
     onChangeHandler: Dispatch<SetStateAction<{ [index: string]: string }>>;
+}
+
+export type GatesListProps = {
+    gates: { [index: string]: number };
+}
+
+export type TimeListProps = {
+    timeValue: number;
 }
