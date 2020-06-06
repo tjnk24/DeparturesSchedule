@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classnames from 'classnames/bind';
 import TableRow from './parts/table-row';
+import { ConstructorTableProps } from './types';
 
 import bootstrap from '@bootstrap-module';
-import style from './style';
+import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const ConstructorTable = ({ state }) => (
+const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => (
   <div className={cn('constructor-list')}>
     {
             !state.length ? <p>There&apos;s nothing to show. Add some items to the list!</p>

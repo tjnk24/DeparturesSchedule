@@ -25,7 +25,7 @@ const cssLoaders = [
 
 const config = {
   entry: [
-    './src/index.js',
+    './src/index.tsx',
   ],
   output: {
     filename: '[name].[hash].js',
@@ -43,7 +43,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(ts|tsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -86,7 +86,7 @@ const config = {
     ],
     enforceModuleExtension: false,
     enforceExtension: false,
-    extensions: ['.js', '.scss', '.json'],
+    extensions: ['.js', '.ts', '.tsx', '.scss', '.json'],
     alias: {
       '@components': path.resolve(__dirname, 'src', 'components'),
       '@pages': path.resolve(__dirname, 'src', 'pages'),

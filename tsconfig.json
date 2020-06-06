@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "types": ["node"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react",
+    "paths": {
+        "@components/*": ["src/components/*"],
+        "@pages/*": ["src/pages/*"],
+        "@store/*": ["src/store/*"],
+        "@apptypes/*": ["src/types/*"],
+        "@mocks/*": ["src/mocks/*"],
+        "@bootstrap-module": ["src/assets/bootstrap.min.module.css"],
+    }
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+
+}

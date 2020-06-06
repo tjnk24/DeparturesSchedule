@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classnames from 'classnames/bind';
 import evaluateTime from './utils';
 
-import style from './style';
+import style from './style.scss';
 
 const cn = classnames.bind(style);
 

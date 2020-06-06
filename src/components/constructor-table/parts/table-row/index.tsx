@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import Dropdown from '@components/dropdowns-list/parts/dropdown';
 import CountriesList from '@components/dropdowns-list/parts/countries-list';
 import GatesList from '@components/dropdowns-list/parts/gates-list';
@@ -10,11 +10,13 @@ import { ConstructorContext } from '@store/constructor-reducer';
 import airportApi from '@mocks/airportApi.json';
 
 import classnames from 'classnames/bind';
-import style from './style';
+import style from './style.scss';
+
+import { TableRowProps } from '../../types';
 
 const cn = classnames.bind(style);
 
-const TableRow = ({ value, index }) => {
+const TableRow: FC<TableRowProps> = ({ value, index }) => {
   const {
     id,
     country,
@@ -28,7 +30,7 @@ const TableRow = ({ value, index }) => {
 
   const { dispatch } = useContext(ConstructorContext);
 
-  const updateList = (updatePayload) => {
+  const updateList = (updatePayload: {}) => {
     dispatch({
       type: UPDATE_LIST_ITEM,
       payload: {
@@ -47,7 +49,7 @@ const TableRow = ({ value, index }) => {
     });
   };
 
-  const setEditing = (bool) => {
+  const setEditing = (bool: boolean) => {
     dispatch({
       type: UPDATE_LIST_ITEM,
       payload: {

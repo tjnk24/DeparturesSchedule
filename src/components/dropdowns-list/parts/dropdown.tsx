@@ -1,11 +1,12 @@
-import React from 'react';
-
+import React, { FC } from 'react';
 import classnames from 'classnames/bind';
 import bootstrap from '@bootstrap-module';
 
-const cn = classnames.bind();
+import { DropdownProps } from '../types';
 
-const Dropdown = ({
+const cn = classnames;
+
+const Dropdown: FC<DropdownProps> = ({
   name,
   value,
   prevValues,

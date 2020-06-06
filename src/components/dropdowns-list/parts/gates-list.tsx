@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { GatesListProps } from '../types';
 
-const GatesList = ({ gates }) => {
-  const gatesArr = [];
+const GatesList: FC<GatesListProps> = ({ gates }) => {
+  const gatesArr: string[] = [];
+
+  console.log(gates);
 
   Object.keys(gates).forEach((gate) => {
     for (let i = 1; i <= gates[gate]; i += 1) {

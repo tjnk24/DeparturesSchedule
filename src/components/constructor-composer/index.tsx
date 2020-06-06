@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { FC, useState, useContext } from 'react';
 
 import { ADD_LIST_ITEM } from '@store/actionTypes';
 
@@ -7,14 +7,13 @@ import { ConstructorContext } from '@store/constructor-reducer';
 import classnames from 'classnames/bind';
 import DropdownsList from '../dropdowns-list';
 import bootstrap from '@bootstrap-module';
-import style from './style';
+import style from './style.scss';
+
+import ConstructorComposerProps from './types';
 
 const cn = classnames.bind(style);
 
-const ConstructorComposer = ({
-  countries,
-  gates,
-}) => {
+const ConstructorComposer: FC<ConstructorComposerProps> = ({ countries, gates }): JSX.Element => {
   const { dispatch } = useContext(ConstructorContext);
 
   const [composerValues, setComposerValues] = useState({

@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { FC } from 'react';
 import classnames from 'classnames/bind';
 import Dropdown from './parts/dropdown';
 import CountriesList from './parts/countries-list';
 import GatesList from './parts/gates-list';
 import TimeList from './parts/time-list';
 
-import style from './style';
+import style from './style.scss';
+
+import DropdownsListProps from './types';
 
 const cn = classnames.bind(style);
 
-const DropdownsList = ({
+const DropdownsList: FC<DropdownsListProps> = ({
   values, handler, countries, gates,
 }) => {
   const {
@@ -25,21 +27,21 @@ const DropdownsList = ({
       label: 'Country',
       name: 'country',
       value: country,
-      children: () => <CountriesList countries={countries} />,
+      children: (): JSX.Element => <CountriesList countries={countries} />,
     },
     {
       className: cn('dropdown-list__gate'),
       label: 'Gate',
       name: 'gate',
       value: gate,
-      children: () => <GatesList gates={gates} />,
+      children: (): JSX.Element => <GatesList gates={gates} />,
     },
     {
       className: cn('dropdown-list__time'),
       label: 'Time',
       name: 'hours',
       value: hours,
-      children: () => <TimeList timeValue={23} />,
+      children: (): JSX.Element => <TimeList timeValue={23} />,
     },
     {
       className: cn('dropdown-list__time'),

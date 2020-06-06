@@ -1,3 +1,5 @@
-.webpack.config.js
+build/
+public/
+webpack.config.js
 src/assets/
 src/mocks/

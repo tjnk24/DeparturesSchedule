@@ -5,7 +5,7 @@ import ConstructorComposer from '@components/constructor-composer';
 import { ConstructorContext } from '@store/constructor-reducer';
 
 import classnames from 'classnames/bind';
-import style from './style';
+import style from './style.scss';
 
 import bootstrap from '@bootstrap-module';
 
