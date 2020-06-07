@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import classnames from 'classnames/bind';
-import evaluateTime from './utils';
-
 import style from './style.scss';
+
+import ScheduleItemProps from './types';
+
+import evaluateTime from './utils';
 
 const cn = classnames.bind(style);
 
-const ScheduleItem = ({ value }) => {
+const ScheduleItem: FC<ScheduleItemProps> = ({ value }) => {
   const {
     country, gate, hours, minutes,
   } = value;
@@ -17,9 +19,9 @@ const ScheduleItem = ({ value }) => {
   const [timer, setTimer] = useState('');
 
   const evaluateCount = () => {
-    let countHours = parseInt(duration / 3600, 10);
-    let countMinutes = parseInt((duration % 3600) / 60, 10);
-    let countSeconds = parseInt((duration % 3600) % 60, 10);
+    let countHours: string | number = Math.floor(duration / 3600);
+    let countMinutes: string | number = Math.floor((duration % 3600) / 60);
+    let countSeconds: string | number = Math.floor((duration % 3600) % 60);
 
     countHours = countHours < 10
       ? `0${countHours}`

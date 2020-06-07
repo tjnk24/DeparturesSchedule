@@ -12,7 +12,7 @@ import airportApi from '@mocks/airportApi.json';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import { TableRowProps } from '../../types';
+import { TableRowProps, UpdateListProps } from '../../types';
 
 const cn = classnames.bind(style);
 
@@ -30,7 +30,7 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
 
   const { dispatch } = useContext(ConstructorContext);
 
-  const updateList = (updatePayload: {}) => {
+  const updateList: UpdateListProps = (updatePayload) => {
     dispatch({
       type: UPDATE_LIST_ITEM,
       payload: {

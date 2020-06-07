@@ -1,17 +1,19 @@
+import { ValueTypes } from '@apptypes/components';
+
+type AdditionalTypes = {
+    id       : number;
+    isEditing: boolean;
+}
+
 export type ConstructorTableProps = {
     state: [];
 }
 
 export type TableRowProps = {
-    value: ValueTypes;
+    value: ValueTypes & AdditionalTypes;
     index: number;
 }
 
-type ValueTypes = {
-    id       : number;
-    country  : string;
-    gate     : string;
-    hours    : string;
-    minutes  : string;
-    isEditing: boolean;
-}
+export type UpdateListProps = (
+    updatePayload: { [index: string]: string }
+  ) => void;

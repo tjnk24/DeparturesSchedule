@@ -1,29 +1,34 @@
 import { Dispatch, SetStateAction } from 'react';
+import { StringObjectType } from '@apptypes/components';
 
-type Values = 'country' | 'gate' | 'hours' | 'minutes';
+type GatesType = { [index: string]: number }
 
-type ValuesTypes = Record<Values, string>;
+type UseStateType = Dispatch<SetStateAction<StringObjectType>>
+
+type DispatchFunctionType = (
+    param: StringObjectType
+) => void;
 
 export type DropdownsListProps = {
     countries: string[];
-    values   : ValuesTypes;
-    gates    : { [index: string]: number };
-    handler  : Dispatch<SetStateAction<ValuesTypes>>;
+    values   : StringObjectType;
+    gates    : GatesType;
+    handler  : UseStateType;
+}
+
+export type DropdownProps = {
+    name           : string;
+    value          : string;
+    prevValues?    : StringObjectType;
+    onChangeHandler: DispatchFunctionType | UseStateType;
 }
 
 export type CountriesListProps = {
     countries: string[];
 }
 
-export type DropdownProps = {
-    name           : string;
-    value          : string;
-    prevValues?    : ValuesTypes;
-    onChangeHandler: Dispatch<SetStateAction<{ [index: string]: string }>>;
-}
-
 export type GatesListProps = {
-    gates: { [index: string]: number };
+    gates: GatesType;
 }
 
 export type TimeListProps = {

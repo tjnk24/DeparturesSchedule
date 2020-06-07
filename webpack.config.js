@@ -91,6 +91,7 @@ const config = {
       '@components': path.resolve(__dirname, 'src', 'components'),
       '@pages': path.resolve(__dirname, 'src', 'pages'),
       '@store': path.resolve(__dirname, 'src', 'store'),
+      '@apptypes': path.resolve(__dirname, 'src', 'types'),
       '@mocks': path.resolve(__dirname, 'src', 'mocks'),
       '@bootstrap-module': path.resolve(__dirname, 'src', 'assets', 'bootstrap.min.module.css'),
     },

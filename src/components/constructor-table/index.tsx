@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import classnames from 'classnames/bind';
 import TableRow from './parts/table-row';
-import { ConstructorTableProps } from './types';
+import { ConstructorTableProps, TableRowProps } from './types';
 
 import bootstrap from '@bootstrap-module';
 import style from './style.scss';
@@ -29,7 +29,7 @@ const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => 
               </tr>
             </thead>
             <tbody>
-              {state.map((value, index) => (
+              {state.map((value : TableRowProps['value'], index) => (
                 <TableRow
                   key={value.id}
                   index={index}
