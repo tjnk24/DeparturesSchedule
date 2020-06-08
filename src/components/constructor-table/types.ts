@@ -1,16 +1,11 @@
-import { ValueTypes } from '@apptypes/components';
-
-type AdditionalTypes = {
-    id       : number;
-    isEditing: boolean;
-}
+import { MixedValueTypes } from '@apptypes/components';
 
 export type ConstructorTableProps = {
     state: [];
 }
 
 export type TableRowProps = {
-    value: ValueTypes & AdditionalTypes;
+    value: MixedValueTypes;
     index: number;
 }
 

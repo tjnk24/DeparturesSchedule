@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import ConstructorTable from '@components/constructor-table';
 import ConstructorComposer from '@components/constructor-composer';
 
 import { ConstructorContext } from '@store/constructor-reducer';
+
+import ConstructedHandlerType from '@apptypes/pages';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';
@@ -13,7 +15,7 @@ import airportApi from '../../mocks/airportApi.json';
 
 const cn = classnames.bind(style);
 
-const Constructor = ({ setConstructed }) => {
+const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
   const { state } = useContext(ConstructorContext);
 
   return (

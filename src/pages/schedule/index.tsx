@@ -1,19 +1,29 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {
+  FC,
+  useState,
+  useEffect,
+  useContext,
+} from 'react';
 import { Transition, CSSTransition } from 'react-transition-group';
 import _ from 'lodash-es';
 import ScheduleItem from '@components/schedule-item';
 
 import { ConstructorContext } from '@store/constructor-reducer';
 
+import { MixedValueTypes } from '@apptypes/components';
+import ConstructedHandlerType from '@apptypes/pages';
+
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Schedule = ({ setConstructed }) => {
+type MapScreenTypes = MixedValueTypes;
+
+const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
   const { state } = useContext(ConstructorContext);
 
-  const screens = _.chunk(state, 6);
+  const screens: MapScreenTypes[][] = _.chunk(state, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
@@ -38,7 +48,7 @@ const Schedule = ({ setConstructed }) => {
     return () => clearInterval(countInterval);
   }, [screenIn]);
 
-  const mapScreen = (screen) => screen.map(
+  const mapScreen = (screen: MapScreenTypes[]) => screen.map(
     (item) => <ScheduleItem key={item.id} value={item} />,
   );
 

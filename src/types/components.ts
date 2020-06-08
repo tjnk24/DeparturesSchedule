@@ -6,3 +6,10 @@ export type ValueTypes = {
     hours    : string;
     minutes  : string;
 }
+
+export type AdditionalTypes = {
+    id       : number;
+    isEditing: boolean;
+}
+
+export type MixedValueTypes = ValueTypes & AdditionalTypes;

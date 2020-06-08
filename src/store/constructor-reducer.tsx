@@ -1,9 +1,18 @@
-import React, { useReducer } from 'react';
+import React, { FC, useReducer } from 'react';
 import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '@store/actionTypes';
+import { MixedValueTypes } from '@apptypes/components';
 
-let schedule = [];
+let schedule: MixedValueTypes[] = [];
 
-export const constructorReducer = (state, action) => {
+type constructorReducerProps = (
+  state: MixedValueTypes[],
+  action: {
+    type: string;
+    payload: MixedValueTypes;
+  }
+) => MixedValueTypes[];
+
+export const constructorReducer: constructorReducerProps = (state, action) => {
   switch (action.type) {
     case ADD_LIST_ITEM:
       schedule = [
@@ -49,11 +58,11 @@ export const constructorReducer = (state, action) => {
 };
 
 
-const localState = JSON.parse(localStorage.getItem('schedule'));
+const localState = JSON.parse(localStorage.getItem('schedule') as string);
 
-export const ConstructorContext = React.createContext();
+export const ConstructorContext = React.createContext<Partial<MixedValueTypes[]>>([]);
 
-export const ConstructorProvider = (props) => {
+export const ConstructorProvider: FC = (props): JSX.Element => {
   const [state, dispatch] = useReducer(constructorReducer, localState || schedule);
   const { children } = props;
   return (
