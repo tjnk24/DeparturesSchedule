@@ -25,14 +25,12 @@ const ConstructorComposer: FC<ConstructorComposerProps> = ({ countries, gates })
   });
 
   const addToList = () => {
-    const payload = {
-      ...composerValues,
-      isEditing: false,
-    };
-
     dispatch({
       type: ADD_LIST_ITEM,
-      payload,
+      payload: {
+        ...composerValues,
+        isEditing: false,
+      },
     });
   };
 

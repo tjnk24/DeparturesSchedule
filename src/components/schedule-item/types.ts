@@ -1,7 +1,7 @@
-import { ValueTypes } from '@apptypes/components';
+import { MixedValueTypes } from '@apptypes/components';
 
 type ScheduleItemProps = {
-    value: ValueTypes;
+    value: MixedValueTypes;
 }
 
 export default ScheduleItemProps;

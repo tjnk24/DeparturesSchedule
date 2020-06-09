@@ -18,12 +18,10 @@ import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-type MapScreenTypes = MixedValueTypes;
-
 const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
   const { state } = useContext(ConstructorContext);
 
-  const screens: MapScreenTypes[][] = _.chunk(state, 6);
+  const screens: MixedValueTypes[][] = _.chunk(state, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
@@ -48,8 +46,8 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
     return () => clearInterval(countInterval);
   }, [screenIn]);
 
-  const mapScreen = (screen: MapScreenTypes[]) => screen.map(
-    (item) => <ScheduleItem key={item.id} value={item} />,
+  const mapScreen = (screen: MixedValueTypes[]) => screen.map(
+    (item) => <ScheduleItem key={item.id as number} value={item} />,
   );
 
   const screenClasses = {
@@ -78,7 +76,7 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
                 {screens.length
                   ? screens.map((screen, index) => (
                     <div
-                      key={screen[0].id}
+                      key={screen[0].id as number}
                       className={cn('screen__schedule-item', index === screenIndex && 'screen__schedule-item-visible')}
                     >
                       { mapScreen(screen) }

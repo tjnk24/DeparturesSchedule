@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "es6",
+    "target": "es5",
     "lib": [
+      "ES6",
       "dom",
-      "dom.iterable",
-      "esnext"
     ],
-    "outDir": "./dist/",
+    "outDir": "./build/",
     "sourceMap": true,
     "types": ["node"],
     "allowJs": true,
@@ -15,7 +14,6 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
-    "noEmit": true,
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "Node",
@@ -36,7 +34,8 @@
   ],
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/index.tsx"
   ],
 
 }

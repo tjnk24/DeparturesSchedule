@@ -6,6 +6,8 @@ import { ConstructorContext } from '@store/constructor-reducer';
 
 import ConstructedHandlerType from '@apptypes/pages';
 
+import { ValueTypes } from '@apptypes/components';
+
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
@@ -34,7 +36,7 @@ const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Elemen
                     Compose
         </button>
       </div>
-      <ConstructorTable state={state} />
+      <ConstructorTable state={state as ValueTypes[]} />
       <ConstructorComposer
         countries={airportApi.countries}
         gates={airportApi.gates}

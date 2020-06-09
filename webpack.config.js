@@ -23,7 +23,7 @@ const cssLoaders = [
   },
 ];
 
-const config = {
+module.exports = {
   entry: [
     './src/index.tsx',
   ],
@@ -32,7 +32,7 @@ const config = {
     path: path.resolve(__dirname, 'build'),
     publicPath: '',
   },
-  devtool: development ? 'eval-source-map' : undefined,
+  devtool: development ? 'source-map' : undefined,
   mode: development ? 'development' : 'production',
   devServer: {
     host: 'localhost',
@@ -43,14 +43,19 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
+        test: /\.ts(x?)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-          },
+          loader: 'ts-loader',
+          // options: {
+          //   cacheDirectory: true,
+          // },
         },
+      },
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        loader: "source-map-loader"
       },
       {
         test: /\.(css|scss)$/,
@@ -97,5 +102,3 @@ const config = {
     },
   },
 };
-
-module.exports = config;

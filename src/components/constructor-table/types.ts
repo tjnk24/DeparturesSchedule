@@ -1,11 +1,11 @@
-import { MixedValueTypes } from '@apptypes/components';
+import { ValueTypes } from '@apptypes/components';
 
 export type ConstructorTableProps = {
-    state: [];
+    state: ValueTypes[];
 }
 
 export type TableRowProps = {
-    value: MixedValueTypes;
+    value: ValueTypes;
     index: number;
 }
 

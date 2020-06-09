@@ -12,9 +12,11 @@ const ScheduleItem: FC<ScheduleItemProps> = ({ value }) => {
   const {
     country, gate, hours, minutes,
   } = value;
-  const countryLowerCase = country[0].toLowerCase() + country.slice(1);
 
-  let duration = evaluateTime(hours, minutes);
+  const countryName = country as string;
+  const countryLowerCase = countryName[0].toLowerCase() + countryName.slice(1);
+
+  let duration = evaluateTime(hours as string, minutes as string);
 
   const [timer, setTimer] = useState('');
 

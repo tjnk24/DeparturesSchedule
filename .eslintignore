@@ -1,5 +1,3 @@
 build/
 public/
 webpack.config.js
-src/assets/
-src/mocks/
