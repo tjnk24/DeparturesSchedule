@@ -6,4 +6,3 @@ node_modules/
 .DS_Store
 .realsync
 package-lock.json
-yarn.lock
