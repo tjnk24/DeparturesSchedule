@@ -47,9 +47,6 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: 'ts-loader',
-          // options: {
-          //   cacheDirectory: true,
-          // },
         },
       },
       {
@@ -97,7 +94,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src', 'pages'),
       '@store': path.resolve(__dirname, 'src', 'store'),
       '@apptypes': path.resolve(__dirname, 'src', 'types'),
-      '@mocks': path.resolve(__dirname, 'src', 'mocks'),
+      '@mocks': path.resolve(__dirname, 'mocks'),
       '@bootstrap-module': path.resolve(__dirname, 'src', 'assets', 'bootstrap.min.module.css'),
     },
   },

@@ -1,6 +1,6 @@
 import React, { FC, useState, useContext } from 'react';
 
-import { ADD_LIST_ITEM } from '@store/actionTypes';
+import { addListItem } from '@store/actions/constructor';
 
 import { ConstructorContext } from '@store/constructor-reducer';
 
@@ -25,13 +25,7 @@ const ConstructorComposer: FC<ConstructorComposerProps> = ({ countries, gates })
   });
 
   const addToList = () => {
-    dispatch({
-      type: ADD_LIST_ITEM,
-      payload: {
-        ...composerValues,
-        isEditing: false,
-      },
-    });
+    dispatch(addListItem(composerValues));
   };
 
   return (

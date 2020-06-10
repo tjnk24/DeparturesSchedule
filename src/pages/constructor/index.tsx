@@ -8,12 +8,13 @@ import ConstructedHandlerType from '@apptypes/pages';
 
 import { ValueTypes } from '@apptypes/components';
 
+import airportApi from '@mocks/airportApi.json';
+
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
 import bootstrap from '@bootstrap-module';
 
-import airportApi from '../../mocks/airportApi.json';
 
 const cn = classnames.bind(style);
 

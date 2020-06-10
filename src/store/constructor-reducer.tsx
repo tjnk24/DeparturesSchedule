@@ -1,5 +1,5 @@
 import React, { FC, useReducer } from 'react';
-import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '@store/actionTypes';
+import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '@store/actions/constants';
 import { MixedValueTypes } from '@apptypes/components';
 import { ConstructorReducerProps, ContextTypes } from '@apptypes/store';
 

@@ -4,7 +4,8 @@ import CountriesList from '@components/dropdowns-list/parts/countries-list';
 import GatesList from '@components/dropdowns-list/parts/gates-list';
 import TimeList from '@components/dropdowns-list/parts/time-list';
 
-import { UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '@store/actionTypes';
+import { updateListItem, removeListItem, setItemEditing } from '@store/actions/constructor';
+
 import { ConstructorContext } from '@store/constructor-reducer';
 
 import airportApi from '@mocks/airportApi.json';
@@ -31,32 +32,15 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
   const { dispatch } = useContext(ConstructorContext);
 
   const updateList: UpdateListProps = (updatePayload) => {
-    dispatch({
-      type: UPDATE_LIST_ITEM,
-      payload: {
-        id,
-        ...updatePayload,
-      },
-    });
+    dispatch(updateListItem(id, updatePayload));
   };
 
   const removeFromList = () => {
-    dispatch({
-      type: REMOVE_LIST_ITEM,
-      payload: {
-        id,
-      },
-    });
+    dispatch(removeListItem(id));
   };
 
   const setEditing = (bool: boolean) => {
-    dispatch({
-      type: UPDATE_LIST_ITEM,
-      payload: {
-        id,
-        isEditing: bool,
-      },
-    });
+    dispatch(setItemEditing(id, bool));
   };
 
   return (
