@@ -94,6 +94,7 @@ module.exports = {
       '@pages': path.resolve(__dirname, 'src', 'pages'),
       '@store': path.resolve(__dirname, 'src', 'store'),
       '@apptypes': path.resolve(__dirname, 'src', 'types'),
+      '@utils': path.resolve(__dirname, 'src', 'utils'),
       '@mocks': path.resolve(__dirname, 'mocks'),
       '@bootstrap-module': path.resolve(__dirname, 'src', 'assets', 'bootstrap.min.module.css'),
     },

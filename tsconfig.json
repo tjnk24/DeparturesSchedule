@@ -25,6 +25,7 @@
         "@pages/*": ["src/pages/*"],
         "@store/*": ["src/store/*"],
         "@apptypes/*": ["src/types/*"],
+        "@utils/*": ["src/utils/*"],
         "@mocks/*": ["mocks/*"],
         "@bootstrap-module": ["src/assets/bootstrap.min.module.css"],
     }

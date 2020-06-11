@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 import ConstructorTable from '@components/constructor-table';
 import ConstructorComposer from '@components/constructor-composer';
 
-import { ConstructorContext } from '@store/constructor-reducer';
+import { Context } from '@store/provider';
 
 import ConstructedHandlerType from '@apptypes/pages';
 
@@ -19,7 +19,8 @@ import bootstrap from '@bootstrap-module';
 const cn = classnames.bind(style);
 
 const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
-  const { state } = useContext(ConstructorContext);
+  const { state } = useContext(Context);
+  const { constructorState } = state;
 
   return (
     <div className={cn('constructor')}>
@@ -29,15 +30,15 @@ const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Elemen
           type="button"
           className={cn(
             bootstrap.btn,
-            bootstrap[state.length ? 'btn-success' : 'btn-secondary'],
+            bootstrap[constructorState.length ? 'btn-success' : 'btn-secondary'],
           )}
-          disabled={!state.length}
+          disabled={!constructorState.length}
           onClick={() => setConstructed(true)}
         >
                     Compose
         </button>
       </div>
-      <ConstructorTable state={state as ValueTypes[]} />
+      <ConstructorTable state={constructorState as ValueTypes[]} />
       <ConstructorComposer
         countries={airportApi.countries}
         gates={airportApi.gates}

@@ -6,7 +6,7 @@ import TimeList from '@components/dropdowns-list/parts/time-list';
 
 import { updateListItem, removeListItem, setItemEditing } from '@store/actions/constructor';
 
-import { ConstructorContext } from '@store/constructor-reducer';
+import { Context } from '@store/provider';
 
 import airportApi from '@mocks/airportApi.json';
 
@@ -29,7 +29,7 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
 
   const { countries, gates } = airportApi;
 
-  const { dispatch } = useContext(ConstructorContext);
+  const { dispatch } = useContext(Context);
 
   const updateList: UpdateListProps = (updatePayload) => {
     dispatch(updateListItem(id, updatePayload));

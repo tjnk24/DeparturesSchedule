@@ -3,7 +3,7 @@ import Header from '@components/header';
 import Schedule from '@pages/schedule';
 import Constructor from '@pages/constructor';
 
-import { ConstructorProvider } from '@store/constructor-reducer';
+import { Provider } from '@store/provider';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';
@@ -23,11 +23,11 @@ const App = (): JSX.Element => {
   return (
     <>
       <Header />
-      <ConstructorProvider>
+      <Provider>
         {scheduleConstructing
           ? <Schedule setConstructed={setScheduleConstructing} />
           : <Constructor setConstructed={setScheduleConstructing} />}
-      </ConstructorProvider>
+      </Provider>
     </>
   );
 };

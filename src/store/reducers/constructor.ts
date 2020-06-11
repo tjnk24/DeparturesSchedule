@@ -1,11 +1,14 @@
-import React, { FC, useReducer } from 'react';
-import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '@store/actions/constants';
+import {
+  ADD_LIST_ITEM,
+  UPDATE_LIST_ITEM,
+  REMOVE_LIST_ITEM,
+} from '@store/actions/constants';
 import { MixedValueTypes } from '@apptypes/components';
-import { ConstructorReducerProps, ContextTypes } from '@apptypes/store';
+import { ConstructorReducerPropTypes } from '@apptypes/store';
 
 let schedule: MixedValueTypes[] = [];
 
-export const constructorReducer: ConstructorReducerProps = (state, action) => {
+const constructorReducer: ConstructorReducerPropTypes = (state, action) => {
   switch (action.type) {
     case ADD_LIST_ITEM:
       schedule = [
@@ -50,16 +53,6 @@ export const constructorReducer: ConstructorReducerProps = (state, action) => {
   }
 };
 
-const localState = JSON.parse(localStorage.getItem('schedule') as string);
+const constructorLocalState = JSON.parse(localStorage.getItem('schedule') as string);
 
-export const ConstructorContext = React.createContext<ContextTypes>({} as ContextTypes);
-
-export const ConstructorProvider: FC = (props): JSX.Element => {
-  const [state, dispatch] = useReducer(constructorReducer, localState || schedule);
-  const { children } = props;
-  return (
-    <ConstructorContext.Provider value={{ state, dispatch }}>
-      { children }
-    </ConstructorContext.Provider>
-  );
-};
+export { constructorReducer, constructorLocalState };

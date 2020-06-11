@@ -2,7 +2,7 @@ import React, { FC, useState, useContext } from 'react';
 
 import { addListItem } from '@store/actions/constructor';
 
-import { ConstructorContext } from '@store/constructor-reducer';
+import { Context } from '@store/provider';
 
 import classnames from 'classnames/bind';
 import { StringObjectType } from '@apptypes/components';
@@ -15,7 +15,7 @@ import ConstructorComposerProps from './types';
 const cn = classnames.bind(style);
 
 const ConstructorComposer: FC<ConstructorComposerProps> = ({ countries, gates }): JSX.Element => {
-  const { dispatch } = useContext(ConstructorContext);
+  const { dispatch } = useContext(Context);
 
   const [composerValues, setComposerValues] = useState<StringObjectType>({
     country: 'Bulgaria',

@@ -42,6 +42,7 @@ module.exports = {
         'no-await-in-loop': 'off',
         'no-unused-expressions': 'off',
         'no-multi-spaces': 'off',
+        'key-spacing': 'off',
         'global-require': 'off',
         '@typescript-eslint/member-delimiter-style': [1, {
             multiline: {

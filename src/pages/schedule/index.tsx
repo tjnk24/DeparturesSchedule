@@ -8,7 +8,7 @@ import { Transition, CSSTransition } from 'react-transition-group';
 import _ from 'lodash-es';
 import ScheduleItem from '@components/schedule-item';
 
-import { ConstructorContext } from '@store/constructor-reducer';
+import { Context } from '@store/provider';
 
 import { MixedValueTypes } from '@apptypes/components';
 import ConstructedHandlerType from '@apptypes/pages';
@@ -19,7 +19,7 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
-  const { state } = useContext(ConstructorContext);
+  const { state } = useContext(Context);
 
   const screens: MixedValueTypes[][] = _.chunk(state, 6);
 
