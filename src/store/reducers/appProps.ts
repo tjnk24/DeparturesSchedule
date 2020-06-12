@@ -1,36 +1,36 @@
-import { appPropsReducerPropTypes } from '@apptypes/store';
+import { appPropsReducerTypes } from '@apptypes/store';
 import {
   FETCH_APP_PROPS_START,
   FETCH_APP_PROPS_SUCCESS,
   FETCH_APP_PROPS_ERROR,
 } from '@store/actions/constants';
 
-let appPropsLocalState = {};
+// let appPropsLocalState = {};
 
-const appPropsReducer: appPropsReducerPropTypes = (state, action) => {
+const appPropsReducer: appPropsReducerTypes = (state, action) => {
   switch (action.type) {
     case FETCH_APP_PROPS_START:
-      appPropsLocalState = {
+      return {
         ...state,
         loading: true,
       };
-      return appPropsLocalState;
+      // return appPropsLocalState;
 
     case FETCH_APP_PROPS_SUCCESS:
-      appPropsLocalState = {
+      return {
         ...state,
-        ...action.appProps,
+        ...action.payload,
         loading: false,
       };
-      return appPropsLocalState;
+      // return appPropsLocalState;
 
     case FETCH_APP_PROPS_ERROR:
-      appPropsLocalState = {
+      return {
         ...state,
         loading: false,
-        error: action.error,
+        error: action.payload,
       };
-      return appPropsLocalState;
+      // return appPropsLocalState;
 
     default:
       return state;

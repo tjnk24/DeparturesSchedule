@@ -8,8 +8,6 @@ import { updateListItem, removeListItem, setItemEditing } from '@store/actions/c
 
 import { Context } from '@store/provider';
 
-import airportApi from '@mocks/airportApi.json';
-
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
@@ -27,9 +25,10 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
     isEditing,
   } = value;
 
-  const { countries, gates } = airportApi;
+  const { state, dispatch } = useContext(Context);
+  const { appPropsState } = state;
 
-  const { dispatch } = useContext(Context);
+  const stateLoaded = appPropsState.loading === false;
 
   const updateList: UpdateListProps = (updatePayload) => {
     dispatch(updateListItem(id, updatePayload));
@@ -67,7 +66,7 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
                       value={country}
                       onChangeHandler={updateList}
                     >
-                      <CountriesList countries={countries} />
+                      { stateLoaded && <CountriesList countries={appPropsState.countries} /> }
                     </Dropdown>
                   </td>
                   <td className={cn('table-row__gate')}>
@@ -76,7 +75,7 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
                       value={gate}
                       onChangeHandler={updateList}
                     >
-                      <GatesList gates={gates} />
+                      { stateLoaded && <GatesList gates={appPropsState.gates} /> }
                     </Dropdown>
                   </td>
                   <td className={cn('table-row__time')}>

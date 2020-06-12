@@ -9,6 +9,12 @@ export type ValueTypes = {
     isEditing : boolean;
 }
 
+export type AppPropsTypes = {
+    countries: string[];
+    gates: { [index: string]: number };
+    loading: boolean;
+}
+
 export type PayloadType = { [index: string]: string | number | boolean }
 
 export type MixedValueTypes = ValueTypes | PayloadType;

@@ -4,11 +4,11 @@ import {
   REMOVE_LIST_ITEM,
 } from '@store/actions/constants';
 import { MixedValueTypes } from '@apptypes/components';
-import { ConstructorReducerPropTypes } from '@apptypes/store';
+import { ConstructorReducerTypes } from '@apptypes/store';
 
 let schedule: MixedValueTypes[] = [];
 
-const constructorReducer: ConstructorReducerPropTypes = (state, action) => {
+const constructorReducer: ConstructorReducerTypes = (state, action) => {
   switch (action.type) {
     case ADD_LIST_ITEM:
       schedule = [

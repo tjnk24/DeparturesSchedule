@@ -20,8 +20,9 @@ const cn = classnames.bind(style);
 
 const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
   const { state } = useContext(Context);
+  const { constructorState } = state;
 
-  const screens: MixedValueTypes[][] = _.chunk(state, 6);
+  const screens: MixedValueTypes[][] = _.chunk(constructorState, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);

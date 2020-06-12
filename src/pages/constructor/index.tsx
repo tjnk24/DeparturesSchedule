@@ -8,8 +8,6 @@ import ConstructedHandlerType from '@apptypes/pages';
 
 import { ValueTypes } from '@apptypes/components';
 
-import airportApi from '@mocks/airportApi.json';
-
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
@@ -20,7 +18,7 @@ const cn = classnames.bind(style);
 
 const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
   const { state } = useContext(Context);
-  const { constructorState } = state;
+  const { constructorState, appPropsState } = state;
 
   return (
     <div className={cn('constructor')}>
@@ -35,14 +33,16 @@ const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Elemen
           disabled={!constructorState.length}
           onClick={() => setConstructed(true)}
         >
-                    Compose
+          Compose
         </button>
       </div>
       <ConstructorTable state={constructorState as ValueTypes[]} />
-      <ConstructorComposer
-        countries={airportApi.countries}
-        gates={airportApi.gates}
-      />
+      { appPropsState.loading === false && (
+        <ConstructorComposer
+          countries={appPropsState.countries}
+          gates={appPropsState.gates}
+        />
+      )}
     </div>
   );
 };

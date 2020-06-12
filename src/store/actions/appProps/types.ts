@@ -1,15 +1,15 @@
-import { AppPropsTypes } from '@apptypes/store';
+import { AppPropsTypes } from '@apptypes/components';
 
 type ConstantType = { type: string }
 
 export type FetchPropsStartTypes = () => ConstantType
 
 export type FetchPropsSuccessTypes = (appProps: AppPropsTypes) => ConstantType & {
-  appProps: AppPropsTypes;
+  payload: AppPropsTypes;
 }
 
 export type FetchPropsErrorTypes = (error: string) => ConstantType & {
-  error: string;
+  payload: string;
 }
 
 export type FetchPropsTypes = (dispatch: React.Dispatch<ConstantType>) => Promise<void>

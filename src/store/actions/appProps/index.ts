@@ -1,7 +1,7 @@
 import { AxiosResponse } from 'axios';
 import axios from '@utils/axios';
 
-import { AppPropsTypes } from '@apptypes/store';
+import { AppPropsTypes } from '@apptypes/components';
 import {
   FetchPropsStartTypes,
   FetchPropsSuccessTypes,
@@ -21,12 +21,12 @@ const fetchPropsStart: FetchPropsStartTypes = () => ({
 
 const fetchPropsSuccess: FetchPropsSuccessTypes = (appProps) => ({
   type: FETCH_APP_PROPS_SUCCESS,
-  appProps,
+  payload: appProps,
 });
 
 const fetchPropsError: FetchPropsErrorTypes = (error) => ({
   type: FETCH_APP_PROPS_ERROR,
-  error,
+  payload: error,
 });
 
 const fetchProps: FetchPropsTypes = async (dispatch)  => {
