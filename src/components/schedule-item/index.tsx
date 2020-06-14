@@ -1,20 +1,17 @@
 import React, { FC, useState, useEffect } from 'react';
 import classnames from 'classnames/bind';
-import style from './style.scss';
-
 import ScheduleItemProps from './types';
 
 import evaluateTime from './utils';
 
+import style from './style.scss';
+
 const cn = classnames.bind(style);
 
-const ScheduleItem: FC<ScheduleItemProps> = ({ value }) => {
+const ScheduleItem: FC<ScheduleItemProps> = ({ value, image }) => {
   const {
     country, gate, hours, minutes,
   } = value;
-
-  const countryName = country as string;
-  const countryLowerCase = countryName[0].toLowerCase() + countryName.slice(1);
 
   let duration = evaluateTime(hours as string, minutes as string);
 
@@ -57,7 +54,7 @@ const ScheduleItem: FC<ScheduleItemProps> = ({ value }) => {
   return (
     <div className={cn('schedule-row')}>
       <div className={cn('schedule-row__country')}>
-        <img src={require(`./img/${countryLowerCase}.png`)} alt={`${country} logo`} />
+        <img src={image} alt={`${country} logo`} />
         <div>{country}</div>
       </div>
       <div>{gate}</div>

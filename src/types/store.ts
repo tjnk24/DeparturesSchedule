@@ -1,8 +1,8 @@
 import { MixedValueTypes, AppPropsTypes } from '@apptypes/components';
 
-type ActionType<T> = {
+export type ActionType<T> = {
     type: string;
-    payload: T;
+    payload?: T;
 }
 
 type StateType = {

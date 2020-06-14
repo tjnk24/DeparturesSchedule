@@ -5,8 +5,6 @@ import {
   FETCH_APP_PROPS_ERROR,
 } from '@store/actions/constants';
 
-// let appPropsLocalState = {};
-
 const appPropsReducer: appPropsReducerTypes = (state, action) => {
   switch (action.type) {
     case FETCH_APP_PROPS_START:
@@ -14,7 +12,6 @@ const appPropsReducer: appPropsReducerTypes = (state, action) => {
         ...state,
         loading: true,
       };
-      // return appPropsLocalState;
 
     case FETCH_APP_PROPS_SUCCESS:
       return {
@@ -22,7 +19,6 @@ const appPropsReducer: appPropsReducerTypes = (state, action) => {
         ...action.payload,
         loading: false,
       };
-      // return appPropsLocalState;
 
     case FETCH_APP_PROPS_ERROR:
       return {
@@ -30,7 +26,6 @@ const appPropsReducer: appPropsReducerTypes = (state, action) => {
         loading: false,
         error: action.payload,
       };
-      // return appPropsLocalState;
 
     default:
       return state;

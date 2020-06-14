@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useReducer } from 'react';
+import api from '@utils/api';
 import { ContextTypes } from '@apptypes/store';
-import { combinedReducer, initialState } from './reducers/rootReducer';
+
 import fetchProps from './actions/appProps';
+import { combinedReducer, initialState } from './reducers/rootReducer';
 
 export const Context = React.createContext<ContextTypes>({} as ContextTypes);
 
@@ -11,7 +13,7 @@ export const Provider: FC = (props): JSX.Element => {
   const { children } = props;
 
   useEffect(() => {
-    fetchProps(dispatch);
+    fetchProps(dispatch, api.appProps);
   }, []);
 
   return (

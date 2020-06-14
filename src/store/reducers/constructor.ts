@@ -25,7 +25,7 @@ const constructorReducer: ConstructorReducerTypes = (state, action) => {
 
     case UPDATE_LIST_ITEM:
       schedule = state.map((item, index) => {
-        if (index !== action.payload.id) {
+        if (index !== action.payload?.id) {
           return item;
         }
         return {
@@ -39,7 +39,7 @@ const constructorReducer: ConstructorReducerTypes = (state, action) => {
 
     case REMOVE_LIST_ITEM:
       schedule = state.filter(
-        (item, index) => index !== action.payload.id,
+        (item, index) => index !== action.payload?.id,
       ).map((item, index) => ({
         ...item,
         id: index,

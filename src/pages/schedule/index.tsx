@@ -9,6 +9,9 @@ import _ from 'lodash-es';
 import ScheduleItem from '@components/schedule-item';
 
 import { Context } from '@store/provider';
+import fetchProps from '@store/actions/appProps';
+
+import path from '@utils/api';
 
 import { MixedValueTypes } from '@apptypes/components';
 import ConstructedHandlerType from '@apptypes/pages';
@@ -19,8 +22,8 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
-  const { state } = useContext(Context);
-  const { constructorState } = state;
+  const { state, dispatch } = useContext(Context);
+  const { constructorState, appPropsState } = state;
 
   const screens: MixedValueTypes[][] = _.chunk(constructorState, 6);
 
@@ -30,6 +33,8 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
   const [linkVisible, setLinkVisible] = useState(false);
 
   useEffect(() => {
+    !appPropsState.flagsImages && fetchProps(dispatch, path.images.countryFlags);
+
     !screens.length && setConstructed(false);
     setScheduleIn(true);
   }, []);
@@ -47,8 +52,20 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
     return () => clearInterval(countInterval);
   }, [screenIn]);
 
+  const countryName = (name: string) => {
+    const countryLowerCase = name[0].toLowerCase() + name.slice(1);
+
+    return appPropsState.flagsImages[`${countryLowerCase}`];
+  };
+
   const mapScreen = (screen: MixedValueTypes[]) => screen.map(
-    (item) => <ScheduleItem key={item.id as number} value={item} />,
+    (item) => (
+      <ScheduleItem
+        key={item.id as number}
+        value={item}
+        image={countryName(item.country as string)}
+      />
+    ),
   );
 
   const screenClasses = {
@@ -80,7 +97,7 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
                       key={screen[0].id as number}
                       className={cn('screen__schedule-item', index === screenIndex && 'screen__schedule-item-visible')}
                     >
-                      { mapScreen(screen) }
+                      { appPropsState.flagsImages && mapScreen(screen) }
                     </div>
                   ))
                   : null}

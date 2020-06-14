@@ -10,9 +10,10 @@ export type ValueTypes = {
 }
 
 export type AppPropsTypes = {
-    countries: string[];
-    gates: { [index: string]: number };
-    loading: boolean;
+    countries   : string[];
+    gates       : { [index: string]: number };
+    flagsImages : { [index: string]: string };
+    loading     : boolean;
 }
 
 export type PayloadType = { [index: string]: string | number | boolean }

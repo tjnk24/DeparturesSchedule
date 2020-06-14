@@ -1,6 +1,7 @@
 build/
 node_modules/
 .idea/
+.env
 *.log
 .gitmodules
 .DS_Store

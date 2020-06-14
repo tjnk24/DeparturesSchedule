@@ -29,10 +29,10 @@ const fetchPropsError: FetchPropsErrorTypes = (error) => ({
   payload: error,
 });
 
-const fetchProps: FetchPropsTypes = async (dispatch)  => {
+const fetchProps: FetchPropsTypes = async (dispatch, path)  => {
   dispatch(fetchPropsStart());
   try {
-    const appProps: AxiosResponse<AppPropsTypes> = await axios.get('/appProps.json');
+    const appProps: AxiosResponse<AppPropsTypes> = await axios.get(path);
     dispatch(fetchPropsSuccess(appProps.data));
   } catch (error) {
     dispatch(fetchPropsError(error));
