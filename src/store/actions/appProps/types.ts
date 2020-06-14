@@ -7,7 +7,7 @@ type DispatchType = ConstantType | ActionType<MixedValueTypes>
 
 export type FetchPropsStartTypes = () => ConstantType
 
-export type FetchPropsSuccessTypes = (appProps: AppPropsTypes) => ConstantType & {
+export type FetchPropsSuccessTypes = (payload: AppPropsTypes) => ConstantType & {
   payload: AppPropsTypes;
 }
 

@@ -95,7 +95,9 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
                   ? screens.map((screen, index) => (
                     <div
                       key={screen[0].id as number}
-                      className={cn('screen__schedule-item', index === screenIndex && 'screen__schedule-item-visible')}
+                      className={cn('screen__schedule-item',
+                        index === screenIndex && 'screen__schedule-item-visible',
+                        screens.length > 1 && 'screen__schedule-item-multiple')}
                     >
                       { appPropsState.flagsImages && mapScreen(screen) }
                     </div>
