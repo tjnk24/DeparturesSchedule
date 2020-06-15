@@ -5,7 +5,7 @@ import React, {
   useContext,
 } from 'react';
 import { Transition, CSSTransition } from 'react-transition-group';
-import _ from 'lodash-es';
+import chunk from 'lodash.chunk';
 import ScheduleItem from '@components/schedule-item';
 
 import { Context } from '@store/provider';
@@ -25,7 +25,7 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
   const { state, dispatch } = useContext(Context);
   const { constructorState, appPropsState } = state;
 
-  const screens: MixedValueTypes[][] = _.chunk(constructorState, 6);
+  const screens: MixedValueTypes[][] = chunk(constructorState, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
