@@ -1,0 +1,18 @@
+:local {
+    .modal-wrap {
+        label {
+            width: 100%;
+        }
+    }
+
+    .close-button {
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .sign-up-button {
+        width: 70%;
+        margin: 20px auto;
+    }
+}

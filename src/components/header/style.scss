@@ -1,5 +1,6 @@
 :local {
     .header {
+        position: relative;
         height: 100px;
         background: url('./header-bg.jpg') center no-repeat;
         background-size: cover;
@@ -10,6 +11,26 @@
         &__title {
             color: #FFF;
             font-size: 40px;
+        }
+
+        &__buttons-wrap {
+            position: absolute;
+            right: 20px;
+
+            button {
+                background: transparent;
+                border: 0;
+                padding: 0;
+                color: #FFF;
+
+                &:hover {
+                    color: #ccc;
+                }
+
+                &:focus {
+                    outline: none;
+                }
+            }
         }
     }
 }

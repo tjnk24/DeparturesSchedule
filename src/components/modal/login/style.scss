@@ -1,0 +1,23 @@
+:local {
+    .modal-wrap {
+        label {
+            width: 100%;
+        }
+    }
+
+    .close-button {
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .forgot-password-button {
+        font-size: 14px;
+        padding: .375rem 0;
+    }
+
+    .login-button {
+        width: 70%;
+        margin: 20px auto;
+    }
+}
