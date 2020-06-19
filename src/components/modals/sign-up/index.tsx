@@ -3,13 +3,16 @@ import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
 
+
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
+import { ModalProps } from '../types';
+
 const cn = classnames.bind(style);
 
-const SignUp: FC = () => (
-  <Modal>
+const SignUp: FC<ModalProps> = ({ modal, handler }) => (
+  <Modal show={modal === 'sign-up'} onHide={() => handler('')}>
     <Modal.Header closeButton>
       <Modal.Title>Create an account</Modal.Title>
     </Modal.Header>
@@ -40,11 +43,16 @@ const SignUp: FC = () => (
           </Form.Label>
         </Form.Group>
       </Form>
+      <Button className={cn('sign-up-button')}>Sign up!</Button>
     </Modal.Body>
-    <Button className={cn('sign-up-button')}>Sign up!</Button>
     <Modal.Footer>
       Already have an account?
-      <Button variant="link">Login here</Button>
+      <Button
+        variant="link"
+        onClick={() => handler('login')}
+      >
+        Login here
+      </Button>
     </Modal.Footer>
   </Modal>
 );

@@ -1,44 +1,50 @@
 import React, { FC } from 'react';
-import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
-// import bootstrap from '@bootstrap-module';
+
+import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import { LoginProps } from './types';
+import { ModalProps } from '../types';
 
 const cn = classnames.bind(style);
 
-const Login: FC<LoginProps> = ({ modal, handler }) => (
-  <Modal show>
+const Login: FC<ModalProps> = ({ modal, handler }) => (
+  <Modal show={modal === 'login'} onHide={() => handler('')}>
     <Modal.Header closeButton>
       <Modal.Title>Log In</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       <Form>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group>
           <Form.Label>Your Email:</Form.Label>
           <Form.Control type="email" placeholder="Enter email" />
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group>
           <Form.Label>Your Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
-          <Form.Text>
-            <Button variant="link">
+          <Button
+            variant="link"
+            className={cn('forgot-password-button')}
+          >
               Forgot your password?
-            </Button>
-          </Form.Text>
+          </Button>
         </Form.Group>
-        <Button style={{ width: '100%' }}>
-          Log me in!
+        <Button className={cn('login-button')}>
+            Log me in!
         </Button>
       </Form>
     </Modal.Body>
     <Modal.Footer>
-      Not a member?
-      <Button variant="link">Sign up</Button>
+        Not a member?
+      <Button
+        variant="link"
+        onClick={() => handler('sign-up')}
+      >
+        Sign up
+      </Button>
     </Modal.Footer>
   </Modal>
 );
