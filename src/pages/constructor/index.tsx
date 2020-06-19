@@ -1,4 +1,5 @@
 import React, { FC, useContext } from 'react';
+import Button from 'react-bootstrap/esm/Button';
 import ConstructorTable from '@components/constructor-table';
 import ConstructorComposer from '@components/constructor-composer';
 
@@ -11,9 +12,6 @@ import { ValueTypes } from '@apptypes/components';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import bootstrap from '@bootstrap-module';
-
-
 const cn = classnames.bind(style);
 
 const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
@@ -24,17 +22,13 @@ const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Elemen
     <div className={cn('constructor')}>
       <div className={cn('constructor__heading')}>
         <h5>Сompose your schedule here</h5>
-        <button
-          type="button"
-          className={cn(
-            bootstrap.btn,
-            bootstrap[constructorState.length ? 'btn-success' : 'btn-secondary'],
-          )}
+        <Button
+          variant={constructorState.length ? 'success' : 'secondary'}
           disabled={!constructorState.length}
           onClick={() => setConstructed(true)}
         >
           Compose
-        </button>
+        </Button>
       </div>
       <ConstructorTable state={constructorState as ValueTypes[]} />
       { appPropsState.loading === false && (

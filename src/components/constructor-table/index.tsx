@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import classnames from 'classnames/bind';
+import Table from 'react-bootstrap/esm/Table';
 import TableRow from './parts/table-row';
 import { ConstructorTableProps, TableRowProps } from './types';
 
-import bootstrap from '@bootstrap-module';
 import style from './style.scss';
 
 const cn = classnames.bind(style);
@@ -14,11 +14,9 @@ const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => 
       !state.length
         ? <p>There&apos;s nothing to show. Add some items to the list!</p>
         : (
-          <table className={cn(
-            bootstrap.table,
-            bootstrap['table-sm'],
-            'constructor-table',
-          )}
+          <Table
+            size="sm"
+            className={cn('constructor-table')}
           >
             <thead>
               <tr>
@@ -37,7 +35,7 @@ const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => 
                 />
               ))}
             </tbody>
-          </table>
+          </Table>
         )
     }
   </div>

@@ -34,6 +34,18 @@ const cssLoaders = [
   },
 ];
 
+const bootstrapLoaders = [
+  {
+    loader: development ? 'style-loader' : MiniCssExtractPlugin.loader,
+  },
+  {
+    loader: 'css-loader',
+    options: {
+      sourceMap: development,
+    },
+  },
+];
+
 module.exports = {
   entry: [
     './src/index.tsx',
@@ -66,8 +78,12 @@ module.exports = {
         loader: "source-map-loader"
       },
       {
-        test: /\.(css|scss)$/,
+        test: /\.scss$/,
         use: cssLoaders,
+      },
+      {
+        test: /\.css$/,
+        use: bootstrapLoaders,
       },
       {
         test: /\.(png|jpg|gif|svg|ttf|woff|woff2|mp4)$/,
@@ -82,7 +98,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       ...envKeys
@@ -109,7 +125,6 @@ module.exports = {
       '@apptypes': path.resolve(__dirname, 'src', 'types'),
       '@utils': path.resolve(__dirname, 'src', 'utils'),
       '@mocks': path.resolve(__dirname, 'mocks'),
-      '@bootstrap-module': path.resolve(__dirname, 'src', 'assets', 'bootstrap.min.module.css'),
     },
   },
 };

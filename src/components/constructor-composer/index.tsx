@@ -1,5 +1,5 @@
 import React, { FC, useState, useContext } from 'react';
-
+import Button from 'react-bootstrap/esm/Button';
 import { addListItem } from '@store/actions/constructor';
 
 import { Context } from '@store/provider';
@@ -7,7 +7,6 @@ import { Context } from '@store/provider';
 import classnames from 'classnames/bind';
 import { StringObjectType } from '@apptypes/components';
 import DropdownsList from '../dropdowns-list';
-import bootstrap from '@bootstrap-module';
 import style from './style.scss';
 
 import ConstructorComposerProps from './types';
@@ -36,13 +35,12 @@ const ConstructorComposer: FC<ConstructorComposerProps> = ({ countries, gates })
         countries={countries}
         gates={gates}
       />
-      <button
-        type="button"
-        className={cn(bootstrap.btn, bootstrap['btn-success'])}
+      <Button
+        variant="success"
         onClick={addToList}
       >
                 ADD TO LIST
-      </button>
+      </Button>
     </div>
   );
 };

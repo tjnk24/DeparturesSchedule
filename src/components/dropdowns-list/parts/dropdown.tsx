@@ -1,10 +1,7 @@
 import React, { FC } from 'react';
-import classnames from 'classnames/bind';
-import bootstrap from '@bootstrap-module';
+import FormControl from 'react-bootstrap/esm/FormControl';
 
 import { DropdownProps } from '../types';
-
-const cn = classnames;
 
 const Dropdown: FC<DropdownProps> = ({
   name,
@@ -13,8 +10,8 @@ const Dropdown: FC<DropdownProps> = ({
   onChangeHandler,
   children,
 }) => (
-  <select
-    className={cn(bootstrap['form-control'])}
+  <FormControl
+    as="select"
     name={name}
     value={value}
     onChange={(e) => {
@@ -29,7 +26,7 @@ const Dropdown: FC<DropdownProps> = ({
     }}
   >
     {children}
-  </select>
+  </FormControl>
 );
 
 export default Dropdown;
