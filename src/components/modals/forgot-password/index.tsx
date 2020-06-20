@@ -2,7 +2,8 @@ import React, { FC } from 'react';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
-import { Container, Row } from 'react-bootstrap';
+import Container from 'react-bootstrap/esm/Container';
+import Row from 'react-bootstrap/esm/Row';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';

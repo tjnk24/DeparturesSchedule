@@ -1,6 +1,8 @@
 :local {
     .constructor {
+        max-width: 1620px;
         padding: 20px;
+        margin: 0 auto;
 
         &__heading {
             display: flex;

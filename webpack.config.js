@@ -53,7 +53,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build'),
-    publicPath: '',
+    publicPath: '/',
   },
   devtool: development ? 'source-map' : undefined,
   mode: development ? 'development' : 'production',
@@ -62,6 +62,7 @@ module.exports = {
     port: 8080,
     contentBase: path.resolve(__dirname, 'src'),
     hot: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [

@@ -4,9 +4,11 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/esm/Button';
+import ScheduleItem from '@components/schedule-item';
 import { Transition, CSSTransition } from 'react-transition-group';
 import chunk from 'lodash.chunk';
-import ScheduleItem from '@components/schedule-item';
 
 import { Context } from '@store/provider';
 import fetchProps from '@store/actions/appProps';
@@ -14,14 +16,13 @@ import fetchProps from '@store/actions/appProps';
 import path from '@utils/api';
 
 import { MixedValueTypes } from '@apptypes/components';
-import ConstructedHandlerType from '@apptypes/pages';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
+const Schedule: FC = (): JSX.Element => {
   const { state, dispatch } = useContext(Context);
   const { constructorState, appPropsState } = state;
 
@@ -30,12 +31,10 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
   const [screenIndex, setScreenIndex] = useState(0);
-  const [linkVisible, setLinkVisible] = useState(false);
 
   useEffect(() => {
     !appPropsState.flagsImages && fetchProps(dispatch, path.images.countryFlags);
 
-    !screens.length && setConstructed(false);
     setScheduleIn(true);
   }, []);
 
@@ -75,13 +74,14 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
 
   return (
     <div className={cn('schedule')}>
+      <Link to="/">
+        <Button variant="link">
+          Edit schedule
+        </Button>
+      </Link>
       <Transition in={scheduleIn} timeout={1500} onEntered={() => setScreenIn(true)}>
         <div
           className={cn('screenwrap')}
-          onMouseOver={() => setLinkVisible(true)}
-          onFocus={() => setLinkVisible(true)}
-          onMouseOut={() => setLinkVisible(false)}
-          onBlur={() => setLinkVisible(false)}
         >
           <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
             <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
@@ -106,13 +106,6 @@ const Schedule: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element =
               </div>
             </div>
           </CSSTransition>
-          <button
-            type="button"
-            className={cn('screenwrap__link-hidden', linkVisible && 'screenwrap__link-visible')}
-            onClick={() => setConstructed(false)}
-          >
-            Edit schedule
-          </button>
         </div>
       </Transition>
     </div>

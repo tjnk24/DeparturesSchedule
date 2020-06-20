@@ -1,6 +1,9 @@
 import React, { FC, useState } from 'react';
 import classnames from 'classnames/bind';
-import { Button } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/esm/Dropdown';
+import Button from 'react-bootstrap/esm/Button';
+import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
+import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 import Message from '@components/modals/message';
 import SignUp from '@components/modals/sign-up';
@@ -13,8 +16,9 @@ const cn = classnames.bind(style);
 
 const Header: FC = () => {
   const [modal, setModal] = useState('');
+  const [isAuthentificated, setIsAuthentificated] = useState(true);
 
-  const setModals = () => (
+  const setModals = (
     <>
       <Login modal={modal} handler={setModal} />
       <SignUp modal={modal} handler={setModal} />
@@ -23,18 +27,32 @@ const Header: FC = () => {
     </>
   );
 
+  const loginSignUpButton = (
+    <Button
+      variant="link"
+      onClick={() => setModal('login')}
+    >
+            Login / Sign up
+    </Button>
+  );
+
+  const profileMenu = (
+    <DropdownButton title="Username" id="dropdown-basic-button">
+      <Dropdown.Item eventKey="1">Edit profile</Dropdown.Item>
+    </DropdownButton>
+  );
+
   return (
     <>
-      { setModals() }
+      { setModals }
       <header className={cn('header')}>
         <h1 className={cn('header__title')}>Your airport schedule</h1>
         <div className={cn('header__buttons-wrap')}>
-          <Button
-            variant="link"
-            onClick={() => setModal('login')}
-          >
-            Login / Sign up
-          </Button>
+          {
+            isAuthentificated
+              ? profileMenu
+              : loginSignUpButton
+          }
         </div>
       </header>
     </>

@@ -1,11 +1,10 @@
 import React, { FC, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import ConstructorTable from '@components/constructor-table';
 import ConstructorComposer from '@components/constructor-composer';
 
 import { Context } from '@store/provider';
-
-import ConstructedHandlerType from '@apptypes/pages';
 
 import { ValueTypes } from '@apptypes/components';
 
@@ -14,7 +13,7 @@ import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
+const Constructor: FC = (): JSX.Element => {
   const { state } = useContext(Context);
   const { constructorState, appPropsState } = state;
 
@@ -22,13 +21,14 @@ const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Elemen
     <div className={cn('constructor')}>
       <div className={cn('constructor__heading')}>
         <h5>Сompose your schedule here</h5>
-        <Button
-          variant={constructorState.length ? 'success' : 'secondary'}
-          disabled={!constructorState.length}
-          onClick={() => setConstructed(true)}
-        >
-          Compose
-        </Button>
+        <Link to="/schedule">
+          <Button
+            variant={constructorState.length ? 'success' : 'secondary'}
+            disabled={!constructorState.length}
+          >
+            Compose
+          </Button>
+        </Link>
       </div>
       <ConstructorTable state={constructorState as ValueTypes[]} />
       { appPropsState.loading === false && (

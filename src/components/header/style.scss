@@ -17,7 +17,10 @@
             position: absolute;
             right: 20px;
 
-            button {
+            button,
+            button:hover,
+            button:active,
+            button:focus {
                 background: transparent;
                 border: 0;
                 padding: 0;

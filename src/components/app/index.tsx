@@ -1,7 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+  withRouter,
+} from 'react-router-dom';
+
 import Header from '@components/header';
 import Schedule from '@pages/schedule';
 import Constructor from '@pages/constructor';
+import Profile from '@pages/profile';
 
 import { Provider } from '@store/provider';
 
@@ -11,24 +20,18 @@ import style from './style.scss';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cn = classnames.bind(style);
 
-const constructing = JSON.parse(localStorage.getItem('constructing') as string);
+const App = (): JSX.Element => (
+  <BrowserRouter>
+    <Header />
+    <Provider>
+      <Switch>
+        <Route path="/" exact component={Constructor} />
+        <Route path="/schedule" component={Schedule} />
+        <Route path="/profile" component={Profile} />
+        <Redirect exact from="/" to="/constructor" />
+      </Switch>
+    </Provider>
+  </BrowserRouter>
+);
 
-const App = (): JSX.Element => {
-  const [scheduleConstructing, setScheduleConstructing] = useState(constructing);
-
-  useEffect(() => {
-    localStorage.setItem('constructing', scheduleConstructing);
-  }, [scheduleConstructing]);
-
-  return (
-    <>
-      <Header />
-      <Provider>
-        {scheduleConstructing
-          ? <Schedule setConstructed={setScheduleConstructing} />
-          : <Constructor setConstructed={setScheduleConstructing} />}
-      </Provider>
-    </>
-  );
-};
-export default App;
+export default withRouter(App);
