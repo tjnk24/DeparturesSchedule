@@ -28,6 +28,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => (
           <Button
             variant="link"
             className={cn('forgot-password-button')}
+            onClick={() => handler('forgot-password')}
           >
               Forgot your password?
           </Button>

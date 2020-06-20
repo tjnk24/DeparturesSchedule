@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap';
 import Message from '@components/modals/message';
 import SignUp from '@components/modals/sign-up';
 import Login from '@components/modals/login';
+import ForgotPassword from '@components/modals/forgot-password';
 
 import style from './style.scss';
 
@@ -18,6 +19,7 @@ const Header: FC = () => {
       <Login modal={modal} handler={setModal} />
       <SignUp modal={modal} handler={setModal} />
       <Message modal={modal} handler={setModal} />
+      <ForgotPassword modal={modal} handler={setModal} />
     </>
   );
 

@@ -18,9 +18,11 @@ const Message: FC<ModalProps> = ({ modal, handler }) => (
     </Modal.Header>
     <Modal.Body>
       A verification email has been sent to your email address:
-      {' '}
+      <br />
+      <br />
       {tempEmailPlaceholder}
-      {' '}
+      <br />
+      <br />
       After verifying your email address, you can log in
       to your account and use features for registered users.
     </Modal.Body>
