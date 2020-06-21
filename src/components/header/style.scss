@@ -21,17 +21,22 @@
             button:hover,
             button:active,
             button:focus {
-                background: transparent;
+                background-color: transparent!important;
                 border: 0;
+                box-shadow: 0 0 0 0!important;
                 padding: 0;
+                outline: none;
                 color: #FFF;
+            }
+
+            button {
 
                 &:hover {
                     color: #ccc;
                 }
 
-                &:focus {
-                    outline: none;
+                &:after {
+                    display: none;
                 }
             }
         }

@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames/bind';
 import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Button from 'react-bootstrap/esm/Button';
-import ButtonGroup from 'react-bootstrap/esm/ButtonGroup';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 import Message from '@components/modals/message';
@@ -16,7 +16,7 @@ const cn = classnames.bind(style);
 
 const Header: FC = () => {
   const [modal, setModal] = useState('');
-  const [isAuthentificated, setIsAuthentificated] = useState(true);
+  const [isAuthentificated, setIsAuthentificated] = useState(false);
 
   const setModals = (
     <>
@@ -32,13 +32,15 @@ const Header: FC = () => {
       variant="link"
       onClick={() => setModal('login')}
     >
-            Login / Sign up
+      Login / Sign up
     </Button>
   );
 
   const profileMenu = (
     <DropdownButton title="Username" id="dropdown-basic-button">
-      <Dropdown.Item eventKey="1">Edit profile</Dropdown.Item>
+      <Link to="/profile">
+        <Dropdown.Item eventKey="1">Edit profile</Dropdown.Item>
+      </Link>
     </DropdownButton>
   );
 

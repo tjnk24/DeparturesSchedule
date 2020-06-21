@@ -1,70 +1,30 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
+import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/esm/Form';
-import Button from 'react-bootstrap/esm/Button';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
-import InputGroup from 'react-bootstrap/esm/InputGroup';
-
+import Button from 'react-bootstrap/esm/Button';
 import classnames from 'classnames/bind';
+
+import UserName from './parts/username';
+import Email from './parts/email';
+import Password from './parts/password';
+
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Profile: FC = () => {
-  const [changePass, setChangePass] = useState(false);
-
-  return (
+const Profile: FC = () => (
+  <>
+    <div className={cn('link')}>
+      <Link to="/">
+        <Button variant="light">Back to constructor</Button>
+      </Link>
+    </div>
     <Form className={cn('profile-form')}>
-      <Form.Group as={Row}>
-        <Form.Label column sm={2}>
-          Username:
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control type="text" placeholder="username" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row}>
-        <Form.Label column sm={2}>
-          Email:
-        </Form.Label>
-        <Col sm={10}>
-          <Form.Control type="email" placeholder="email" />
-        </Col>
-      </Form.Group>
-
-      <Form.Group as={Row}>
-        <Form.Label column sm={2}>
-          Password:
-        </Form.Label>
-        <Col sm={10}>
-          <InputGroup>
-            <Form.Control
-              type="password"
-              placeholder="password"
-              readOnly={!changePass}
-            />
-            <InputGroup.Append>
-              <Button
-                variant="outline-secondary"
-                onClick={() => setChangePass(!changePass)}
-              >
-                Change password
-              </Button>
-            </InputGroup.Append>
-          </InputGroup>
-        </Col>
-      </Form.Group>
-
-      {changePass
-        ? (
-          <Form.Group as={Row}>
-            <Col sm={{ span: 10, offset: 2 }}>
-              <Form.Control type="password" placeholder="repeat password" />
-            </Col>
-          </Form.Group>
-        )
-        : null}
+      <UserName />
+      <Email />
+      <Password />
 
       <Form.Group as={Row}>
         <Col sm={{ span: 10, offset: 2 }}>
@@ -72,7 +32,7 @@ const Profile: FC = () => {
         </Col>
       </Form.Group>
     </Form>
-  );
-};
+  </>
+);
 
 export default Profile;

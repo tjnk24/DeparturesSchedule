@@ -18,8 +18,8 @@ const Constructor: FC = (): JSX.Element => {
   const { constructorState, appPropsState } = state;
 
   return (
-    <div className={cn('constructor')}>
-      <div className={cn('constructor__heading')}>
+    <>
+      <div className={cn('heading')}>
         <h5>Сompose your schedule here</h5>
         <Link to="/schedule">
           <Button
@@ -37,7 +37,7 @@ const Constructor: FC = (): JSX.Element => {
           gates={appPropsState.gates}
         />
       )}
-    </div>
+    </>
   );
 };
 
