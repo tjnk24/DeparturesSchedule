@@ -14,12 +14,19 @@ const cn = classnames.bind(style);
 
 const schema = Yup.object()
   .shape({
+    username: Yup.string()
+      .min(5)
+      .max(10)
+      .trim()
+      .required('please, enter your username'),
     email: Yup.string()
       .email()
       .required('please, enter your email'),
     password: Yup.string()
       .trim()
       .required('please, enter your password'),
+    repeatPassword: Yup.string()
+      .oneOf([Yup.ref('password'), undefined], 'Passwords must match'),
   });
 
 const InnerBody: FC<ModalProps> = ({ handler }) => {
@@ -32,11 +39,22 @@ const InnerBody: FC<ModalProps> = ({ handler }) => {
       handleSubmit,
     } = props;
 
+    const usernameProps = {
+      name         : 'username',
+      placeholder  : 'Enter username',
+      type         : 'text',
+      labelText    : 'Username',
+      values       : values.username,
+      errors       : errors.username,
+      handleChange,
+      handleBlur,
+    };
+
     const emailProps = {
       name         : 'email',
       placeholder  : 'Enter email',
       type         : 'text',
-      labelText    : 'Your email',
+      labelText    : 'Email',
       values       : values.email,
       errors       : errors.email,
       handleChange,
@@ -47,9 +65,20 @@ const InnerBody: FC<ModalProps> = ({ handler }) => {
       name         : 'password',
       placeholder  : 'Enter password',
       type         : 'password',
-      labelText    : 'Your password',
+      labelText    : 'Password',
       values       : values.password,
       errors       : errors.password,
+      handleChange,
+      handleBlur,
+    };
+
+    const repeatPasswordProps = {
+      name         : 'repeatPassword',
+      placeholder  : 'Repeat password',
+      type         : 'password',
+      labelText    : 'Repeat password',
+      values       : values.repeatPassword,
+      errors       : errors.repeatPassword,
       handleChange,
       handleBlur,
     };
@@ -57,22 +86,26 @@ const InnerBody: FC<ModalProps> = ({ handler }) => {
     return (
       <Form noValidate onSubmit={handleSubmit}>
         <Form.Group>
+          <InnerForm {...usernameProps} />
+        </Form.Group>
+
+        <Form.Group>
           <InnerForm {...emailProps} />
         </Form.Group>
 
         <Form.Group>
           <InnerForm {...passwordProps} />
-          <Button
-            variant="link"
-            className={cn('forgot-password-button')}
-            onClick={() => handler('forgot-password')}
-          >
-            Forgot your password?
-          </Button>
         </Form.Group>
 
-        <Button type="submit" className={cn('login-button')}>
-              Log me in!
+        <Form.Group>
+          <InnerForm {...repeatPasswordProps} />
+        </Form.Group>
+
+        <Button
+          type="submit"
+          className={cn('sign-up-button')}
+        >
+          Sign up!
         </Button>
       </Form>
     );
@@ -83,8 +116,10 @@ const InnerBody: FC<ModalProps> = ({ handler }) => {
       onSubmit={console.log}
       validationSchema={schema}
       initialValues={{
+        username: '',
         email: '',
         password: '',
+        repeatPassword: '',
       }}
     >
       {formikInner}

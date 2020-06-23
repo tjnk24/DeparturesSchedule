@@ -1,25 +1,16 @@
 import React, { FC } from 'react';
-import classnames from 'classnames/bind';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
-import InnerForm from '../parts/inner-form';
-
-import style from './style.scss';
-
 import { ModalProps, formikInnerTypes } from '../types';
-
-const cn = classnames.bind(style);
+import InnerForm from '../parts/inner-form';
 
 const schema = Yup.object()
   .shape({
     email: Yup.string()
       .email()
       .required('please, enter your email'),
-    password: Yup.string()
-      .trim()
-      .required('please, enter your password'),
   });
 
 const InnerBody: FC<ModalProps> = ({ handler }) => {
@@ -43,38 +34,23 @@ const InnerBody: FC<ModalProps> = ({ handler }) => {
       handleBlur,
     };
 
-    const passwordProps = {
-      name         : 'password',
-      placeholder  : 'Enter password',
-      type         : 'password',
-      labelText    : 'Your password',
-      values       : values.password,
-      errors       : errors.password,
-      handleChange,
-      handleBlur,
-    };
-
     return (
-      <Form noValidate onSubmit={handleSubmit}>
-        <Form.Group>
-          <InnerForm {...emailProps} />
-        </Form.Group>
+      <>
+        <p style={{ fontSize: '14px' }}>
+          When you fill in your register email address and push the button below,
+          we&apos;ll send an email message with instructions how to reset your password.
+        </p>
+        <br />
+        <Form noValidate onSubmit={handleSubmit}>
+          <Form.Group>
+            <InnerForm {...emailProps} />
+          </Form.Group>
 
-        <Form.Group>
-          <InnerForm {...passwordProps} />
-          <Button
-            variant="link"
-            className={cn('forgot-password-button')}
-            onClick={() => handler('forgot-password')}
-          >
-            Forgot your password?
+          <Button onClick={() => handler('message')}>
+            Send email
           </Button>
-        </Form.Group>
-
-        <Button type="submit" className={cn('login-button')}>
-              Log me in!
-        </Button>
-      </Form>
+        </Form>
+      </>
     );
   };
 

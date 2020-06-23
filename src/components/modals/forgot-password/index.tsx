@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import Modal from 'react-bootstrap/esm/Modal';
-import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
@@ -9,6 +8,7 @@ import classnames from 'classnames/bind';
 import style from './style.scss';
 
 import { ModalProps } from '../types';
+import InnerBody from './inner-body';
 
 const cn = classnames.bind(style);
 
@@ -18,20 +18,7 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
       <Modal.Title>Forgot Password</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-      <p style={{ fontSize: '14px' }}>
-          When you fill in your register email address and push the button below,
-          we&apos;ll send an email message with instructions how to reset your password.
-      </p>
-      <br />
-      <Form>
-        <Form.Group>
-          <Form.Label>Your Email</Form.Label>
-          <Form.Control type="text" placeholder="Email" />
-        </Form.Group>
-        <Button onClick={() => handler('message')}>
-            Send email
-        </Button>
-      </Form>
+      <InnerBody handler={handler} />
     </Modal.Body>
     <Modal.Footer>
       <Container className={cn('footer-container')}>
