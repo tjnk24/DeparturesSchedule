@@ -27,7 +27,7 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => (
         <Form.Group>
           <Form.Label>
             Your Email:
-            <Form.Control type="text" placeholder="Email" />
+            <Form.Control type="email" placeholder="Email" />
           </Form.Label>
         </Form.Group>
         <Form.Group>

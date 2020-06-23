@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 
 export type ModalProps = {
-    modal: string;
+    modal?: string;
     handler: Dispatch<SetStateAction<string>>;
 }
