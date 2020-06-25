@@ -1,16 +1,23 @@
 import React, { FC } from 'react';
+import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
+import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
+import InnerForm from '../parts/inner-form';
 
-import classnames from 'classnames/bind';
 import style from './style.scss';
 
 import { ModalProps } from '../types';
-import InnerBody from './inner-body';
+import FormValidator from '../parts/form-validator';
 
 const cn = classnames.bind(style);
+
+type ValidatorProps = {
+  inputProps     : { [key: string]: string };
+  // handleSubmit() : void;
+}
 
 const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
   <Modal show={modal === 'forgot-password'} onHide={() => handler('')}>
@@ -18,7 +25,33 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
       <Modal.Title>Forgot Password</Modal.Title>
     </Modal.Header>
     <Modal.Body>
-      <InnerBody handler={handler} />
+      <p style={{ fontSize: '14px' }}>
+        When you fill in your register email address and push the button below,
+        we&apos;ll send an email message with instructions how to reset your password.
+      </p>
+      <br />
+      <FormValidator
+        handler={handler}
+        inputs={['email']}
+      >
+        {({ inputProps, handleSubmit }) => {
+          const {
+            email,
+          } = inputProps;
+
+          return (
+            <Form noValidate onSubmit={handleSubmit}>
+              <Form.Group>
+                <InnerForm {...email} />
+              </Form.Group>
+
+              <Button onClick={() => handler('message')}>
+              Send email
+              </Button>
+            </Form>
+          );
+        }}
+      </FormValidator>
     </Modal.Body>
     <Modal.Footer>
       <Container className={cn('footer-container')}>
