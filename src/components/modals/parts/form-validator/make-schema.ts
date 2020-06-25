@@ -1,6 +1,8 @@
 import * as Yup from 'yup';
 
-const YupShape = {
+import { YupShapeTypes, SchemaTypes } from '../types';
+
+const YupShape: YupShapeTypes = {
   username: Yup.string()
     .min(5)
     .max(10)
@@ -16,10 +18,10 @@ const YupShape = {
     .oneOf([Yup.ref('password'), undefined], 'Passwords must match'),
 };
 
-const makeSchema = (inputs: string[]): {} => Yup.object()
+const makeSchema: SchemaTypes = (inputs) => Yup.object()
   .shape(
     inputs.reduce((current, item) => {
-      const tempCurrent = current;
+      const tempCurrent: YupShapeTypes = current;
 
       tempCurrent[item] = YupShape[item];
       return tempCurrent;

@@ -19,7 +19,6 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => (
     </Modal.Header>
     <Modal.Body className={cn('modal-wrap')}>
       <FormValidator
-        handler={handler}
         inputs={[
           'username',
           'email',

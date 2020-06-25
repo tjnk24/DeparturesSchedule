@@ -3,26 +3,23 @@ import { Formik } from 'formik';
 import capitalize from '@utils/capitalize';
 import makeSchema from './make-schema';
 
-import { ModalProps } from '../../types';
-import { formikInnerTypes } from '../types';
+import { formikInnerTypes, InnerFormProps, FormValidatorProps } from '../types';
 
-const FormValidator: FC<ModalProps> = ({
+const FormValidator: FC<FormValidatorProps> = ({
   inputs,
   children,
 }) => {
   const schema = makeSchema(inputs);
 
-  const formikInner: formikInnerTypes = (props) => {
-    const {
-      values,
-      errors,
-      handleChange,
-      handleBlur,
-      handleSubmit,
-    } = props;
-
+  const formikInner: formikInnerTypes = ({
+    values,
+    errors,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  }) => {
     const inputProps = inputs.reduce((current, item) => {
-      const tempCurrent = current;
+      const tempCurrent: { [key: string] : InnerFormProps } = current;
       tempCurrent[item] = {
         name         : item,
         placeholder  : `Enter ${item}`,
@@ -33,6 +30,13 @@ const FormValidator: FC<ModalProps> = ({
         handleChange,
         handleBlur,
       };
+
+      if (item === 'password') {
+        tempCurrent[item] = {
+          ...tempCurrent[item],
+          type: 'password',
+        };
+      }
 
       if (item === 'repeatPassword') {
         tempCurrent[item] = {
@@ -59,7 +63,7 @@ const FormValidator: FC<ModalProps> = ({
       validationSchema={schema}
       initialValues={
         inputs.reduce((current, item) => {
-          const tempCurrent = {};
+          const tempCurrent: { [key: string] : string } = current;
           tempCurrent[item] = '';
           return tempCurrent;
         }, {})

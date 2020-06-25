@@ -19,7 +19,6 @@ const Login: FC<ModalProps> = ({ modal, handler }) => (
     </Modal.Header>
     <Modal.Body>
       <FormValidator
-        handler={handler}
         inputs={['email', 'password']}
       >
         {({ inputProps, handleSubmit }) => {

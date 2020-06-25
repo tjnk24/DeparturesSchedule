@@ -14,11 +14,6 @@ import FormValidator from '../parts/form-validator';
 
 const cn = classnames.bind(style);
 
-type ValidatorProps = {
-  inputProps     : { [key: string]: string };
-  // handleSubmit() : void;
-}
-
 const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
   <Modal show={modal === 'forgot-password'} onHide={() => handler('')}>
     <Modal.Header closeButton>
@@ -31,7 +26,6 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
       </p>
       <br />
       <FormValidator
-        handler={handler}
         inputs={['email']}
       >
         {({ inputProps, handleSubmit }) => {

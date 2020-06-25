@@ -1,3 +1,7 @@
+import * as Yup from 'yup';
+
+type ValuesTypes = { [key: string]: string }
+
 export type InnerFormProps = {
   name         : string;
   placeholder  : string;
@@ -9,19 +13,28 @@ export type InnerFormProps = {
   errors       : string | undefined;
 };
 
-type ValuesTypes = {
-  username       : string;
-  email          : string;
-  password       : string;
-  repeatPassword : string;
-}
-
 export type formikInnerTypes = (
   props: {
-    values: ValuesTypes;
-    errors: ValuesTypes;
+    values       : ValuesTypes;
+    errors       : ValuesTypes;
     handleChange : (e: React.ChangeEvent<EventTarget & HTMLInputElement>) => void;
     handleBlur   : (e: React.FocusEvent<HTMLInputElement>) => void;
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
   }
 ) => JSX.Element
+
+export type FormValidatorProps = {
+  inputs   : string[];
+  children : (
+    props: {
+      inputProps  : { [key: string]: InnerFormProps };
+      handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+    },
+  ) => React.ReactElement;
+}
+
+export type YupShapeTypes = { [key: string] : Yup.StringSchema<string | undefined> }
+
+export type SchemaTypes = (
+  inputs: string[]
+) => Yup.ObjectSchema<Record<string, unknown> | undefined>
