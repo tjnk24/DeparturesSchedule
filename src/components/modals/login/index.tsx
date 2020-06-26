@@ -3,8 +3,8 @@ import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
-import FormValidator from '../parts/form-validator';
-import InnerForm from '../parts/inner-form';
+import FormValidator from '@components/form-validator';
+import InnerForm from '../inner-form';
 
 import { ModalProps } from '../types';
 

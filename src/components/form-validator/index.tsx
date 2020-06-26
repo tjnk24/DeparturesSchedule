@@ -1,9 +1,15 @@
 import React, { FC } from 'react';
 import { Formik } from 'formik';
 import capitalize from '@utils/capitalize';
+
+import {
+  formikInnerTypes,
+  InnerFormProps,
+  FormValidatorProps,
+} from '@apptypes/components';
+
 import makeSchema from './make-schema';
 
-import { formikInnerTypes, InnerFormProps, FormValidatorProps } from '../types';
 
 const FormValidator: FC<FormValidatorProps> = ({
   inputs,
@@ -25,10 +31,10 @@ const FormValidator: FC<FormValidatorProps> = ({
         placeholder  : `Enter ${item}`,
         type         : 'text',
         labelText    : capitalize(item),
-        values       : values[item],
+        value        : values[item],
         errors       : errors[item],
-        handleChange,
-        handleBlur,
+        onChange     : handleChange,
+        onBlur       : handleBlur,
       };
 
       if (item === 'password') {

@@ -5,21 +5,40 @@ import Col from 'react-bootstrap/esm/Col';
 import InputGroup from 'react-bootstrap/esm/InputGroup';
 import Button from 'react-bootstrap/esm/Button';
 
-const Password: FC = () => {
+import { PasswordBlockProps } from './types';
+
+const PasswordBlock: FC<PasswordBlockProps> = ({
+  password,
+  repeatPassword,
+}) => {
   const [changePass, setChangePass] = useState(false);
+
+  const {
+    labelText : textPassword,
+    errors    : errorsPassword,
+    ...restPassword
+  } = password;
+
+  const {
+    errors: errorsRepeat,
+    ...restRepeat
+  } = repeatPassword;
+
+  delete restRepeat.labelText;
 
   return (
     <>
       <Form.Group as={Row}>
         <Form.Label column sm={2}>
-          Password:
+          { textPassword }
         </Form.Label>
         <Col sm={10}>
           <InputGroup>
             <Form.Control
-              type="password"
-              placeholder="password"
+              {...restPassword}
+              isInvalid={!!errorsPassword}
               readOnly={!changePass}
+              required
             />
             <InputGroup.Append>
               <Button
@@ -29,6 +48,9 @@ const Password: FC = () => {
                 Change password
               </Button>
             </InputGroup.Append>
+            <Form.Control.Feedback type="invalid">
+              { errorsPassword }
+            </Form.Control.Feedback>
           </InputGroup>
         </Col>
       </Form.Group>
@@ -37,7 +59,14 @@ const Password: FC = () => {
         ? (
           <Form.Group as={Row}>
             <Col sm={{ span: 10, offset: 2 }}>
-              <Form.Control type="password" placeholder="repeat password" />
+              <Form.Control
+                {...restRepeat}
+                isInvalid={!!errorsRepeat}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                { errorsRepeat }
+              </Form.Control.Feedback>
             </Col>
           </Form.Group>
         )
@@ -46,4 +75,4 @@ const Password: FC = () => {
   );
 };
 
-export default Password;
+export default PasswordBlock;

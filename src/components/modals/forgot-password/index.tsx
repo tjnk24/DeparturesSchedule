@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import classnames from 'classnames/bind';
+import FormValidator from '@components/form-validator';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
-import InnerForm from '../parts/inner-form';
+import InnerForm from '../inner-form';
 
 import style from './style.scss';
 
 import { ModalProps } from '../types';
-import FormValidator from '../parts/form-validator';
 
 const cn = classnames.bind(style);
 

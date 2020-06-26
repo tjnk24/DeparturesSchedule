@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-import { YupShapeTypes, SchemaTypes } from '../types';
+import { YupShapeTypes, SchemaTypes } from './types';
 
 const YupShape: YupShapeTypes = {
   username: Yup.string()
@@ -27,6 +27,5 @@ const makeSchema: SchemaTypes = (inputs) => Yup.object()
       return tempCurrent;
     }, {}),
   );
-
 
 export default makeSchema;

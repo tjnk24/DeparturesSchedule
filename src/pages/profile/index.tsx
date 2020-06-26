@@ -5,10 +5,10 @@ import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/esm/Button';
 import classnames from 'classnames/bind';
+import FormValidator from '@components/form-validator';
 
-import UserName from './parts/username';
-import Email from './parts/email';
-import Password from './parts/password';
+import InnerForm from './parts/inner-form';
+import PasswordBlock from './parts/password-block';
 
 import style from './style.scss';
 
@@ -21,17 +21,44 @@ const Profile: FC = () => (
         <Button variant="light">Back to constructor</Button>
       </Link>
     </div>
-    <Form className={cn('profile-form')}>
-      <UserName />
-      <Email />
-      <Password />
+    <FormValidator
+      inputs={[
+        'username',
+        'email',
+        'password',
+        'repeatPassword',
+      ]}
+    >
+      {({ inputProps, handleSubmit }) => {
+        const {
+          username,
+          email,
+          password,
+          repeatPassword,
+        } = inputProps;
 
-      <Form.Group as={Row}>
-        <Col sm={{ span: 10, offset: 2 }}>
-          <Button type="submit">Update profile</Button>
-        </Col>
-      </Form.Group>
-    </Form>
+        return (
+          <Form
+            className={cn('profile-form')}
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <InnerForm {...username} />
+            <InnerForm {...email} />
+            <PasswordBlock
+              password={password}
+              repeatPassword={repeatPassword}
+            />
+
+            <Form.Group as={Row}>
+              <Col sm={{ span: 10, offset: 2 }}>
+                <Button type="submit">Update profile</Button>
+              </Col>
+            </Form.Group>
+          </Form>
+        );
+      }}
+    </FormValidator>
   </>
 );
 

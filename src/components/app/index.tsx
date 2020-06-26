@@ -7,6 +7,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 
+import RouteWrap from '@components/route-wrap';
 import Layout from '@components/layout';
 import Header from '@components/header';
 import Schedule from '@pages/schedule';
@@ -25,14 +26,12 @@ const App = (): JSX.Element => (
   <BrowserRouter>
     <Header />
     <Provider>
-      <Layout>
-        <Switch>
-          <Route path="/" exact component={Constructor} />
-          <Route path="/schedule" component={Schedule} />
-          <Route path="/profile" component={Profile} />
-          <Redirect exact from="/" to="/constructor" />
-        </Switch>
-      </Layout>
+      <Switch>
+        <RouteWrap path="/" exact component={Constructor} layout={Layout} />
+        <Route path="/schedule" component={Schedule} />
+        <RouteWrap path="/profile" component={Profile} layout={Layout} />
+        <Redirect exact from="/" to="/constructor" />
+      </Switch>
     </Provider>
   </BrowserRouter>
 );
