@@ -31,6 +31,7 @@ const App = (): JSX.Element => (
         <Route path="/schedule" component={Schedule} />
         <RouteWrap path="/profile" component={Profile} layout={Layout} />
         <Redirect exact from="/" to="/constructor" />
+        <Redirect to="/" />
       </Switch>
     </Provider>
   </BrowserRouter>
