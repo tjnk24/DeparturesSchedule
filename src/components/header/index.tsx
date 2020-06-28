@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Button from 'react-bootstrap/esm/Button';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
+import Backdrop from '@components/modals/backdrop';
 import Message from '@components/modals/message';
 import SignUp from '@components/modals/sign-up';
 import Login from '@components/modals/login';
@@ -19,12 +20,12 @@ const Header: FC = () => {
   const [isAuthentificated, setIsAuthentificated] = useState(false);
 
   const setModals = (
-    <>
-      <Login modal={modal} handler={setModal} />
-      <SignUp modal={modal} handler={setModal} />
-      <Message modal={modal} handler={setModal} />
-      <ForgotPassword modal={modal} handler={setModal} />
-    </>
+    <Backdrop modal={modal} handler={setModal}>
+      <Login />
+      <SignUp />
+      <Message />
+      <ForgotPassword />
+    </Backdrop>
   );
 
   const loginSignUpButton = (

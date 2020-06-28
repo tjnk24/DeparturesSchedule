@@ -5,14 +5,18 @@ import Button from 'react-bootstrap/esm/Button';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import { ModalProps } from '../types';
+import ModalProps from '../types';
 
 const cn = classnames.bind(style);
 
 const tempEmailPlaceholder = 'test@test.test';
 
 const Message: FC<ModalProps> = ({ modal, handler }) => (
-  <Modal show={modal === 'message'} onHide={() => handler('')}>
+  <Modal
+    show={modal === 'message'}
+    onHide={() => handler?.('')}
+    backdrop={false}
+  >
     <Modal.Header closeButton>
       <Modal.Title>Verification email sent</Modal.Title>
     </Modal.Header>

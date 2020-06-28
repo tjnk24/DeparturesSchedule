@@ -6,14 +6,18 @@ import Button from 'react-bootstrap/esm/Button';
 import FormValidator from '@components/form-validator';
 import InnerForm from '../inner-form';
 
-import { ModalProps } from '../types';
+import ModalProps from '../types';
 
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
 const Login: FC<ModalProps> = ({ modal, handler }) => (
-  <Modal show={modal === 'login'} onHide={() => handler('')}>
+  <Modal
+    show={modal === 'login'}
+    onHide={() => handler?.('')}
+    backdrop={false}
+  >
     <Modal.Header closeButton>
       <Modal.Title>Log In</Modal.Title>
     </Modal.Header>
@@ -38,7 +42,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => (
                 <Button
                   variant="link"
                   className={cn('forgot-password-button')}
-                  onClick={() => handler('forgot-password')}
+                  onClick={() => handler?.('forgot-password')}
                 >
                   Forgot your password?
                 </Button>
@@ -56,7 +60,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => (
         Not a member?
       <Button
         variant="link"
-        onClick={() => handler('sign-up')}
+        onClick={() => handler?.('sign-up')}
       >
         Sign up
       </Button>

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import classnames from 'classnames/bind';
 import Form from 'react-bootstrap/esm/Form';
 import { InnerFormProps } from '@apptypes/components';

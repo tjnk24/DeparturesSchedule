@@ -6,14 +6,18 @@ import Button from 'react-bootstrap/esm/Button';
 import FormValidator from '@components/form-validator';
 import InnerForm from '../inner-form';
 
-import { ModalProps } from '../types';
+import ModalProps from '../types';
 
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
 const SignUp: FC<ModalProps> = ({ modal, handler }) => (
-  <Modal show={modal === 'sign-up'} onHide={() => handler('')}>
+  <Modal
+    show={modal === 'sign-up'}
+    onHide={() => handler?.('')}
+    backdrop={false}
+  >
     <Modal.Header closeButton>
       <Modal.Title>Create an account</Modal.Title>
     </Modal.Header>
@@ -67,7 +71,7 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => (
       Already have an account?
       <Button
         variant="link"
-        onClick={() => handler('login')}
+        onClick={() => handler?.('login')}
       >
         Login here
       </Button>

@@ -1,6 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
 
-export type ModalProps = {
-    modal?     : string;
-    handler    : Dispatch<SetStateAction<string>>;
+type ModalProps = {
+    modal?  : string;
+    handler? : Dispatch<SetStateAction<string>>;
 }
+
+export default ModalProps;
