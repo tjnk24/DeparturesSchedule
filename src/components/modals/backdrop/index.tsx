@@ -38,7 +38,7 @@ const Backdrop: FC<BackdropProps> = ({ modal, handler, children }) => {
       )}
       role="link"
       tabIndex={-1}
-      onClick={closeHandler}
+      onMouseDown={closeHandler}
       onKeyPress={closeHandler}
     >
       {childrenWithProps}

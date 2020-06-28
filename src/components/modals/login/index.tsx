@@ -48,7 +48,10 @@ const Login: FC<ModalProps> = ({ modal, handler }) => (
                 </Button>
               </Form.Group>
 
-              <Button type="submit" className={cn('login-button')}>
+              <Button
+                type="submit"
+                className={cn('login-button')}
+              >
                     Log me in!
               </Button>
             </Form>
