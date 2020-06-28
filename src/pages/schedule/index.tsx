@@ -18,6 +18,7 @@ import path from '@utils/api';
 import { MixedValueTypes } from '@apptypes/components';
 
 import classnames from 'classnames/bind';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import style from './style.scss';
 
 const cn = classnames.bind(style);
@@ -31,6 +32,7 @@ const Schedule: FC = (): JSX.Element => {
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
   const [screenIndex, setScreenIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     !appPropsState.flagsImages && fetchProps(dispatch, path.images.countryFlags);
@@ -67,48 +69,64 @@ const Schedule: FC = (): JSX.Element => {
     ),
   );
 
+  const preloader = (
+    <div className={cn('preloader-wrap')}>
+      <Spinner animation="border" />
+    </div>
+  );
+
   const screenClasses = {
     enter: cn('screen-enter'),
     enterDone: cn('screen-enter'),
   };
 
   return (
-    <div className={cn('schedule')}>
-      <Link to="/">
-        <Button variant="link">
-          Edit schedule
-        </Button>
-      </Link>
-      <Transition in={scheduleIn} timeout={1500} onEntered={() => setScreenIn(true)}>
-        <div
-          className={cn('screenwrap')}
-        >
-          <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
-            <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
-              <div className={cn('screen__heading')}>
-                <div>Country</div>
-                <div>Gate</div>
-                <div>Time remaining</div>
-              </div>
-              <div className={cn('screen__schedule-wrap')}>
-                {screens.length
-                  ? screens.map((screen, index) => (
-                    <div
-                      key={screen[0].id as number}
-                      className={cn('screen__schedule-item',
-                        index === screenIndex && 'screen__schedule-item-visible',
-                        screens.length > 1 && 'screen__schedule-item-multiple')}
-                    >
-                      { appPropsState.flagsImages && mapScreen(screen) }
-                    </div>
-                  ))
-                  : null}
-              </div>
-            </div>
-          </CSSTransition>
+    <>
+      {loading ? preloader : null}
+      <div className={cn('schedule')}>
+        <div className={cn('schedule__background')}>
+          <img
+            src={require('./img/bg.jpg')}
+            alt="background"
+            onLoad={() => setLoading(false)}
+          />
         </div>
-      </Transition>
-    </div>
+        <Link to="/">
+          <Button variant="link">
+          Edit schedule
+          </Button>
+        </Link>
+        <Transition in={scheduleIn} timeout={1500} onEntered={() => setScreenIn(true)}>
+          <div
+            className={cn('screenwrap')}
+          >
+            <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
+              <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
+                <div className={cn('screen__heading')}>
+                  <div>Country</div>
+                  <div>Gate</div>
+                  <div>Time remaining</div>
+                </div>
+                <div className={cn('screen__schedule-wrap')}>
+                  {screens.length
+                    ? screens.map((screen, index) => (
+                      <div
+                        key={screen[0].id as number}
+                        className={cn('screen__schedule-item',
+                          index === screenIndex && 'screen__schedule-item-visible',
+                          screens.length > 1 && 'screen__schedule-item-multiple')}
+                      >
+                        { appPropsState.flagsImages && mapScreen(screen) }
+                      </div>
+                    ))
+                    : null}
+                </div>
+              </div>
+            </CSSTransition>
+          </div>
+        </Transition>
+      </div>
+    </>
   );
 };
 

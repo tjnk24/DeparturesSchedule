@@ -1,11 +1,43 @@
 :local {
+    .preloader-wrap {
+        background-color: #FFF;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        right: 0;
+        z-index: 2;
+    }
+
     .schedule {
         position: relative;
         height: calc(100% - 100px);
-        background: url(./img/bg.jpg) center no-repeat;
-        background-size: cover;
         display: flex;
         flex-direction: column;
+        overflow: hidden;
+
+        &__background {
+            position: fixed;
+            top: -44%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                min-width: 50%;
+                min-height: 50%;
+            }
+        }
 
         a {
             position: absolute;
@@ -34,6 +66,7 @@
         margin: auto;
         background-color: rgba(7, 8, 12, .9);
         animation: screen-in 1.5s ease-in-out;
+        z-index: 1;
 
         @media (max-width: 1240px) {
             width: 700px;
