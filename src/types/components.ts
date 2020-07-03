@@ -8,6 +8,9 @@ export type ValueTypes = {
     id        : number;
     isEditing : boolean;
 }
+type Forms = 'username' | 'email' | 'password' | 'repeatPassword';
+
+export type FormValidationTypes = Record<Forms, string>;
 
 export type AppPropsTypes = {
     countries   : string[];
@@ -33,7 +36,7 @@ export type InnerFormProps = {
   errors      : string | undefined;
 };
 
-export type formikInnerTypes = (
+export type FormikInnerTypes = (
   props: {
     values       : ValuesTypes;
     errors       : ValuesTypes;
@@ -45,6 +48,7 @@ export type formikInnerTypes = (
 
 export type FormValidatorProps = {
   inputs   : string[];
+  action?   : (payload: FormValidationTypes) => void;
   children : (
     props: {
       inputProps  : { [key: string]: InnerFormProps };

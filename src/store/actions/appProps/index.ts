@@ -1,7 +1,5 @@
-import { AxiosResponse } from 'axios';
-import axios from '@utils/axios';
+import { database } from '@utils/firebase';
 
-import { AppPropsTypes } from '@apptypes/components';
 import {
   FetchPropsStartTypes,
   FetchPropsSuccessTypes,
@@ -32,8 +30,12 @@ const fetchPropsError: FetchPropsErrorTypes = (error) => ({
 const fetchProps: FetchPropsTypes = async (dispatch, path)  => {
   dispatch(fetchPropsStart());
   try {
-    const appProps: AxiosResponse<AppPropsTypes> = await axios.get(path);
-    dispatch(fetchPropsSuccess(appProps.data));
+    await database
+      .ref(path)
+      .once('value')
+      .then((snapshot) => {
+        dispatch(fetchPropsSuccess(snapshot.val()));
+      });
   } catch (error) {
     dispatch(fetchPropsError(error));
 

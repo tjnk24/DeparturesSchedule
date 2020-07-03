@@ -3,21 +3,22 @@ import { Formik } from 'formik';
 import capitalize from '@utils/capitalize';
 
 import {
-  formikInnerTypes,
+  FormikInnerTypes,
   InnerFormProps,
   FormValidatorProps,
+  FormValidationTypes,
 } from '@apptypes/components';
 
 import makeSchema from './make-schema';
 
-
 const FormValidator: FC<FormValidatorProps> = ({
   inputs,
+  action,
   children,
 }) => {
   const schema = makeSchema(inputs);
 
-  const formikInner: formikInnerTypes = ({
+  const formikInner: FormikInnerTypes = ({
     values,
     errors,
     handleChange,
@@ -65,14 +66,14 @@ const FormValidator: FC<FormValidatorProps> = ({
 
   return (
     <Formik
-      onSubmit={console.log}
+      onSubmit={action || console.log}
       validationSchema={schema}
       initialValues={
         inputs.reduce((current, item) => {
-          const tempCurrent: { [key: string] : string } = current;
+          const tempCurrent: { [key: string] : string } & FormValidationTypes = current;
           tempCurrent[item] = '';
           return tempCurrent;
-        }, {})
+        }, {} as FormValidationTypes)
       }
     >
       {formikInner}

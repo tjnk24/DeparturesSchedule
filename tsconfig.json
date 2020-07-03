@@ -1,28 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "ES6",
       "dom",
     ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
     "outDir": "./build/",
     "sourceMap": true,
     "types": ["node"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
-    "esModuleInterop": true,
-    "module": "commonjs",
-    "moduleResolution": "Node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "jsx": "react",
+    "baseUrl": ".",
     "paths": {
-        "@components/*": ["src/components/*"],
-        "@pages/*": ["src/pages/*"],
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
         "@store/*": ["src/store/*"],
         "@apptypes/*": ["src/types/*"],
         "@utils/*": ["src/utils/*"],
@@ -37,5 +38,4 @@
     "**/*.tsx",
     "src/index.tsx"
   ],
-
 }

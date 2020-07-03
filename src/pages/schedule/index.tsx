@@ -13,7 +13,7 @@ import chunk from 'lodash.chunk';
 import { Context } from '@store/provider';
 import fetchProps from '@store/actions/appProps';
 
-import path from '@utils/api';
+import api from '@utils/api';
 
 import { MixedValueTypes } from '@apptypes/components';
 
@@ -35,7 +35,7 @@ const Schedule: FC = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    !appPropsState.flagsImages && fetchProps(dispatch, path.images.countryFlags);
+    !appPropsState.flagsImages && fetchProps(dispatch, api.images.countryFlags);
 
     setScheduleIn(true);
   }, []);
