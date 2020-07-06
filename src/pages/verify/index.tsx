@@ -17,13 +17,14 @@ const Verify: FC<VerifyProps> = ({ modalHandler, successHandler }): JSX.Element 
       auth.applyActionCode(actionCode)
         .then(() => {
           successHandler(true);
+          modalHandler('email-verify-check');
+          setParsingQueryString(true);
         })
         .catch(() => {
           successHandler(false);
+          modalHandler('email-verify-check');
+          setParsingQueryString(true);
         });
-
-      setParsingQueryString(true);
-      modalHandler('email-verify-check');
     }
   }, []);
 
