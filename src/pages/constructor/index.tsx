@@ -1,4 +1,5 @@
 import React, { FC, useContext } from 'react';
+import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import Spinner from 'react-bootstrap/esm/Spinner';
@@ -9,7 +10,6 @@ import { Context } from '@store/provider';
 
 import { ValueTypes } from '@apptypes/components';
 
-import classnames from 'classnames/bind';
 import style from './style.scss';
 
 const cn = classnames.bind(style);

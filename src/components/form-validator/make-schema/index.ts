@@ -13,6 +13,7 @@ const YupShape: YupShapeTypes = {
     .required('please, enter your email'),
   password: Yup.string()
     .trim()
+    .min(6)
     .required('please, enter your password'),
   repeatPassword: Yup.string()
     .oneOf([Yup.ref('password'), undefined], 'Passwords must match'),

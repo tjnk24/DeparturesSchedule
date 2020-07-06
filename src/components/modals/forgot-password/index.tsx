@@ -43,7 +43,7 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
                 <InnerForm {...email} />
               </Form.Group>
 
-              <Button onClick={() => handler?.('message')}>
+              <Button onClick={() => handler?.('message-email-sent')}>
               Send email
               </Button>
             </Form>

@@ -1,6 +1,6 @@
 export type RouterWrapProps = {
     path      : string;
-    exact?     : boolean;
+    exact?    : boolean;
     component : React.ElementType;
     layout    : React.ElementType;
 }

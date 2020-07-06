@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Formik } from 'formik';
-import capitalize from '@utils/capitalize';
+import { capitalize } from '@utils/helpers';
 
 import {
   FormikInnerTypes,

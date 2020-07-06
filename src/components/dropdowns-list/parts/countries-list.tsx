@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import capitalize from '@utils/capitalize';
+import { capitalize } from '@utils/helpers';
 import { CountriesListProps } from '../types';
 
 const CountriesList: FC<CountriesListProps> = ({ countries }) => (
