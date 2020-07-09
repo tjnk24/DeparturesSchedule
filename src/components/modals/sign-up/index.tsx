@@ -61,63 +61,46 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
           ]}
           action={signUp}
         >
-          {({ inputProps, handleSubmit }) => {
-            const {
-              username,
-              email,
-              password,
-              repeatPassword,
-            } = inputProps;
-
-            return (
-              <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group>
-                  <InnerForm {...username} />
-                </Form.Group>
-
-                <Form.Group>
-                  <InnerForm {...email} />
-                </Form.Group>
-
-                <Form.Group>
-                  <InnerForm {...password} />
-                </Form.Group>
-
-                <Form.Group>
-                  <InnerForm {...repeatPassword} />
-                </Form.Group>
+          {({ inputProps, handleSubmit }) => (
+            <Form noValidate onSubmit={handleSubmit}>
+              {
+                Object.keys(inputProps).map((key) => (
+                  <Form.Group key={key}>
+                    <InnerForm {...inputProps[key]} />
+                  </Form.Group>
+                ))
+              }
+              {
+                errorMessage !== ''
+                && (
+                  <Form.Group>
+                    <Form.Text className={cn('error-message')}>
+                      { errorMessage }
+                    </Form.Text>
+                  </Form.Group>
+                )
+              }
+              <Button
+                type="submit"
+                className={cn('sign-up-button')}
+                disabled={buttonDisabled}
+              >
                 {
-                  errorMessage !== ''
-                  && (
-                    <Form.Group>
-                      <Form.Text className={cn('error-message')}>
-                        { errorMessage }
-                      </Form.Text>
-                    </Form.Group>
-                  )
+                  buttonDisabled
+                    ? (
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                    )
+                    : 'Sign up!'
                 }
-                <Button
-                  type="submit"
-                  className={cn('sign-up-button')}
-                  disabled={buttonDisabled}
-                >
-                  {
-                    buttonDisabled
-                      ? (
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                        />
-                      )
-                      : 'Sign up!'
-                  }
-                </Button>
-              </Form>
-            );
-          }}
+              </Button>
+            </Form>
+          )}
         </FormValidator>
       </Modal.Body>
       <Modal.Footer>

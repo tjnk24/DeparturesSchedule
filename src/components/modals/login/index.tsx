@@ -3,6 +3,7 @@ import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import FormValidator from '@components/form-validator';
 import { auth } from '@utils/firebase';
 import { FormValidationTypes } from '@apptypes/components';
@@ -17,12 +18,20 @@ const cn = classnames.bind(style);
 
 const Login: FC<ModalProps> = ({ modal, handler }) => {
   const [errorMessage, setErrorMessage] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
   const login = async (payload: FormValidationTypes) => {
+    setButtonDisabled(true);
+
     await auth
       .signInWithEmailAndPassword(payload.email, payload.password)
+      .then(() => {
+        handler?.('');
+        setButtonDisabled(false);
+      })
       .catch((error) => {
         setErrorMessage(error.message);
+        setButtonDisabled(false);
       });
   };
 
@@ -59,7 +68,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
                     className={cn('forgot-password-button')}
                     onClick={() => handler?.('forgot-password')}
                   >
-                  Forgot your password?
+                    Forgot your password?
                   </Button>
                 </Form.Group>
                 {
@@ -75,8 +84,21 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
                 <Button
                   type="submit"
                   className={cn('login-button')}
+                  disabled={buttonDisabled}
                 >
-                Log me in!
+                  {
+                    buttonDisabled
+                      ? (
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          size="sm"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                      )
+                      : 'Log me in!'
+                  }
                 </Button>
               </Form>
             );
@@ -89,7 +111,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
           variant="link"
           onClick={() => handler?.('sign-up')}
         >
-        Sign up
+          Sign up
         </Button>
       </Modal.Footer>
     </Modal>
