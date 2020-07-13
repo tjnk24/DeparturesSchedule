@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react';
 import classnames from 'classnames/bind';
 import Form from 'react-bootstrap/esm/Form';
-import { InnerFormProps } from '@apptypes/components';
+import { FormInnerProps } from '@apptypes/components';
 import { ShowPassIcon, HidePassIcon } from './icons';
 
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const InnerForm: FC<InnerFormProps> = ({
+const InnerForm: FC<FormInnerProps> = ({
   labelText,
   errors,
   type,

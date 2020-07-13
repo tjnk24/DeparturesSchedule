@@ -3,8 +3,9 @@ import { Formik } from 'formik';
 import { capitalize } from '@utils/helpers';
 
 import {
+  StringObjectType,
   FormikInnerTypes,
-  InnerFormProps,
+  FormInnerProps,
   FormValidatorProps,
   FormValidationTypes,
 } from '@apptypes/components';
@@ -14,9 +15,21 @@ import makeSchema from './make-schema';
 const FormValidator: FC<FormValidatorProps> = ({
   inputs,
   action,
+  startValues,
   children,
 }) => {
   const schema = makeSchema(inputs);
+
+  const getInitialValues = () => {
+    if (startValues) {
+      return startValues;
+    }
+    return inputs.reduce((current, item) => {
+      const tempCurrent: StringObjectType & FormValidationTypes = current;
+      tempCurrent[item] = '';
+      return tempCurrent;
+    }, {} as FormValidationTypes);
+  };
 
   const formikInner: FormikInnerTypes = ({
     values,
@@ -26,7 +39,7 @@ const FormValidator: FC<FormValidatorProps> = ({
     handleSubmit,
   }) => {
     const inputProps = inputs.reduce((current, item) => {
-      const tempCurrent: { [key: string] : InnerFormProps } = current;
+      const tempCurrent: { [key: string] : FormInnerProps } = current;
       tempCurrent[item] = {
         name         : item,
         placeholder  : `Enter ${item}`,
@@ -68,13 +81,7 @@ const FormValidator: FC<FormValidatorProps> = ({
     <Formik
       onSubmit={action || console.log}
       validationSchema={schema}
-      initialValues={
-        inputs.reduce((current, item) => {
-          const tempCurrent: { [key: string] : string } & FormValidationTypes = current;
-          tempCurrent[item] = '';
-          return tempCurrent;
-        }, {} as FormValidationTypes)
-      }
+      initialValues={getInitialValues()}
     >
       {formikInner}
     </Formik>

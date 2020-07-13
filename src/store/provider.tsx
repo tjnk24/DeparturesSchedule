@@ -18,7 +18,7 @@ export const Provider: FC = (props): JSX.Element => {
     fetchProps(dispatch, api.appProps);
 
     const listener = auth.onAuthStateChanged((user) => {
-      if (user && user.emailVerified) dispatch(authUserUpdate(user));
+      dispatch(authUserUpdate(user));
       console.log('provider', user);
     });
     return () => {

@@ -58,7 +58,7 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
               <Switch>
                 <RouteWrap path="/" exact layout={Layout} component={Constructor} />
                 <Route path="/schedule" component={Schedule} />
-                <RouteWrap path="/profile" component={Profile} layout={Layout} />
+                <Profile />
                 <Route path="/verify">
                   <Verify
                     modalHandler={setModal}

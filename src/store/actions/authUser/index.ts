@@ -12,6 +12,7 @@ export const authUserUpdate: authUserUpdateTypes = (user) => ({
   },
 });
 
+// TODO: это нужно?
 export const authUserRemove: authUserRemoveTypes = () => ({
   type: AUTH_USER_REMOVE,
   payload: {

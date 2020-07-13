@@ -1,4 +1,4 @@
-export type StringObjectType = { [index: string]: string }
+export type StringObjectType = { [key: string]: string }
 
 export type ValueTypes = {
     country   : string;
@@ -21,30 +21,29 @@ export type AppPropsTypes = {
 
 export type AuthUserTypes = {
     authUserLoaded : boolean;
-    user           : firebase.User;
+    user           : firebase.User | null;
 }
 
 export type PayloadType = { [index: string]: string | number | boolean }
 
 export type MixedValueTypes = ValueTypes | PayloadType;
 
-type ValuesTypes = { [key: string]: string }
-
-export type InnerFormProps = {
-  name        : string;
-  placeholder : string;
-  type        : string;
-  labelText   : string;
-  value       : string;
-  onChange    : (e: React.ChangeEvent<EventTarget & HTMLInputElement>) => void;
-  onBlur      : (e: React.FocusEvent<HTMLInputElement>) => void;
-  errors      : string | undefined;
+export type FormInnerProps = {
+  name          : string;
+  placeholder   : string;
+  type          : string;
+  labelText     : string;
+  value         : string;
+  onChange      : (e: React.ChangeEvent<EventTarget & HTMLInputElement>) => void;
+  onBlur        : (e: React.FocusEvent<HTMLInputElement>) => void;
+  errors        : string | undefined;
+  initvalue? : string;
 };
 
 export type FormikInnerTypes = (
   props: {
-    values       : ValuesTypes;
-    errors       : ValuesTypes;
+    values       : StringObjectType;
+    errors       : StringObjectType;
     handleChange : (e: React.ChangeEvent<EventTarget & HTMLInputElement>) => void;
     handleBlur   : (e: React.FocusEvent<HTMLInputElement>) => void;
     handleSubmit : (e: React.FormEvent<HTMLFormElement>) => void;
@@ -52,11 +51,12 @@ export type FormikInnerTypes = (
 ) => JSX.Element
 
 export type FormValidatorProps = {
-  inputs   : string[];
-  action?   : (payload: FormValidationTypes) => void;
-  children : (
+  inputs       : string[];
+  action?      : (payload: FormValidationTypes) => void;
+  startValues? : StringObjectType;
+  children     : (
     props: {
-      inputProps  : { [key: string]: InnerFormProps };
+      inputProps  : { [key: string]: FormInnerProps };
       handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     },
   ) => React.ReactElement;

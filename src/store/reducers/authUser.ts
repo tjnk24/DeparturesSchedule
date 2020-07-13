@@ -16,6 +16,7 @@ export const authUserReducer: authUserReducerTypes = (state, action) => {
         ...state,
         ...action.payload,
       };
+    // TODO: это нужно?
     case AUTH_USER_REMOVE:
       return {
         ...state,

@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Form from 'react-bootstrap/esm/Form';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 
-import { InnerFormProps } from '@apptypes/components';
+import { FormInnerProps } from '@apptypes/components';
 
-const InnerForm: FC<InnerFormProps> = ({
+const FormInner: FC<FormInnerProps> = ({
   labelText,
   errors,
   ...rest
@@ -27,4 +27,4 @@ const InnerForm: FC<InnerFormProps> = ({
   </Form.Group>
 );
 
-export default InnerForm;
+export default FormInner;

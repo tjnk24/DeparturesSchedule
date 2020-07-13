@@ -1,6 +1,6 @@
-import { InnerFormProps } from '@apptypes/components';
+import { FormInnerProps } from '@apptypes/components';
 
 export type PasswordBlockProps = {
-    password: InnerFormProps;
-    repeatPassword: InnerFormProps;
+    password: FormInnerProps;
+    repeatPassword: FormInnerProps;
 };

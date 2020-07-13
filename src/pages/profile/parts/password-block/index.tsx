@@ -25,7 +25,7 @@ const PasswordBlock: FC<PasswordBlockProps> = ({
   } = repeatPassword;
 
   delete restRepeat.labelText;
-
+  // TODO: выключить валидацию на пустой пароль для этого поля
   return (
     <>
       <Form.Group as={Row}>

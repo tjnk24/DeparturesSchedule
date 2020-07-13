@@ -29,8 +29,6 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
         console.log('login response', response);
         const emailVerified = response.user?.emailVerified;
 
-        // если есть объект user и если emailVerified === true то дать доступ,
-        // если оба требования не выполнены, то не давать доступ никуда
         emailVerified
           ? handler?.('')
           : setErrorMessage('Please, verify your email first.');
