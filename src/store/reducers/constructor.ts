@@ -8,7 +8,7 @@ import { ConstructorReducerTypes } from '@apptypes/store';
 
 let schedule: MixedValueTypes[] = [];
 
-const constructorReducer: ConstructorReducerTypes = (state, action) => {
+export const constructorReducer: ConstructorReducerTypes = (state, action) => {
   switch (action.type) {
     case ADD_LIST_ITEM:
       schedule = [
@@ -53,6 +53,4 @@ const constructorReducer: ConstructorReducerTypes = (state, action) => {
   }
 };
 
-const constructorLocalState = JSON.parse(localStorage.getItem('schedule') as string);
-
-export { constructorReducer, constructorLocalState };
+export const constructorLocalState = JSON.parse(localStorage.getItem('schedule') as string);

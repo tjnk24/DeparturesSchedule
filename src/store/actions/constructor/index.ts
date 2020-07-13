@@ -7,7 +7,7 @@ import {
 
 import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '../constants';
 
-const addListItem: addListItemTypes = (values) => ({
+export const addListItem: addListItemTypes = (values) => ({
   type: ADD_LIST_ITEM,
   payload: {
     ...values,
@@ -15,7 +15,7 @@ const addListItem: addListItemTypes = (values) => ({
   },
 });
 
-const updateListItem: updateListItemTypes = (id, updatePayload) => ({
+export const updateListItem: updateListItemTypes = (id, updatePayload) => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     id,
@@ -23,22 +23,15 @@ const updateListItem: updateListItemTypes = (id, updatePayload) => ({
   },
 });
 
-const removeListItem: removeListItemTypes = (id) => ({
+export const removeListItem: removeListItemTypes = (id) => ({
   type: REMOVE_LIST_ITEM,
   payload: { id },
 });
 
-const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
+export const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     id,
     isEditing,
   },
 });
-
-export {
-  addListItem,
-  updateListItem,
-  removeListItem,
-  setItemEditing,
-};

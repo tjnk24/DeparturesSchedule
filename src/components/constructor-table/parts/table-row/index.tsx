@@ -4,7 +4,11 @@ import CountriesList from '@components/dropdowns-list/parts/countries-list';
 import GatesList from '@components/dropdowns-list/parts/gates-list';
 import TimeList from '@components/dropdowns-list/parts/time-list';
 
-import { updateListItem, removeListItem, setItemEditing } from '@store/actions/constructor';
+import {
+  updateListItem,
+  removeListItem,
+  setItemEditing,
+} from '@store/actions/constructor';
 
 import { Context } from '@store/provider';
 

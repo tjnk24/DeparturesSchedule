@@ -1,4 +1,4 @@
-import { MixedValueTypes, AppPropsTypes } from '@apptypes/components';
+import { MixedValueTypes, AppPropsTypes, AuthUserTypes } from '@apptypes/components';
 
 export type ActionType<T> = {
     type: string;
@@ -6,8 +6,9 @@ export type ActionType<T> = {
 }
 
 type StateType = {
-  constructorState: MixedValueTypes[];
-  appPropsState: AppPropsTypes;
+  constructorState : MixedValueTypes[];
+  appPropsState    : AppPropsTypes;
+  authUserState    : AuthUserTypes;
 }
 
 export type ConstructorReducerTypes = (
@@ -18,7 +19,12 @@ export type ConstructorReducerTypes = (
 export type appPropsReducerTypes = (
   state: AppPropsTypes,
   action: ActionType<AppPropsTypes>
-) => AppPropsTypes
+) => AppPropsTypes;
+
+export type authUserReducerTypes = (
+  state: AuthUserTypes,
+  action: ActionType<AuthUserTypes>
+) => AuthUserTypes;
 
 export type ContextTypes = {
   state: StateType;

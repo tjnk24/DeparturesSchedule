@@ -1,6 +1,5 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
 import {
-  BrowserRouter,
   Switch,
   Route,
   Redirect,
@@ -23,7 +22,7 @@ import SignUp from '@components/modals/sign-up';
 import Login from '@components/modals/login';
 import ForgotPassword from '@components/modals/forgot-password';
 
-import { Provider } from '@store/provider';
+import { Context } from '@store/provider';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';
@@ -32,6 +31,9 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const App: FC<RouteComponentProps> = (): JSX.Element => {
+  const { state } = useContext(Context);
+  const { authUserLoaded } = state.authUserState;
+
   const [modal, setModal] = useState('');
   const [emailCheckSuccess, setEmailCheckSuccess] = useState(false);
 
@@ -47,25 +49,28 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
 
   return (
     <>
-      { setModals }
-      <BrowserRouter>
-        <Provider>
-          <Header handler={setModal} />
-          <Switch>
-            <RouteWrap path="/" exact layout={Layout} component={Constructor} />
-            <Route path="/schedule" component={Schedule} />
-            <RouteWrap path="/profile" component={Profile} layout={Layout} />
-            <Route path="/verify">
-              <Verify
-                modalHandler={setModal}
-                successHandler={setEmailCheckSuccess}
-              />
-            </Route>
-            <Redirect exact from="/" to="/constructor" />
-            <Redirect to="/" />
-          </Switch>
-        </Provider>
-      </BrowserRouter>
+      {
+        authUserLoaded
+          ? (
+            <>
+              { setModals }
+              <Header handler={setModal} />
+              <Switch>
+                <RouteWrap path="/" exact layout={Layout} component={Constructor} />
+                <Route path="/schedule" component={Schedule} />
+                <RouteWrap path="/profile" component={Profile} layout={Layout} />
+                <Route path="/verify">
+                  <Verify
+                    modalHandler={setModal}
+                    successHandler={setEmailCheckSuccess}
+                  />
+                </Route>
+                <Redirect exact from="/" to="/constructor" />
+                <Redirect to="/" />
+              </Switch>
+            </>
+          ) : null
+      }
     </>
   );
 };

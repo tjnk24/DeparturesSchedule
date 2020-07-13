@@ -25,8 +25,16 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
 
     await auth
       .signInWithEmailAndPassword(payload.email, payload.password)
-      .then(() => {
-        handler?.('');
+      .then((response) => {
+        console.log('login response', response);
+        const emailVerified = response.user?.emailVerified;
+
+        // если есть объект user и если emailVerified === true то дать доступ,
+        // если оба требования не выполнены, то не давать доступ никуда
+        emailVerified
+          ? handler?.('')
+          : setErrorMessage('Please, verify your email first.');
+
         setButtonDisabled(false);
       })
       .catch((error) => {

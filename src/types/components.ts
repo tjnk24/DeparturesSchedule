@@ -19,6 +19,11 @@ export type AppPropsTypes = {
     loading     : boolean;
 }
 
+export type AuthUserTypes = {
+    authUserLoaded : boolean;
+    user           : firebase.User;
+}
+
 export type PayloadType = { [index: string]: string | number | boolean }
 
 export type MixedValueTypes = ValueTypes | PayloadType;
