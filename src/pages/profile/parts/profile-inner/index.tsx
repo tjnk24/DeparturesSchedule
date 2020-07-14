@@ -37,6 +37,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
           username: displayName,
           email: userEmail,
         }}
+        requirePassword={false}
       >
         {({ inputProps, handleSubmit }) => {
           const {

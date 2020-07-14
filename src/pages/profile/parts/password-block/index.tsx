@@ -21,11 +21,11 @@ const PasswordBlock: FC<PasswordBlockProps> = ({
 
   const {
     errors: errorsRepeat,
-    ...restRepeat
+    ...restRepeatPassword
   } = repeatPassword;
 
-  delete restRepeat.labelText;
-  // TODO: выключить валидацию на пустой пароль для этого поля
+  delete restRepeatPassword.labelText;
+
   return (
     <>
       <Form.Group as={Row}>
@@ -60,7 +60,7 @@ const PasswordBlock: FC<PasswordBlockProps> = ({
           <Form.Group as={Row}>
             <Col sm={{ span: 10, offset: 2 }}>
               <Form.Control
-                {...restRepeat}
+                {...restRepeatPassword}
                 isInvalid={!!errorsRepeat}
                 required
               />

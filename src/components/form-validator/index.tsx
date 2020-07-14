@@ -16,19 +16,26 @@ const FormValidator: FC<FormValidatorProps> = ({
   inputs,
   action,
   startValues,
+  requirePassword,
   children,
 }) => {
-  const schema = makeSchema(inputs);
+  const schema = makeSchema(inputs, requirePassword);
 
   const getInitialValues = () => {
-    if (startValues) {
-      return startValues;
-    }
-    return inputs.reduce((current, item) => {
+    let tempInputs = inputs.reduce((current, item) => {
       const tempCurrent: StringObjectType & FormValidationTypes = current;
       tempCurrent[item] = '';
       return tempCurrent;
     }, {} as FormValidationTypes);
+
+    if (startValues) {
+      tempInputs = {
+        ...tempInputs,
+        ...startValues,
+      };
+    }
+
+    return tempInputs;
   };
 
   const formikInner: FormikInnerTypes = ({
@@ -41,14 +48,14 @@ const FormValidator: FC<FormValidatorProps> = ({
     const inputProps = inputs.reduce((current, item) => {
       const tempCurrent: { [key: string] : FormInnerProps } = current;
       tempCurrent[item] = {
-        name         : item,
-        placeholder  : `Enter ${item}`,
-        type         : 'text',
-        labelText    : capitalize(item),
-        value        : values[item],
-        errors       : errors[item],
-        onChange     : handleChange,
-        onBlur       : handleBlur,
+        name        : item,
+        placeholder : `Enter ${item}`,
+        type        : 'text',
+        labelText   : capitalize(item),
+        value       : values[item],
+        errors      : errors[item],
+        onChange    : handleChange,
+        onBlur      : handleBlur,
       };
 
       if (item === 'password') {

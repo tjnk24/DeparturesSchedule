@@ -51,10 +51,11 @@ export type FormikInnerTypes = (
 ) => JSX.Element
 
 export type FormValidatorProps = {
-  inputs       : string[];
-  action?      : (payload: FormValidationTypes) => void;
-  startValues? : StringObjectType;
-  children     : (
+  inputs           : string[];
+  action?          : (payload: FormValidationTypes) => void;
+  startValues?     : StringObjectType;
+  requirePassword? : boolean;
+  children         : (
     props: {
       inputProps  : { [key: string]: FormInnerProps };
       handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;

@@ -1,7 +1,14 @@
 import * as Yup from 'yup';
 
-export type YupShapeTypes = { [key: string] : Yup.StringSchema<string | undefined> }
+type YupSchemaType = Yup.StringSchema<string | undefined>
+
+export type YupPasswordType = ((isRequired: boolean | undefined) => YupSchemaType);
+
+export type YupShapeTypes = {
+  [key: string] : YupSchemaType | YupPasswordType;
+}
 
 export type SchemaTypes = (
-  inputs: string[]
+  inputs          : string[],
+  requierPassword : boolean | undefined
 ) => Yup.ObjectSchema<Record<string, unknown> | undefined>
