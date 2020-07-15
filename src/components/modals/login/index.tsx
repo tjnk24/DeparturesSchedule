@@ -3,11 +3,11 @@ import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
-import Spinner from 'react-bootstrap/esm/Spinner';
 import FormValidator from '@components/form-validator';
 import { auth } from '@utils/firebase';
 import { FormValidationTypes } from '@apptypes/components';
 
+import SubmitButton from '@components/submit-button';
 import InnerForm from '../inner-form';
 
 import ModalProps from '../types';
@@ -26,7 +26,6 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
     await auth
       .signInWithEmailAndPassword(payload.email, payload.password)
       .then((response) => {
-        console.log('login response', response);
         const emailVerified = response.user?.emailVerified;
 
         emailVerified
@@ -87,25 +86,11 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
                     </Form.Group>
                   )
                 }
-                <Button
-                  type="submit"
-                  className={cn('login-button')}
+                <SubmitButton
                   disabled={buttonDisabled}
-                >
-                  {
-                    buttonDisabled
-                      ? (
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                        />
-                      )
-                      : 'Log me in!'
-                  }
-                </Button>
+                  customCss={() => cn('login-button')}
+                  innerText="Log me in!"
+                />
               </Form>
             );
           }}

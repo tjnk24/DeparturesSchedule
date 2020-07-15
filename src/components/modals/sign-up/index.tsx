@@ -4,8 +4,8 @@ import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
-import Spinner from 'react-bootstrap/esm/Spinner';
 import FormValidator from '@components/form-validator';
+import SubmitButton from '@components/submit-button';
 import { FormValidationTypes } from '@apptypes/components';
 import InnerForm from '../inner-form';
 
@@ -16,6 +16,7 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const SignUp: FC<ModalProps> = ({ modal, handler }) => {
+  // TODO: при анмаунте, если есть ошибка, она сохраняется
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -80,25 +81,11 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
                   </Form.Group>
                 )
               }
-              <Button
-                type="submit"
-                className={cn('sign-up-button')}
+              <SubmitButton
                 disabled={buttonDisabled}
-              >
-                {
-                  buttonDisabled
-                    ? (
-                      <Spinner
-                        as="span"
-                        animation="border"
-                        size="sm"
-                        role="status"
-                        aria-hidden="true"
-                      />
-                    )
-                    : 'Sign up!'
-                }
-              </Button>
+                customCss={() => cn('sign-up-button')}
+                innerText="Sign Up!"
+              />
             </Form>
           )}
         </FormValidator>

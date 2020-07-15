@@ -58,13 +58,13 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
               <Switch>
                 <RouteWrap path="/" exact layout={Layout} component={Constructor} />
                 <Route path="/schedule" component={Schedule} />
-                <Profile />
                 <Route path="/verify">
                   <Verify
                     modalHandler={setModal}
                     successHandler={setEmailCheckSuccess}
                   />
                 </Route>
+                <Profile />
                 <Redirect exact from="/" to="/constructor" />
                 <Redirect to="/" />
               </Switch>

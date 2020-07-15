@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Formik } from 'formik';
+import { Formik, yupToFormErrors, validateYupSchema } from 'formik';
 import { capitalize } from '@utils/helpers';
 
 import {
@@ -11,6 +11,7 @@ import {
 } from '@apptypes/components';
 
 import makeSchema from './make-schema';
+import { ValidateHandlerTypes } from './types';
 
 const FormValidator: FC<FormValidatorProps> = ({
   inputs,
@@ -36,6 +37,15 @@ const FormValidator: FC<FormValidatorProps> = ({
     }
 
     return tempInputs;
+  };
+
+  const validate = (values: ValidateHandlerTypes) => {
+    try {
+      validateYupSchema<ValidateHandlerTypes>(values, schema, true, { requirePassword });
+    } catch (err) {
+      return yupToFormErrors(err);
+    }
+    return {};
   };
 
   const formikInner: FormikInnerTypes = ({
@@ -87,8 +97,9 @@ const FormValidator: FC<FormValidatorProps> = ({
   return (
     <Formik
       onSubmit={action || console.log}
-      validationSchema={schema}
       initialValues={getInitialValues()}
+      // validationSchema={schema}
+      validate={validate}
     >
       {formikInner}
     </Formik>
