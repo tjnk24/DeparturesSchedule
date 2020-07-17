@@ -11,8 +11,7 @@ export type YupShapeTypes = {
 }
 
 export type SchemaTypes = (
-  inputs          : string[],
-  requierPassword : boolean | undefined
+  inputs: string[]
 ) => Yup.ObjectSchema<Record<string, unknown> | undefined>
 
 export type ValidateHandlerTypes = { [key: string ]: string }

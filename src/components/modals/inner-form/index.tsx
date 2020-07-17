@@ -9,7 +9,7 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const InnerForm: FC<FormInnerProps> = ({
-  labelText,
+  labeltext: labelText,
   errors,
   type,
   ...rest

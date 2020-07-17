@@ -14,7 +14,7 @@ const PasswordBlock: FC<PasswordBlockProps> = ({
   const [changePass, setChangePass] = useState(false);
 
   const {
-    labelText : textPassword,
+    labeltext : textPassword,
     errors    : errorsPassword,
     ...restPassword
   } = password;
@@ -24,7 +24,7 @@ const PasswordBlock: FC<PasswordBlockProps> = ({
     ...restRepeatPassword
   } = repeatPassword;
 
-  delete restRepeatPassword.labelText;
+  delete restRepeatPassword.labeltext;
 
   return (
     <>

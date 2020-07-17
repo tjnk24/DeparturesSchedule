@@ -6,11 +6,19 @@
     }
 
     .profile-form {
-        max-width: 600px;
+        min-width: 600px;
+        max-width: 1024px;
         margin: 30px auto;
 
-        > div {
-            margin-bottom: 2rem;
+        > form {
+            // display: flex;
+            // margin-bottom: 2rem;
+
+            > div {}
+
+            button {
+                width: 100%;
+            }
         }
     }
 }

@@ -32,7 +32,7 @@ export type FormInnerProps = {
   name          : string;
   placeholder   : string;
   type          : string;
-  labelText     : string;
+  labeltext     : string;
   value         : string;
   onChange      : (e: React.ChangeEvent<EventTarget & HTMLInputElement>) => void;
   onBlur        : (e: React.FocusEvent<HTMLInputElement>) => void;

@@ -20,7 +20,8 @@ const FormValidator: FC<FormValidatorProps> = ({
   requirePassword,
   children,
 }) => {
-  const schema = makeSchema(inputs, requirePassword);
+
+  const schema = makeSchema(inputs);
 
   const getInitialValues = () => {
     let tempInputs = inputs.reduce((current, item) => {
@@ -35,18 +36,22 @@ const FormValidator: FC<FormValidatorProps> = ({
         ...startValues,
       };
     }
-
     return tempInputs;
   };
 
-  const validate = (values: ValidateHandlerTypes) => {
-    try {
-      validateYupSchema<ValidateHandlerTypes>(values, schema, true, { requirePassword });
-    } catch (err) {
-      return yupToFormErrors(err);
-    }
-    return {};
-  };
+  // const validate = (values: ValidateHandlerTypes) => {
+  //   try {
+  //     validateYupSchema<ValidateHandlerTypes>(
+  //       values,
+  //       schema,
+  //       true,
+  //       { paswordRequired: requirePassword },
+  //     );
+  //   } catch (err) {
+  //     return yupToFormErrors(err);
+  //   }
+  //   return {};
+  // };
 
   const formikInner: FormikInnerTypes = ({
     values,
@@ -61,7 +66,7 @@ const FormValidator: FC<FormValidatorProps> = ({
         name        : item,
         placeholder : `Enter ${item}`,
         type        : 'text',
-        labelText   : capitalize(item),
+        labeltext   : capitalize(item),
         value       : values[item],
         errors      : errors[item],
         onChange    : handleChange,
@@ -80,7 +85,7 @@ const FormValidator: FC<FormValidatorProps> = ({
           ...tempCurrent[item],
           placeholder  : 'Repeat password',
           type         : 'password',
-          labelText    : 'Repeat password',
+          labeltext    : 'Repeat password',
         };
       }
 
@@ -98,8 +103,7 @@ const FormValidator: FC<FormValidatorProps> = ({
     <Formik
       onSubmit={action || console.log}
       initialValues={getInitialValues()}
-      // validationSchema={schema}
-      validate={validate}
+      validationSchema={schema}
     >
       {formikInner}
     </Formik>

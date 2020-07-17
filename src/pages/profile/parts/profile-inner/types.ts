@@ -1,3 +1,6 @@
+import { Dispatch, SetStateAction } from 'react';
+import { FormValidationTypes } from '@apptypes/components';
+
 export type ProfileInnerProps = {
     componentProps : {
         displayName : string;
@@ -11,3 +14,8 @@ export type updateProfileTypes = {
     password       : string | null;
     repeatPassword : string | null;
 }
+
+export type SubmitHandlerTypes = (
+    payload        : FormValidationTypes,
+    messageHandler : Dispatch<SetStateAction<string>>,
+) => void;
