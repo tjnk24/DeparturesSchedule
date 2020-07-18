@@ -18,4 +18,5 @@ export type updateProfileTypes = {
 export type SubmitHandlerTypes = (
     payload        : FormValidationTypes,
     messageHandler : Dispatch<SetStateAction<string>>,
+    editingHandler : Dispatch<SetStateAction<boolean>>
 ) => void;

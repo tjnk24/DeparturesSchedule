@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Formik, yupToFormErrors, validateYupSchema } from 'formik';
+import { Formik } from 'formik';
 import { capitalize } from '@utils/helpers';
 
 import {
@@ -11,16 +11,13 @@ import {
 } from '@apptypes/components';
 
 import makeSchema from './make-schema';
-import { ValidateHandlerTypes } from './types';
 
 const FormValidator: FC<FormValidatorProps> = ({
   inputs,
   action,
   startValues,
-  requirePassword,
   children,
 }) => {
-
   const schema = makeSchema(inputs);
 
   const getInitialValues = () => {

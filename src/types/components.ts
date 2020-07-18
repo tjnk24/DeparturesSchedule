@@ -10,7 +10,7 @@ export type ValueTypes = {
 }
 type Forms = 'username' | 'email' | 'password' | 'repeatPassword';
 
-export type FormValidationTypes = Record<Forms, string>;
+export type FormValidationTypes = { [key: string]: string };
 
 export type AppPropsTypes = {
     countries   : string[];

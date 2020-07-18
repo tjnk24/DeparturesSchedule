@@ -69,7 +69,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
   //   }
   // };
 
-  const updateUsername: SubmitHandlerTypes = (payload, messageHandler) => {
+  const updateUsername: SubmitHandlerTypes = (payload, messageHandler, editingHandler) => {
     setButtonsDisabled(true);
     const user = auth.currentUser;
 
@@ -79,14 +79,16 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
       })
       .then(() => {
         setButtonsDisabled(false);
+        editingHandler(false);
         messageHandler('Your username successfully updated!');
       })
       .catch((error) => {
+        editingHandler(false);
         messageHandler(error.handler);
       });
   };
 
-  const updateEmail: SubmitHandlerTypes = (payload, messageHandler) => {
+  const updateEmail: SubmitHandlerTypes = (payload, messageHandler, editingHandler) => {
     setButtonsDisabled(true);
     const user = auth.currentUser;
 
@@ -94,10 +96,13 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
       ?.updateEmail(payload.email)
       .then(() => {
         setButtonsDisabled(false);
+        editingHandler(false);
         messageHandler('We sent an email message to specified address, please verify your new email to proceed using this site.');
       })
       .catch((error) => {
-        messageHandler(error.handler);
+        setButtonsDisabled(false);
+        editingHandler(false);
+        messageHandler(error.message);
       });
   };
 
@@ -118,12 +123,13 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
           }}
         />
         <FormBlock
+          reauth
           type="email"
           action={updateEmail}
           disabled={buttonsDisabled}
-          startValue={{
-            email,
-          }}
+          startValue={{ email }}
+          startMessage="We'll need you to enter your
+          login and password again for this operation."
         />
         {/* <PasswordBlock
           password={password}
