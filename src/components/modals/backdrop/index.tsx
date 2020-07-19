@@ -9,7 +9,7 @@ import React, {
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import BackdropProps from './types';
+import { BackdropProps } from './types';
 
 const cn = classnames.bind(style);
 
@@ -26,7 +26,7 @@ const Backdrop: FC<BackdropProps> = ({ modal, handler, children }) => {
     const element = event.target as HTMLElement;
 
     element.className === 'fade modal show'
-    && handler('');
+    && handler({ route: '' });
   };
 
   return (
@@ -34,7 +34,7 @@ const Backdrop: FC<BackdropProps> = ({ modal, handler, children }) => {
       id="backdrop"
       className={cn(
         'backdrop',
-        (modal !== '' && 'backdrop-show'),
+        (modal.route !== '' && 'backdrop-show'),
       )}
       role="link"
       tabIndex={-1}

@@ -1,10 +1,10 @@
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '@utils/firebase';
+import { auth, emailAuthProvider } from '@utils/firebase';
 import Button from 'react-bootstrap/esm/Button';
 import classnames from 'classnames/bind';
 
-import { ProfileInnerProps, SubmitHandlerTypes } from './types';
+import { ProfileInnerProps, SubmitActionTypes } from './types';
 
 import FormBlock from '../form-block';
 import PasswordBlock from '../password-block';
@@ -69,13 +69,15 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
   //   }
   // };
 
-  const updateUsername: SubmitHandlerTypes = (payload, messageHandler, editingHandler) => {
+  const updateUsername: SubmitActionTypes = (formPayload, messageHandler, editingHandler) => {
     setButtonsDisabled(true);
     const user = auth.currentUser;
 
+    console.log(formPayload);
+
     user
       ?.updateProfile({
-        displayName: payload.username,
+        displayName: formPayload.username,
       })
       .then(() => {
         setButtonsDisabled(false);
@@ -88,22 +90,57 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
       });
   };
 
-  const updateEmail: SubmitHandlerTypes = (payload, messageHandler, editingHandler) => {
+  const updateEmail: SubmitActionTypes = (
+    formPayload,
+    messageHandler,
+    editingHandler,
+    popoverHandler,
+    popoverPayload,
+  ) => {
     setButtonsDisabled(true);
     const user = auth.currentUser;
 
+    console.log(formPayload);
+    console.log(popoverPayload);
+
+    const credential = emailAuthProvider.credential(
+      user?.email as string,
+      popoverPayload?.password as string,
+    );
+
     user
-      ?.updateEmail(payload.email)
+      ?.reauthenticateWithCredential(credential)
       .then(() => {
-        setButtonsDisabled(false);
-        editingHandler(false);
-        messageHandler('We sent an email message to specified address, please verify your new email to proceed using this site.');
-      })
-      .catch((error) => {
-        setButtonsDisabled(false);
-        editingHandler(false);
-        messageHandler(error.message);
+        user.updateEmail(formPayload.email)
+          .then(() => {
+            // user.sendEmailVerification(); раскомментить позже
+            popoverHandler && popoverHandler(false);
+            setButtonsDisabled(false);
+            editingHandler(false);
+            // TODO: вынести все сообщения в отдельный файл
+            messageHandler('We sent an email message to your new email, please verify your new email to proceed using this site.');
+          })
+          .catch((error) => {
+            popoverHandler && popoverHandler(false);
+            setButtonsDisabled(false);
+            editingHandler(false);
+            messageHandler(error.message);
+          });
       });
+
+    // user
+    //   ?.updateEmail(payload.email)
+    //   .then(() => {
+    //     setButtonsDisabled(false);
+    //     editingHandler(false);
+    //     messageHandler('We sent an email message to specified address,
+    // please verify your new email to proceed using this site.');
+    //   })
+    //   .catch((error) => {
+    //     setButtonsDisabled(false);
+    //     editingHandler(false);
+    //     messageHandler(error.message);
+    //   });
   };
 
   return (
@@ -128,8 +165,8 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
           action={updateEmail}
           disabled={buttonsDisabled}
           startValue={{ email }}
-          startMessage="We'll need you to enter your
-          login and password again for this operation."
+          startMessage="We'll need you to re-enter your
+          password for this operation."
         />
         {/* <PasswordBlock
           password={password}

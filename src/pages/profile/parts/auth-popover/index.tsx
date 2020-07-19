@@ -8,30 +8,30 @@ import Overlay from 'react-bootstrap/esm/Overlay';
 
 import AuthPopoverProps from './types';
 
-const AuthPopover: FC<AuthPopoverProps> = ({ target, show }) => {
+const AuthPopover: FC<AuthPopoverProps> = ({
+  target,
+  show,
+  action,
+  disabled,
+}) => {
   const [errorMessage, seterrorMessage] = useState('');
 
   const popover = () => (
     <Popover
       id="popover-contained"
     >
-      <Popover.Title as="h3">Please, log in again</Popover.Title>
       <Popover.Content>
         <FormValidator
-          inputs={['email', 'password']}
+          inputs={['password']}
+          action={action}
         >
           {({ inputProps, handleSubmit }) => {
             const {
-              email,
               password,
             } = inputProps;
 
             return (
               <Form noValidate onSubmit={handleSubmit}>
-                <Form.Group>
-                  <InnerForm {...email} />
-                </Form.Group>
-
                 <Form.Group>
                   <InnerForm {...password} />
                 </Form.Group>
@@ -46,8 +46,9 @@ const AuthPopover: FC<AuthPopoverProps> = ({ target, show }) => {
                     )
                 }
                 <SubmitButton
-                  disabled={false}
-                  innerText="Log me in!"
+                  style={{ width: '100%' }}
+                  disabled={disabled}
+                  innerText="Submit"
                 />
               </Form>
             );

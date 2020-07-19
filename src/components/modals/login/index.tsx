@@ -13,6 +13,7 @@ import InnerForm from '../inner-form';
 import ModalProps from '../types';
 
 import style from './style.scss';
+import { LOGIN, FORGOT_PASS, SIGN_UP } from '../routes';
 
 const cn = classnames.bind(style);
 
@@ -29,7 +30,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
         const emailVerified = response.user?.emailVerified;
 
         emailVerified
-          ? handler?.('')
+          ? handler?.({ route: '' })
           : setErrorMessage('Please, verify your email first.');
 
         setButtonDisabled(false);
@@ -42,8 +43,8 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
 
   return (
     <Modal
-      show={modal === 'login'}
-      onHide={() => handler?.('')}
+      show={modal?.route === LOGIN}
+      onHide={() => handler?.({ route: '' })}
       backdrop={false}
     >
       <Modal.Header closeButton>
@@ -71,7 +72,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
                   <Button
                     variant="link"
                     className={cn('forgot-password-button')}
-                    onClick={() => handler?.('forgot-password')}
+                    onClick={() => handler?.({ route: FORGOT_PASS })}
                   >
                     Forgot your password?
                   </Button>
@@ -100,7 +101,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
         Not a member?
         <Button
           variant="link"
-          onClick={() => handler?.('sign-up')}
+          onClick={() => handler?.({ route: SIGN_UP })}
         >
           Sign up
         </Button>

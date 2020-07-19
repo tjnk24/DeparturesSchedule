@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react';
+import { ModalType } from '@components/modals/backdrop/types';
 
 type VerifyProps = {
-    modalHandler   : Dispatch<SetStateAction<string>>;
-    successHandler : Dispatch<SetStateAction<boolean>>;
+    modalHandler   : Dispatch<SetStateAction<ModalType>>;
 }
 
 export default VerifyProps;

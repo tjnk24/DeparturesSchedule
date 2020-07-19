@@ -9,6 +9,9 @@ const Profile: FC = () => {
   const { state } = useContext(Context);
   const { user } = state.authUserState;
 
+  console.log('profile', user);
+  console.log('emailVerified', user?.emailVerified);
+
   return (
     user && user?.emailVerified
       ? <RouteWrap path="/profile" component={ProfileInner} layout={Layout} componentProps={user} />

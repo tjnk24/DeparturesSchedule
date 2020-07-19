@@ -14,5 +14,6 @@ app.initializeApp(config);
 
 const database = app.database();
 const auth = app.auth();
+const emailAuthProvider = app.auth.EmailAuthProvider;
 
-export { database, auth };
+export { database, auth, emailAuthProvider };

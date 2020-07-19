@@ -1,9 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
 
-type BackdropProps = {
-    modal    : string;
-    handler  : Dispatch<SetStateAction<string>>;
+export type ModalType = {
+    route    : string;
+    message? : {
+        title       : string;
+        messageText : string;
+    };
+};
+
+export type BackdropProps = {
+    modal    : ModalType;
+    handler  : Dispatch<SetStateAction<ModalType>>;
     children : React.ReactElement[] | React.ReactElement;
 }
-
-export default BackdropProps;

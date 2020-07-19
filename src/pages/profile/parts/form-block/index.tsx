@@ -20,20 +20,33 @@ const FormBlock: FC<FormBlockProps> = ({
   reauth,
 }) => {
   const [editing, setEditing] = useState(false);
-  const [message, setMessage] = useState(startMessage || '');
+  const [message, setMessage] = useState('');
   const [showPopover, setShowPopover] = useState(false);
+  const [formPayload, setFormPayload] = useState({});
 
   const buttonRef = useRef<HTMLDivElement | null>(null);
 
   const submitAction = (payload: FormValidationTypes) => {
     const isSameValue = payload[type] === startValue[type];
 
-    if (!isSameValue) {
+    if (!isSameValue && !reauth) {
+      action(payload, setMessage, setEditing);
+    } else if (!isSameValue && reauth) {
+      setFormPayload(payload);
       setShowPopover(true);
-      // action(payload, setMessage, setEditing);
     } else {
       setMessage('Sorry, there is nothing to update.');
     }
+  };
+
+  const authSubmitAction = (popoverPayload: FormValidationTypes) => {
+    action(
+      formPayload,
+      setMessage,
+      setEditing,
+      setShowPopover,
+      popoverPayload,
+    );
   };
 
   return (
@@ -89,6 +102,8 @@ const FormBlock: FC<FormBlockProps> = ({
                           <AuthPopover
                             target={buttonRef}
                             show={showPopover}
+                            action={authSubmitAction}
+                            disabled={disabled}
                           />
                         )}
                       </>
@@ -96,7 +111,10 @@ const FormBlock: FC<FormBlockProps> = ({
                     : (
                       <Button
                         variant="secondary"
-                        onClick={() => setEditing(true)}
+                        onClick={() => {
+                          setEditing(true);
+                          setMessage(startMessage || '');
+                        }}
                       >
                         {`Change ${type}`}
                       </Button>

@@ -4,8 +4,14 @@ import Button from 'react-bootstrap/esm/Button';
 
 import SubmitButtonProps from './types';
 
-const SubmitButton: FC<SubmitButtonProps> = ({ customCss, disabled, innerText }) => (
+const SubmitButton: FC<SubmitButtonProps> = ({
+  style,
+  customCss,
+  disabled,
+  innerText,
+}) => (
   <Button
+    style={style}
     type="submit"
     className={customCss?.() || ''}
     disabled={disabled}

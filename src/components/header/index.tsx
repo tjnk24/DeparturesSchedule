@@ -8,6 +8,8 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Button from 'react-bootstrap/esm/Button';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
+import { LOGIN } from '@components/modals/routes';
+
 import HeaderProps from './types';
 
 import style from './style.scss';
@@ -21,7 +23,7 @@ const Header: FC<HeaderProps> = ({ handler }) => {
   const loginSignUpButton = (
     <Button
       variant="link"
-      onClick={() => handler('login')}
+      onClick={() => handler({ route: LOGIN })}
     >
       Login / Sign up
     </Button>
@@ -41,7 +43,7 @@ const Header: FC<HeaderProps> = ({ handler }) => {
       <h1 className={cn('header__title')}>Your airport schedule</h1>
       <div className={cn('header__buttons-wrap')}>
         {
-          user !== null
+          user !== null && user.emailVerified
             ? profileMenu
             : loginSignUpButton
         }

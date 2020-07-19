@@ -1,10 +1,10 @@
-import { SubmitHandlerTypes } from '../profile-inner/types';
+import { SubmitActionTypes } from '../profile-inner/types';
 
 type FormBlockProps = {
     type          : string;
     disabled      : boolean;
     startValue    : { [ key: string ]: string };
-    action        : SubmitHandlerTypes;
+    action        : SubmitActionTypes;
     startMessage? : string;
     reauth?       : boolean;
 }

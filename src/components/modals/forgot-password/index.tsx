@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import InnerForm from '../inner-form';
+import { FORGOT_PASS, LOGIN, SIGN_UP } from '../routes';
 
 import ModalProps from '../types';
 
@@ -16,8 +17,8 @@ const cn = classnames.bind(style);
 
 const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
   <Modal
-    show={modal === 'forgot-password'}
-    onHide={() => handler?.('')}
+    show={modal?.route === FORGOT_PASS}
+    onHide={() => handler?.({ route: '' })}
     backdrop={false}
   >
     <Modal.Header closeButton>
@@ -43,7 +44,7 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
                 <InnerForm {...email} />
               </Form.Group>
 
-              <Button onClick={() => handler?.('message-email-sent')}>
+              <Button onClick={() => handler?.({ route: 'message-email-sent' })}>
               Send email
               </Button>
             </Form>
@@ -57,7 +58,7 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
           Already have an account?
           <Button
             variant="link"
-            onClick={() => handler?.('login')}
+            onClick={() => handler?.({ route: LOGIN })}
           >
             Login here
           </Button>
@@ -66,7 +67,7 @@ const ForgotPassword: FC<ModalProps> = ({ modal, handler }) => (
           Not a member?
           <Button
             variant="link"
-            onClick={() => handler?.('sign-up')}
+            onClick={() => handler?.({ route: SIGN_UP })}
           >
             Sign up
           </Button>

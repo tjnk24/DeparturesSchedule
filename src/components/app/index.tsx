@@ -16,8 +16,8 @@ import Profile from '@pages/profile';
 import Verify from '@pages/verify';
 
 import Backdrop from '@components/modals/backdrop';
-import EmailVerifySend from '@components/modals/email-verify/send';
-import EmailCheck from '@components/modals/email-verify/check';
+import EmailVerify from '@components/modals/email-verify';
+import Message from '@components/modals/message';
 import SignUp from '@components/modals/sign-up';
 import Login from '@components/modals/login';
 import ForgotPassword from '@components/modals/forgot-password';
@@ -34,15 +34,16 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
   const { state } = useContext(Context);
   const { authUserLoaded } = state.authUserState;
 
-  const [modal, setModal] = useState('');
-  const [emailCheckSuccess, setEmailCheckSuccess] = useState(false);
+  const [modal, setModal] = useState({
+    route   : '',
+  });
 
   const setModals = (
     <Backdrop modal={modal} handler={setModal}>
       <Login />
       <SignUp />
-      <EmailVerifySend />
-      <EmailCheck success={emailCheckSuccess} />
+      <EmailVerify />
+      <Message />
       <ForgotPassword />
     </Backdrop>
   );
@@ -61,7 +62,6 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
                 <Route path="/verify">
                   <Verify
                     modalHandler={setModal}
-                    successHandler={setEmailCheckSuccess}
                   />
                 </Route>
                 <Profile />

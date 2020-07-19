@@ -6,11 +6,13 @@ import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import ModalProps from '../../types';
+import { EMAIL_VERIFY } from '../routes';
+
+import ModalProps from '../types';
 
 const cn = classnames.bind(style);
 
-const EmailVerifySend: FC<ModalProps> = ({ modal, handler }) => {
+const EmailVerify: FC<ModalProps> = ({ modal, handler }) => {
   const user = auth.currentUser;
 
   const [resendTimer, setResendTimer] = useState(0);
@@ -31,8 +33,8 @@ const EmailVerifySend: FC<ModalProps> = ({ modal, handler }) => {
 
   return (
     <Modal
-      show={modal === 'email-verify-send'}
-      onHide={() => handler?.('')}
+      show={modal?.route === EMAIL_VERIFY}
+      onHide={() => handler?.({ route: '' })}
       backdrop={false}
     >
       <Modal.Header closeButton>
@@ -75,4 +77,4 @@ const EmailVerifySend: FC<ModalProps> = ({ modal, handler }) => {
   );
 };
 
-export default EmailVerifySend;
+export default EmailVerify;

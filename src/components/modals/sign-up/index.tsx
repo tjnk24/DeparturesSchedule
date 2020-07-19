@@ -13,6 +13,8 @@ import ModalProps from '../types';
 
 import style from './style.scss';
 
+import { LOGIN, SIGN_UP, EMAIL_VERIFY } from '../routes';
+
 const cn = classnames.bind(style);
 
 const SignUp: FC<ModalProps> = ({ modal, handler }) => {
@@ -33,7 +35,7 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
         })
         .then(() => {
           user?.sendEmailVerification();
-          handler?.('email-verify-send');
+          handler?.({ route: EMAIL_VERIFY });
           setButtonDisabled(false);
         });
       })
@@ -45,8 +47,8 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
 
   return (
     <Modal
-      show={modal === 'sign-up'}
-      onHide={() => handler?.('')}
+      show={modal?.route === SIGN_UP}
+      onHide={() => handler?.({ route: '' })}
       backdrop={false}
     >
       <Modal.Header closeButton>
@@ -94,7 +96,7 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
       Already have an account?
         <Button
           variant="link"
-          onClick={() => handler?.('login')}
+          onClick={() => handler?.({ route: LOGIN })}
         >
         Login here
         </Button>
