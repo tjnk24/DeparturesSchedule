@@ -8,7 +8,7 @@ import Dropdown from 'react-bootstrap/esm/Dropdown';
 import Button from 'react-bootstrap/esm/Button';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
-import { LOGIN } from '@components/modals/routes';
+import { showLogin } from '@store/actions/modals';
 
 import HeaderProps from './types';
 
@@ -16,14 +16,14 @@ import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Header: FC<HeaderProps> = ({ handler }) => {
-  const { state } = useContext(Context);
+const Header: FC<HeaderProps> = () => {
+  const { state, dispatch } = useContext(Context);
   const { user } = state.authUserState;
 
   const loginSignUpButton = (
     <Button
       variant="link"
-      onClick={() => handler({ route: LOGIN })}
+      onClick={() => dispatch(showLogin())}
     >
       Login / Sign up
     </Button>

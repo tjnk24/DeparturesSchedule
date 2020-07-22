@@ -2,14 +2,14 @@ import {
   AUTH_USER_UPDATE,
   AUTH_USER_REMOVE,
 } from '@store/actions/constants';
-import { authUserReducerTypes } from '@apptypes/store';
+import { AuthUserReducerTypes } from '@apptypes/store';
 
 export const authUserInitial = {
   authUserLoaded: false,
   user: null,
 };
 
-export const authUserReducer: authUserReducerTypes = (state, action) => {
+export const authUserReducer: AuthUserReducerTypes = (state, action) => {
   switch (action.type) {
     case AUTH_USER_UPDATE:
       return {

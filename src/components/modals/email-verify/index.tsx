@@ -1,21 +1,28 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
 import Modal from 'react-bootstrap/esm/Modal';
 import Button from 'react-bootstrap/esm/Button';
 import { auth } from '@utils/firebase';
 
+import { Context } from '@store/provider';
+import { EMAIL_VERIFY } from '@store/actions/constants';
+import { closeModal } from '@store/actions/modals';
+
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import { EMAIL_VERIFY } from '../routes';
 
 import ModalProps from '../types';
 
 const cn = classnames.bind(style);
 
-const EmailVerify: FC<ModalProps> = ({ modal, handler }) => {
-  const user = auth.currentUser;
+const EmailVerify: FC<ModalProps> = () => {
+  const { state, dispatch } = useContext(Context);
+  const { modalsState } = state;
 
   const [resendTimer, setResendTimer] = useState(0);
+
+  const user = auth.currentUser;
+
 
   const resendEmail = () => {
     user?.sendEmailVerification();
@@ -33,8 +40,8 @@ const EmailVerify: FC<ModalProps> = ({ modal, handler }) => {
 
   return (
     <Modal
-      show={modal?.route === EMAIL_VERIFY}
-      onHide={() => handler?.({ route: '' })}
+      show={modalsState.route === EMAIL_VERIFY}
+      onHide={() => dispatch(closeModal())}
       backdrop={false}
     >
       <Modal.Header closeButton>

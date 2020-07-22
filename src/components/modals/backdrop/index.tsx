@@ -1,11 +1,15 @@
 import React, {
   FC,
-  cloneElement,
-  isValidElement,
   Children,
   MouseEvent,
   KeyboardEvent,
+  useContext,
 } from 'react';
+
+import { closeModal } from '@store/actions/modals';
+import { Context } from '@store/provider';
+import { CLOSE_MODAL } from '@store/actions/constants';
+
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
@@ -13,20 +17,15 @@ import { BackdropProps } from './types';
 
 const cn = classnames.bind(style);
 
-const Backdrop: FC<BackdropProps> = ({ modal, handler, children }) => {
-  const childrenWithProps = Children.map(children, (child) => {
-    if (isValidElement(child)) {
-      return cloneElement(child, { modal, handler });
-    }
-
-    return child;
-  });
+const Backdrop: FC<BackdropProps> = ({ children }) => {
+  const { state, dispatch } = useContext(Context);
+  const { modalsState } = state;
 
   const closeHandler = (event: MouseEvent | KeyboardEvent) => {
     const element = event.target as HTMLElement;
 
     element.className === 'fade modal show'
-    && handler({ route: '' });
+    && dispatch(closeModal());
   };
 
   return (
@@ -34,14 +33,14 @@ const Backdrop: FC<BackdropProps> = ({ modal, handler, children }) => {
       id="backdrop"
       className={cn(
         'backdrop',
-        (modal.route !== '' && 'backdrop-show'),
+        (modalsState.route !== CLOSE_MODAL && 'backdrop-show'),
       )}
       role="link"
       tabIndex={-1}
       onMouseDown={closeHandler}
       onKeyPress={closeHandler}
     >
-      {childrenWithProps}
+      {children}
     </div>
   );
 };

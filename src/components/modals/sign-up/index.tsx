@@ -1,4 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
+import {
+  showEmailVerify,
+  showLogin,
+  closeModal,
+} from '@store/actions/modals';
+import { Context } from '@store/provider';
+import { SIGN_UP } from '@store/actions/constants';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
@@ -13,11 +20,13 @@ import ModalProps from '../types';
 
 import style from './style.scss';
 
-import { LOGIN, SIGN_UP, EMAIL_VERIFY } from '../routes';
 
 const cn = classnames.bind(style);
 
-const SignUp: FC<ModalProps> = ({ modal, handler }) => {
+const SignUp: FC<ModalProps> = () => {
+  const { state, dispatch } = useContext(Context);
+  const { modalsState } = state;
+
   // TODO: при анмаунте, если есть ошибка, она сохраняется
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -35,7 +44,7 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
         })
         .then(() => {
           user?.sendEmailVerification();
-          handler?.({ route: EMAIL_VERIFY });
+          dispatch(showEmailVerify());
           setButtonDisabled(false);
         });
       })
@@ -47,8 +56,8 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
 
   return (
     <Modal
-      show={modal?.route === SIGN_UP}
-      onHide={() => handler?.({ route: '' })}
+      show={modalsState.route === SIGN_UP}
+      onHide={() => dispatch(closeModal())}
       backdrop={false}
     >
       <Modal.Header closeButton>
@@ -96,7 +105,7 @@ const SignUp: FC<ModalProps> = ({ modal, handler }) => {
       Already have an account?
         <Button
           variant="link"
-          onClick={() => handler?.({ route: LOGIN })}
+          onClick={() => dispatch(showLogin())}
         >
         Login here
         </Button>

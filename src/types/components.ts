@@ -8,7 +8,6 @@ export type ValueTypes = {
     id        : number;
     isEditing : boolean;
 }
-type Forms = 'username' | 'email' | 'password' | 'repeatPassword';
 
 export type FormValidationTypes = { [key: string]: string };
 

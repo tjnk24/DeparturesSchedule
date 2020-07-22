@@ -7,13 +7,14 @@ import FormValidator from '@components/form-validator';
 import { auth } from '@utils/firebase';
 import { FormValidationTypes } from '@apptypes/components';
 
+import { LOGIN, FORGOT_PASS, SIGN_UP } from '@store/actions/constants';
+
 import SubmitButton from '@components/submit-button';
 import InnerForm from '../inner-form';
 
 import ModalProps from '../types';
 
 import style from './style.scss';
-import { LOGIN, FORGOT_PASS, SIGN_UP } from '../routes';
 
 const cn = classnames.bind(style);
 

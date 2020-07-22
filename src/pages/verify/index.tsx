@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import { auth } from '@utils/firebase';
 import { getUrlParameter } from '@utils/helpers';
-import { MESSAGE } from '@components/modals/routes';
+import { MESSAGE } from '@store/actions/constants';
 import messages from '@components/modals/message/messages';
 
 import { ModalType } from '@components/modals/backdrop/types';
@@ -51,7 +51,6 @@ const Verify: FC<VerifyProps> = ({ modalHandler }): JSX.Element => {
           break;
 
         case 'recoverEmail':
-          console.log('recoverEmail');
           auth.checkActionCode(actionCode)
             .then(() => {
               auth.applyActionCode(actionCode)
