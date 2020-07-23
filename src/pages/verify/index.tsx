@@ -1,12 +1,18 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, {
+  FC,
+  useEffect,
+  useState,
+  useContext,
+} from 'react';
 import { Redirect } from 'react-router-dom';
 import { auth } from '@utils/firebase';
 import { getUrlParameter } from '@utils/helpers';
-import { MESSAGE } from '@store/actions/constants';
-import messages from '@components/modals/message/messages';
 
-import { ModalType } from '@components/modals/backdrop/types';
-import VerifyProps from './types';
+import { Context } from '@store/provider';
+
+import messages from '@components/modals/message/messages';
+import { showMessage } from '@store/actions/modals';
+import { MessagePayloadType } from '@apptypes/store';
 
 const verifySuccessTitle = messages.titles.verifySuccess;
 const verifyFailTitle = messages.titles.verifyFail;
@@ -15,16 +21,15 @@ const canSignInMessage = messages.messagesText.canSignIn;
 const verifyFailMessage = messages.messagesText.verifyFail;
 
 
-const Verify: FC<VerifyProps> = ({ modalHandler }): JSX.Element => {
+const Verify: FC = () => {
+  const { dispatch } = useContext(Context);
+
   const [verifySuccess, setVerifySuccess] = useState(false);
 
-  const setSuccessAction = (message: ModalType['message']) => {
+  const setSuccessAction = (message: MessagePayloadType) => {
     setVerifySuccess(true);
 
-    modalHandler({
-      route: MESSAGE,
-      message,
-    });
+    dispatch(showMessage({ ...message }));
   };
 
   useEffect(() => {

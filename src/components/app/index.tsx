@@ -1,4 +1,4 @@
-import React, { FC, useState, useContext } from 'react';
+import React, { FC, useContext } from 'react';
 import {
   Switch,
   Route,
@@ -34,12 +34,8 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
   const { state } = useContext(Context);
   const { authUserLoaded } = state.authUserState;
 
-  const [modal, setModal] = useState({
-    route   : '',
-  });
-
   const setModals = (
-    <Backdrop modal={modal} handler={setModal}>
+    <Backdrop>
       <Login />
       <SignUp />
       <EmailVerify />
@@ -55,14 +51,12 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
           ? (
             <>
               { setModals }
-              <Header handler={setModal} />
+              <Header />
               <Switch>
                 <RouteWrap path="/" exact layout={Layout} component={Constructor} />
                 <Route path="/schedule" component={Schedule} />
                 <Route path="/verify">
-                  <Verify
-                    modalHandler={setModal}
-                  />
+                  <Verify />
                 </Route>
                 <Profile />
                 <Redirect exact from="/" to="/constructor" />

@@ -16,14 +16,12 @@ import SubmitButton from '@components/submit-button';
 import { FormValidationTypes } from '@apptypes/components';
 import InnerForm from '../inner-form';
 
-import ModalProps from '../types';
-
 import style from './style.scss';
 
 
 const cn = classnames.bind(style);
 
-const SignUp: FC<ModalProps> = () => {
+const SignUp: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 

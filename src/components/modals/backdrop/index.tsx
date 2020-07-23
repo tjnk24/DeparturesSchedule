@@ -1,6 +1,5 @@
 import React, {
   FC,
-  Children,
   MouseEvent,
   KeyboardEvent,
   useContext,
@@ -13,11 +12,9 @@ import { CLOSE_MODAL } from '@store/actions/constants';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import { BackdropProps } from './types';
-
 const cn = classnames.bind(style);
 
-const Backdrop: FC<BackdropProps> = ({ children }) => {
+const Backdrop: FC = ({ children }) => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 

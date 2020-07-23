@@ -5,9 +5,7 @@ import { Context } from '@store/provider';
 import { MESSAGE } from '@store/actions/constants';
 import { closeModal } from '@store/actions/modals';
 
-import ModalProps from '../types';
-
-const Message: FC<ModalProps> = () => {
+const Message: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 

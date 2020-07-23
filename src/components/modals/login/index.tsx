@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
 import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
@@ -7,18 +7,21 @@ import FormValidator from '@components/form-validator';
 import { auth } from '@utils/firebase';
 import { FormValidationTypes } from '@apptypes/components';
 
-import { LOGIN, FORGOT_PASS, SIGN_UP } from '@store/actions/constants';
+import { Context } from '@store/provider';
+import { closeModal, showForgotPass, showSignUp } from '@store/actions/modals';
+import { LOGIN } from '@store/actions/constants';
 
 import SubmitButton from '@components/submit-button';
 import InnerForm from '../inner-form';
-
-import ModalProps from '../types';
 
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Login: FC<ModalProps> = ({ modal, handler }) => {
+const Login: FC = () => {
+  const { state, dispatch } = useContext(Context);
+  const { modalsState } = state;
+
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -31,7 +34,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
         const emailVerified = response.user?.emailVerified;
 
         emailVerified
-          ? handler?.({ route: '' })
+          ? dispatch(closeModal())
           : setErrorMessage('Please, verify your email first.');
 
         setButtonDisabled(false);
@@ -42,10 +45,12 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
       });
   };
 
+  // console.log(modalsState.route);
+
   return (
     <Modal
-      show={modal?.route === LOGIN}
-      onHide={() => handler?.({ route: '' })}
+      show={modalsState.route === LOGIN}
+      onHide={() => dispatch(closeModal())}
       backdrop={false}
     >
       <Modal.Header closeButton>
@@ -73,7 +78,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
                   <Button
                     variant="link"
                     className={cn('forgot-password-button')}
-                    onClick={() => handler?.({ route: FORGOT_PASS })}
+                    onClick={() => dispatch(showForgotPass())}
                   >
                     Forgot your password?
                   </Button>
@@ -102,7 +107,7 @@ const Login: FC<ModalProps> = ({ modal, handler }) => {
         Not a member?
         <Button
           variant="link"
-          onClick={() => handler?.({ route: SIGN_UP })}
+          onClick={() => dispatch(showSignUp())}
         >
           Sign up
         </Button>

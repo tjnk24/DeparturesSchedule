@@ -10,13 +10,11 @@ import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 import { showLogin } from '@store/actions/modals';
 
-import HeaderProps from './types';
-
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const Header: FC<HeaderProps> = () => {
+const Header: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { user } = state.authUserState;
 

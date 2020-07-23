@@ -2,7 +2,7 @@ import React, { FC, useContext } from 'react';
 
 import { FORGOT_PASS } from '@store/actions/constants';
 import {
-  showForgotPass, showLogin, showSignUp, showMessage,
+  showLogin, showSignUp, showMessage, closeModal,
 } from '@store/actions/modals';
 import { Context } from '@store/provider';
 
@@ -15,21 +15,19 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 import InnerForm from '../inner-form';
 
-import ModalProps from '../types';
-
 import style from './style.scss';
 import messages from '../message/messages';
 
 const cn = classnames.bind(style);
 
-const ForgotPassword: FC<ModalProps> = () => {
+const ForgotPassword: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 
   return (
     <Modal
       show={modalsState.route === FORGOT_PASS}
-      onHide={() => dispatch(showForgotPass())}
+      onHide={() => dispatch(closeModal())}
       backdrop={false}
     >
       <Modal.Header closeButton>

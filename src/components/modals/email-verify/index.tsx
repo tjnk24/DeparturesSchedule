@@ -10,12 +10,9 @@ import { closeModal } from '@store/actions/modals';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-
-import ModalProps from '../types';
-
 const cn = classnames.bind(style);
 
-const EmailVerify: FC<ModalProps> = () => {
+const EmailVerify: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 
