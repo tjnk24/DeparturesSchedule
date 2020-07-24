@@ -1,3 +1,5 @@
+import { SubmitActionType } from '@pages/profile/parts/form-block/types';
+
 export type StringObjectType = { [key: string]: string }
 
 export type ValueTypes = {
@@ -51,7 +53,7 @@ export type FormikInnerTypes = (
 
 export type FormValidatorProps = {
   inputs           : string[];
-  action?          : (payload: FormValidationTypes) => void;
+  action?          : SubmitActionType;
   startValues?     : StringObjectType;
   requirePassword? : boolean;
   children         : (

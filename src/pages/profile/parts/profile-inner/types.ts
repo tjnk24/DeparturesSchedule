@@ -18,9 +18,10 @@ export type updateProfileTypes = {
 }
 
 export type SubmitActionTypes = (
-    formPayload     : { [key: string]: string },
-    messageHandler  : Dispatch<SetStateAction<string>>,
-    editingHandler  : Dispatch<SetStateAction<boolean>>,
-    popoverHandler? : Dispatch<SetStateAction<boolean>>,
-    popoverPayload? : { [key: string]: string },
+    formPayload       : { [key: string]: string },
+    messageHandler    : Dispatch<SetStateAction<string>>,
+    editingHandler    : Dispatch<SetStateAction<boolean>>,
+    popoverHandler?   : Dispatch<SetStateAction<boolean>>,
+    popoverPayload?   : { [key: string]: string },
+    resetFormHandler? : ((param: { values: string }) => void) | null,
 ) => void;

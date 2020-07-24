@@ -13,12 +13,13 @@ import SubmitButton from '@components/submit-button';
 import { FormValidationTypes } from '@apptypes/components';
 import AuthPopover from '../auth-popover';
 
-import FormBlockProps from './types';
+import { FormBlockProps, SubmitActionType, ResetFormType } from './types';
 
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
+// TODO: отрефакторить этот компонент, разбить на части
 const FormBlock: FC<FormBlockProps> = ({
   type,
   action,
@@ -32,6 +33,7 @@ const FormBlock: FC<FormBlockProps> = ({
   const [message, setMessage] = useState('');
   const [showPopover, setShowPopover] = useState(false);
   const [formPayload, setFormPayload] = useState({});
+  const [resetFormHandler, setResetFormHandler] = useState<ResetFormType | null | undefined>(null);
 
   const buttonRef = useRef<HTMLDivElement | null>(null);
 
@@ -49,12 +51,13 @@ const FormBlock: FC<FormBlockProps> = ({
       : setInputType('password');
   };
 
-  const submitAction = (payload: FormValidationTypes) => {
+  const submitAction: SubmitActionType = (payload, { resetForm }) => {
     const isSameValue = payload[type] === startValue?.[type];
 
     if (!isSameValue && !reauth) {
       action(payload, setMessage, setEditing);
     } else if (!isSameValue && reauth) {
+      setResetFormHandler(() => resetForm);
       setFormPayload(payload);
       setReadOnly(true);
       setShowPopover(true);
@@ -70,6 +73,7 @@ const FormBlock: FC<FormBlockProps> = ({
       setEditing,
       setShowPopover,
       popoverPayload,
+      resetFormHandler,
     );
   };
 
@@ -133,7 +137,7 @@ const FormBlock: FC<FormBlockProps> = ({
                   { errors }
                 </Form.Control.Feedback>
                 {
-                  message !== ''
+                  type !== 'password' && message !== ''
                   && (
                   <Form.Text>
                     { message }

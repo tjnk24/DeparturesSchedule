@@ -1,6 +1,10 @@
 import { SubmitActionTypes } from '../profile-inner/types';
 
-type FormBlockProps = {
+export type ResetFormType = (
+    param: { values: string }
+) => void;
+
+export type FormBlockProps = {
     type          : string;
     disabled      : boolean;
     startValue?   : { [ key: string ]: string };
@@ -9,4 +13,7 @@ type FormBlockProps = {
     reauth?       : boolean;
 }
 
-export default FormBlockProps;
+export type SubmitActionType = (
+    payload: { [key: string]: string },
+    { resetForm }: { resetForm: ResetFormType }
+) => void;

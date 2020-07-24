@@ -10,8 +10,6 @@ import classnames from 'classnames/bind';
 import { ProfileInnerProps, SubmitActionTypes } from './types';
 
 import FormBlock from '../form-block';
-import PasswordBlock from '../password-block';
-
 
 import style from './style.scss';
 
@@ -24,57 +22,6 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
   const { user, setEmailChanged } = componentProps;
 
   const { email, displayName } = user;
-
-  // const updateProfile = (payload: updateProfileTypes) => {
-  //   console.log('updateProfile', payload);
-
-  //   const user = auth.currentUser;
-  //   const {
-  //     username,
-  //     email,
-  //     password,
-  //   } = payload;
-
-  //   const usernameChanged = username !== displayName;
-  //   const emailChanged = email !== userEmail;
-
-  //   if (usernameChanged || emailChanged || password) {
-  //     setButtonDisabled(true);
-
-  //     if (usernameChanged) {
-  //       user
-  //         ?.updateProfile({
-  //           displayName: username,
-  //         })
-  //         .catch((error) => {
-  //           setMessage(`Email error: ${error.message}`);
-  //         });
-  //       console.log('username changed');
-  //     }
-  //     if (emailChanged) {
-  //       user
-  //         ?.updateEmail(email)
-  //         .catch((error) => {
-  //           setMessage(`Email error: ${error.message}`);
-  //         });
-  //       console.log('email changed');
-  //     }
-  //     if (password) {
-  //       // TODO: проблема в setMessage, который задаётся неправильно, починить
-  //       // user
-  //       //   ?.updatePassword(password)
-  //       //   .catch((error) => {
-  //       //     setMessage(error);
-  //       //   });
-  //       console.log('password changed');
-  //     }
-
-  //     setButtonDisabled(false);
-  //     // setMessage('Your profile data successfully updated!');
-  //   } else {
-  //     setMessage('Sorry, there is nothing to update');
-  //   }
-  // };
 
   const updateUsername: SubmitActionTypes = (formPayload, messageHandler, editingHandler) => {
     setButtonsDisabled(true);
@@ -134,7 +81,42 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
       });
   };
 
-  // const updatePassword = (formPayload) => console.log(formPayload);
+  const updatePassword: SubmitActionTypes = (
+    formPayload,
+    messageHandler,
+    editingHandler,
+    popoverHandler,
+    popoverPayload,
+    resetFormHandler,
+  ) => {
+    setButtonsDisabled(true);
+    const { currentUser } = auth;
+
+    const credential = emailAuthProvider.credential(
+      currentUser?.email as string,
+      popoverPayload?.password as string,
+    );
+
+    currentUser
+      ?.reauthenticateWithCredential(credential)
+      .then(() => {
+        currentUser.updatePassword(formPayload.password)
+          .then(() => {
+            messageHandler('Your password successfully changed!');
+            popoverHandler && popoverHandler(false);
+            setButtonsDisabled(false);
+            editingHandler(false);
+            resetFormHandler?.({ values: '' });
+          })
+          .catch((error) => {
+            messageHandler(error.message);
+            popoverHandler && popoverHandler(false);
+            setButtonsDisabled(false);
+            editingHandler(false);
+            resetFormHandler?.({ values: '' });
+          });
+      });
+  };
 
   return (
     <>
@@ -162,7 +144,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
         <FormBlock
           reauth
           type="password"
-          action={console.log}
+          action={updatePassword}
           disabled={buttonsDisabled}
         />
       </div>
