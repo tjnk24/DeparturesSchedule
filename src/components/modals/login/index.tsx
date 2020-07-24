@@ -45,8 +45,6 @@ const Login: FC = () => {
       });
   };
 
-  // console.log(modalsState.route);
-
   return (
     <Modal
       show={modalsState.route === LOGIN}

@@ -1,7 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useContext } from 'react';
+import { Context } from '@store/provider';
 import { Link } from 'react-router-dom';
-import { auth, emailAuthProvider } from '@utils/firebase';
 import Button from 'react-bootstrap/esm/Button';
+import { showMessage } from '@store/actions/modals';
+import { auth, emailAuthProvider } from '@utils/firebase';
+import messages from '@components/modals/message/messages';
 import classnames from 'classnames/bind';
 
 import { ProfileInnerProps, SubmitActionTypes } from './types';
@@ -15,8 +18,12 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
+  const { dispatch } = useContext(Context);
+
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const { displayName, email } = componentProps;
+  const { user, setEmailChanged } = componentProps;
+
+  const { email, displayName } = user;
 
   // const updateProfile = (payload: updateProfileTypes) => {
   //   console.log('updateProfile', payload);
@@ -71,11 +78,9 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
 
   const updateUsername: SubmitActionTypes = (formPayload, messageHandler, editingHandler) => {
     setButtonsDisabled(true);
-    const user = auth.currentUser;
+    const { currentUser } = auth;
 
-    console.log(formPayload);
-
-    user
+    currentUser
       ?.updateProfile({
         displayName: formPayload.username,
       })
@@ -98,50 +103,38 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
     popoverPayload,
   ) => {
     setButtonsDisabled(true);
-    const user = auth.currentUser;
-
-    console.log(formPayload);
-    console.log(popoverPayload);
+    const { currentUser } = auth;
 
     const credential = emailAuthProvider.credential(
-      user?.email as string,
+      currentUser?.email as string,
       popoverPayload?.password as string,
     );
 
-    user
+    currentUser
       ?.reauthenticateWithCredential(credential)
       .then(() => {
-        user.updateEmail(formPayload.email)
+        currentUser.updateEmail(formPayload.email)
           .then(() => {
-            // user.sendEmailVerification(); раскомментить позже
+            currentUser.sendEmailVerification();
+            dispatch(showMessage({
+              title       : messages.titles.emailSent,
+              messageText : messages.messagesText.emailVerifySent,
+            }));
             popoverHandler && popoverHandler(false);
             setButtonsDisabled(false);
             editingHandler(false);
-            // TODO: вынести все сообщения в отдельный файл
-            messageHandler('We sent an email message to your new email, please verify your new email to proceed using this site.');
+            setEmailChanged(true);
           })
           .catch((error) => {
+            messageHandler(error.message);
             popoverHandler && popoverHandler(false);
             setButtonsDisabled(false);
             editingHandler(false);
-            messageHandler(error.message);
           });
       });
-
-    // user
-    //   ?.updateEmail(payload.email)
-    //   .then(() => {
-    //     setButtonsDisabled(false);
-    //     editingHandler(false);
-    //     messageHandler('We sent an email message to specified address,
-    // please verify your new email to proceed using this site.');
-    //   })
-    //   .catch((error) => {
-    //     setButtonsDisabled(false);
-    //     editingHandler(false);
-    //     messageHandler(error.message);
-    //   });
   };
+
+  // const updatePassword = (formPayload) => console.log(formPayload);
 
   return (
     <>
@@ -155,9 +148,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
           type="username"
           action={updateUsername}
           disabled={buttonsDisabled}
-          startValue={{
-            username: displayName,
-          }}
+          startValue={{ username: displayName }}
         />
         <FormBlock
           reauth
@@ -168,10 +159,12 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
           startMessage="We'll need you to re-enter your
           password for this operation."
         />
-        {/* <PasswordBlock
-          password={password}
-          repeatPassword={repeatPassword}
-        /> */}
+        <FormBlock
+          reauth
+          type="password"
+          action={console.log}
+          disabled={buttonsDisabled}
+        />
       </div>
     </>
   );

@@ -1,15 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { FC, useState, useRef } from 'react';
+import classnames from 'classnames/bind';
 import Form from 'react-bootstrap/esm/Form';
 import Row from 'react-bootstrap/esm/Row';
 import Col from 'react-bootstrap/esm/Col';
 import Button from 'react-bootstrap/esm/Button';
 
+// TODO: вынести иконки в отдельную директорию
+import { ShowPassIcon, HidePassIcon } from '@components/modals/inner-form/icons';
 import FormValidator from '@components/form-validator';
 import SubmitButton from '@components/submit-button';
 import { FormValidationTypes } from '@apptypes/components';
 import AuthPopover from '../auth-popover';
 
 import FormBlockProps from './types';
+
+import style from './style.scss';
+
+const cn = classnames.bind(style);
 
 const FormBlock: FC<FormBlockProps> = ({
   type,
@@ -20,19 +28,35 @@ const FormBlock: FC<FormBlockProps> = ({
   reauth,
 }) => {
   const [editing, setEditing] = useState(false);
+  const [readOnly, setReadOnly] = useState(true);
   const [message, setMessage] = useState('');
   const [showPopover, setShowPopover] = useState(false);
   const [formPayload, setFormPayload] = useState({});
 
   const buttonRef = useRef<HTMLDivElement | null>(null);
 
+  const validationInputs = type !== 'password'
+    ? [type]
+    : ['password', 'repeatPassword'];
+
+  const isPassword = type === 'password';
+
+  const [inputType, setInputType] = useState(isPassword ? 'password' : type);
+
+  const showPassHandler = () => {
+    inputType === 'password'
+      ? setInputType('text')
+      : setInputType('password');
+  };
+
   const submitAction = (payload: FormValidationTypes) => {
-    const isSameValue = payload[type] === startValue[type];
+    const isSameValue = payload[type] === startValue?.[type];
 
     if (!isSameValue && !reauth) {
       action(payload, setMessage, setEditing);
     } else if (!isSameValue && reauth) {
       setFormPayload(payload);
+      setReadOnly(true);
       setShowPopover(true);
     } else {
       setMessage('Sorry, there is nothing to update.');
@@ -51,12 +75,24 @@ const FormBlock: FC<FormBlockProps> = ({
 
   return (
     <FormValidator
-      inputs={[type]}
+      inputs={validationInputs}
       action={submitAction}
       startValues={startValue}
     >
       {({ inputProps, handleSubmit }) => {
-        const validationProps = inputProps[type];
+        const {
+          type: validationType,
+          errors,
+          labeltext,
+          ...validationRest
+        } = inputProps[type];
+
+        let repeatPassProps = null;
+
+        if (type === 'password') {
+          repeatPassProps = inputProps.repeatPassword;
+          delete repeatPassProps.type;
+        }
 
         return (
           <Form
@@ -65,18 +101,36 @@ const FormBlock: FC<FormBlockProps> = ({
           >
             <Form.Group as={Row}>
               <Form.Label column sm={2}>
-                { validationProps.labeltext }
+                { labeltext }
               </Form.Label>
-              <Col sm={7}>
+              <Col sm={7} className={cn('input-wrap')}>
                 <Form.Control
-                  isInvalid={!!validationProps.errors}
+                  className={isPassword && !!errors ? cn('password-error') : undefined}
+                  type={inputType}
+                  isInvalid={editing && !!errors}
                   required
                   plaintext={!editing}
-                  readOnly={!editing}
-                  {...validationProps}
+                  readOnly={readOnly}
+                  {...validationRest}
                 />
+                {
+                  isPassword && editing
+                    ? (
+                      <button
+                        type="button"
+                        onClick={showPassHandler}
+                      >
+                        {
+                        inputType === 'password'
+                          ? ShowPassIcon
+                          : HidePassIcon
+                      }
+                      </button>
+                    )
+                    : null
+                }
                 <Form.Control.Feedback type="invalid">
-                  { validationProps.errors }
+                  { errors }
                 </Form.Control.Feedback>
                 {
                   message !== ''
@@ -87,7 +141,7 @@ const FormBlock: FC<FormBlockProps> = ({
                   )
                 }
               </Col>
-              <Col sm={3}>
+              <Col sm={3} className={cn('button-wrap')}>
                 {
                   editing
                     ? (
@@ -113,6 +167,7 @@ const FormBlock: FC<FormBlockProps> = ({
                         variant="secondary"
                         onClick={() => {
                           setEditing(true);
+                          setReadOnly(false);
                           setMessage(startMessage || '');
                         }}
                       >
@@ -122,7 +177,34 @@ const FormBlock: FC<FormBlockProps> = ({
                 }
               </Col>
             </Form.Group>
-
+            {
+              type === 'password'
+              && (
+                <Form.Group as={Row}>
+                  <Col sm={{ span: 7, offset: 2 }}>
+                    <Form.Control
+                      type={inputType}
+                      isInvalid={editing && !!repeatPassProps?.errors}
+                      required
+                      plaintext={!editing}
+                      readOnly={readOnly}
+                      {...repeatPassProps}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      { repeatPassProps?.errors }
+                    </Form.Control.Feedback>
+                    {
+                      message !== ''
+                      && (
+                      <Form.Text>
+                        { message }
+                      </Form.Text>
+                      )
+                    }
+                  </Col>
+                </Form.Group>
+              )
+            }
           </Form>
         );
       }}
