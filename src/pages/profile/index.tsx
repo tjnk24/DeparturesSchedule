@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Context } from '@store/provider';
 import RouteWrap from '@components/route-wrap';
@@ -9,11 +9,9 @@ const Profile: FC = () => {
   const { state } = useContext(Context);
   const { user } = state.authUserState;
 
-  const [emailChanged, setEmailChanged] = useState(!user?.emailVerified);
-
   return (
-    user && user?.emailVerified && !emailChanged
-      ? <RouteWrap path="/profile" component={ProfileInner} layout={Layout} componentProps={{ user, setEmailChanged }} />
+    user && user?.emailVerified
+      ? <RouteWrap path="/profile" component={ProfileInner} layout={Layout} componentProps={{ user }} />
       : <Redirect to="/" />
   );
 };

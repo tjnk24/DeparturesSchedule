@@ -1,6 +1,6 @@
 import React, { FC, useState, useContext } from 'react';
 import { Context } from '@store/provider';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import { showMessage } from '@store/actions/modals';
 import { auth, emailAuthProvider } from '@utils/firebase';
@@ -19,7 +19,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
   const { dispatch } = useContext(Context);
 
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const { user, setEmailChanged } = componentProps;
+  const { user } = componentProps;
 
   const { email, displayName } = user;
 
@@ -67,10 +67,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
               title       : messages.titles.emailSent,
               messageText : messages.messagesText.emailVerifySent,
             }));
-            popoverHandler && popoverHandler(false);
-            setButtonsDisabled(false);
-            editingHandler(false);
-            setEmailChanged(true);
+            return <Redirect to="/" />;
           })
           .catch((error) => {
             messageHandler(error.message);
