@@ -2,11 +2,16 @@ import {
   LOGIN,
   SIGN_UP,
   FORGOT_PASS,
+  RESET_PASS,
   EMAIL_VERIFY,
   MESSAGE,
   CLOSE_MODAL,
 } from '@store/actions/constants';
-import { ModalsReducerTypes } from '@apptypes/store';
+import {
+  ModalsReducerTypes,
+  MessagePayloadType,
+  ResetPassPayloadType,
+} from '@apptypes/store';
 
 const modalsReducer: ModalsReducerTypes = (state, action) => {
   switch (action.type) {
@@ -23,8 +28,16 @@ const modalsReducer: ModalsReducerTypes = (state, action) => {
       return {
         ...state,
         route: action.type,
-        message: action.payload,
+        message: action.payload as MessagePayloadType,
       };
+    case RESET_PASS: {
+      const { actionCode } = action.payload as ResetPassPayloadType;
+      return {
+        ...state,
+        route: action.type,
+        actionCode,
+      };
+    }
     default:
       return state;
   }

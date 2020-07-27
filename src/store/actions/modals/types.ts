@@ -1,10 +1,10 @@
-import { MessagePayloadType } from '@apptypes/store';
+import { MessagePayloadType, ResetPassPayloadType } from '@apptypes/store';
 
 type ModalsActionType = (
-  payload?: MessagePayloadType
+  payload?: MessagePayloadType | ResetPassPayloadType
 ) => {
   type     : string;
-  payload? : MessagePayloadType;
+  payload? : MessagePayloadType | ResetPassPayloadType;
 }
 
 export default ModalsActionType;

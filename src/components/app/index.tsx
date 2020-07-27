@@ -21,6 +21,7 @@ import Message from '@components/modals/message';
 import SignUp from '@components/modals/sign-up';
 import Login from '@components/modals/login';
 import ForgotPassword from '@components/modals/forgot-password';
+import ResetPassword from '@components/modals/reset-password';
 
 import { Context } from '@store/provider';
 
@@ -41,6 +42,7 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
       <EmailVerify />
       <Message />
       <ForgotPassword />
+      <ResetPassword />
     </Backdrop>
   );
 

@@ -6,8 +6,9 @@ export type ActionType<T> = {
 }
 
 type ModalsStateType = {
-  route   : string;
-  message : MessagePayloadType | undefined;
+  route      : string;
+  message    : MessagePayloadType;
+  actionCode : string;
 }
 
 type StateType = {
@@ -17,9 +18,13 @@ type StateType = {
   modalsState      : ModalsStateType;
 }
 
+export type ResetPassPayloadType = {
+  actionCode: string;
+}
+
 export type MessagePayloadType = {
-  title: string;
-  messageText: string;
+  title       : string;
+  messageText : string;
 }
 
 export type ConstructorReducerTypes = (
@@ -39,7 +44,7 @@ export type AuthUserReducerTypes = (
 
 export type ModalsReducerTypes = (
   state  : ModalsStateType,
-  action : ActionType<MessagePayloadType>
+  action : ActionType<MessagePayloadType | ResetPassPayloadType>
 ) => ModalsStateType;
 
 export type ContextTypes = {

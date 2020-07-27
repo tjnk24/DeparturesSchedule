@@ -1,28 +1,54 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 
 import { FORGOT_PASS } from '@store/actions/constants';
 import {
   showLogin, showSignUp, showMessage, closeModal,
 } from '@store/actions/modals';
 import { Context } from '@store/provider';
+import { auth } from '@utils/firebase';
 
 import classnames from 'classnames/bind';
 import FormValidator from '@components/form-validator';
+import SubmitButton from '@components/submit-button';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
+
+import { FormValidationTypes } from '@apptypes/components';
+
 import InnerForm from '../inner-form';
+import messages from '../message/messages';
 
 import style from './style.scss';
-import messages from '../message/messages';
 
 const cn = classnames.bind(style);
 
 const ForgotPassword: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
+
+  // TODO: вынести errorMessage в отдельный компонент
+  const [errorMessage, setErrorMessage] = useState('');
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  const resetEmailHandler = (payload: FormValidationTypes) => {
+    setButtonDisabled(true);
+
+    auth.sendPasswordResetEmail(payload.email)
+      .then(() => {
+        dispatch(showMessage({
+          title: messages.titles.emailSent,
+          messageText: messages.messagesText.passwordSent,
+        }));
+        setButtonDisabled(false);
+      })
+      .catch((error) => {
+        setErrorMessage(error.message);
+        setButtonDisabled(false);
+      });
+  };
 
   return (
     <Modal
@@ -41,6 +67,7 @@ const ForgotPassword: FC = () => {
         <br />
         <FormValidator
           inputs={['email']}
+          action={resetEmailHandler}
         >
           {({ inputProps, handleSubmit }) => {
             const {
@@ -52,14 +79,21 @@ const ForgotPassword: FC = () => {
                 <Form.Group>
                   <InnerForm {...email} />
                 </Form.Group>
-
-                <Button onClick={() => dispatch(showMessage({
-                  title: messages.titles.emailSent,
-                  messageText: messages.messagesText.passwordSent,
-                }))}
-                >
-                  Send email
-                </Button>
+                {
+                  errorMessage !== ''
+                  && (
+                    <Form.Group>
+                      <Form.Text className={cn('error-message')}>
+                        { errorMessage }
+                      </Form.Text>
+                    </Form.Group>
+                  )
+                }
+                <SubmitButton
+                  style={{ width: '110px' }}
+                  disabled={buttonDisabled}
+                  innerText="Send email"
+                />
               </Form>
             );
           }}

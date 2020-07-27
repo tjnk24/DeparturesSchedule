@@ -12,6 +12,7 @@ export const AUTH_USER_REMOVE = 'AUTH_USER_REMOVE';
 export const LOGIN = 'LOGIN';
 export const SIGN_UP = 'SIGN_UP';
 export const FORGOT_PASS = 'FORGOT_PASS';
+export const RESET_PASS = 'RESET_PASS';
 export const EMAIL_VERIFY = 'EMAIL_VERIFY';
 export const MESSAGE = 'MESSAGE';
 export const CLOSE_MODAL = 'CLOSE_MODAL';

@@ -11,14 +11,17 @@ import { getUrlParameter } from '@utils/helpers';
 import { Context } from '@store/provider';
 
 import messages from '@components/modals/message/messages';
-import { showMessage } from '@store/actions/modals';
-import { MessagePayloadType } from '@apptypes/store';
+import { showMessage, showResetPass } from '@store/actions/modals';
+import { MessagePayloadType, ResetPassPayloadType } from '@apptypes/store';
 
+// TODO: сделать что-то с этим
 const verifySuccessTitle = messages.titles.verifySuccess;
 const verifyFailTitle = messages.titles.verifyFail;
+const resetPassFail = messages.titles.passwordResetFail;
 const restoreSuccessMessage = messages.titles.restoreSuccess;
 const canSignInMessage = messages.messagesText.canSignIn;
 const verifyFailMessage = messages.messagesText.verifyFail;
+const resetPassFailMessage = messages.messagesText.passwordResetFail;
 
 
 const Verify: FC = () => {
@@ -26,10 +29,14 @@ const Verify: FC = () => {
 
   const [verifySuccess, setVerifySuccess] = useState(false);
 
-  const setSuccessAction = (message: MessagePayloadType) => {
+  const setSuccessAction = (payload: MessagePayloadType | ResetPassPayloadType) => {
     setVerifySuccess(true);
 
-    dispatch(showMessage({ ...message }));
+    const { actionCode } = payload as ResetPassPayloadType;
+
+    actionCode
+      ? dispatch(showResetPass({ actionCode }))
+      : dispatch(showMessage({ ...payload }));
   };
 
   useEffect(() => {
@@ -71,6 +78,16 @@ const Verify: FC = () => {
             .catch(() => setSuccessAction({
               title: verifyFailTitle,
               messageText: verifyFailMessage,
+            }));
+          break;
+        case 'resetPassword':
+          auth.verifyPasswordResetCode(actionCode)
+            .then(() => setSuccessAction({
+              actionCode,
+            }))
+            .catch(() => setSuccessAction({
+              title: resetPassFail,
+              messageText: resetPassFailMessage,
             }));
           break;
 

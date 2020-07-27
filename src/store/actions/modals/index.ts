@@ -5,6 +5,7 @@ import {
   EMAIL_VERIFY,
   MESSAGE,
   CLOSE_MODAL,
+  RESET_PASS,
 } from '../constants';
 import ModalsActionType from './types';
 
@@ -18,6 +19,11 @@ export const showSignUp: ModalsActionType = () => ({
 
 export const showForgotPass: ModalsActionType = () => ({
   type: FORGOT_PASS,
+});
+
+export const showResetPass: ModalsActionType = (payload) => ({
+  type: RESET_PASS,
+  payload,
 });
 
 export const showEmailVerify: ModalsActionType = () => ({
