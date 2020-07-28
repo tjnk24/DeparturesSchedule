@@ -16,7 +16,8 @@ const cn = classnames.bind(style);
 
 const Constructor: FC = (): JSX.Element => {
   const { state } = useContext(Context);
-  const { constructorState, appPropsState } = state;
+  const { constructorState, appPropsState, authUserState } = state;
+  const { user } = authUserState;
 
   return (
     <>
@@ -31,6 +32,14 @@ const Constructor: FC = (): JSX.Element => {
           </Button>
         </Link>
       </div>
+      {
+        !(user && user.emailVerified)
+        && (
+          <p className={cn('edit-info')}>
+            *Please sign in to edit and save this schedule and the header text above.
+          </p>
+        )
+      }
       <ConstructorTable state={constructorState as ValueTypes[]} />
       { appPropsState.loading === false
         ? (

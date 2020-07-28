@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState, useEffect } from 'react';
 import { Context } from '@store/provider';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
@@ -18,6 +18,13 @@ const Header: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { user } = state.authUserState;
 
+  const [inputValue, setInputValue] = useState('Your Airport Schedule');
+
+  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    setInputValue(event.target.value);
+  };
+
   const loginSignUpButton = (
     <Button
       variant="link"
@@ -36,9 +43,17 @@ const Header: FC = () => {
     </DropdownButton>
   );
 
+  useEffect(() => {
+    !user && setInputValue('Your Airport Schedule');
+  }, [user]);
+
   return (
     <header className={cn('header')}>
-      <h1 className={cn('header__title')}>Your airport schedule</h1>
+      <input
+        value={inputValue}
+        onChange={inputHandler}
+        disabled={!(user && user.emailVerified) || undefined}
+      />
       <div className={cn('header__buttons-wrap')}>
         {
           user !== null && user.emailVerified

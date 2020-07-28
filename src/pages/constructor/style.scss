@@ -1,13 +1,17 @@
 :local {
-
     .heading {
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
 
-        h5 {
-            color: #808080;
-        }
+    .heading h5,
+    .edit-info {
+        color: #808080;
+    }
+
+    .edit-info {
+        font-size: 14px;
     }
 
     .preloader {

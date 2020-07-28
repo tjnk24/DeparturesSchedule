@@ -8,9 +8,13 @@
         align-items: center;
         justify-content: space-evenly;
 
-        &__title {
+        input {
             color: #FFF;
             font-size: 40px;
+            width: 80%;
+            background-color: transparent;
+            text-align: center;
+            border: none;
         }
 
         &__buttons-wrap {
