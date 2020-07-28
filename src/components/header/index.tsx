@@ -1,4 +1,9 @@
-import React, { FC, useContext, useState, useEffect } from 'react';
+import React, {
+  FC,
+  useContext,
+  useState,
+  useEffect,
+} from 'react';
 import { Context } from '@store/provider';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
