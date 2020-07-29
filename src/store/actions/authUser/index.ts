@@ -1,10 +1,7 @@
-import {
-  AUTH_USER_UPDATE,
-  AUTH_USER_REMOVE,
-} from '../constants';
-import { authUserUpdateTypes, authUserRemoveTypes } from './types';
+import { AUTH_USER_UPDATE } from '../constants';
+import { authUserUpdateTypes } from './types';
 
-export const authUserUpdate: authUserUpdateTypes = (user) => ({
+const authUserUpdate: authUserUpdateTypes = (user) => ({
   type: AUTH_USER_UPDATE,
   payload: {
     authUserLoaded: true,
@@ -12,10 +9,4 @@ export const authUserUpdate: authUserUpdateTypes = (user) => ({
   },
 });
 
-// TODO: это нужно?
-export const authUserRemove: authUserRemoveTypes = () => ({
-  type: AUTH_USER_REMOVE,
-  payload: {
-    user: null,
-  },
-});
+export default authUserUpdate;

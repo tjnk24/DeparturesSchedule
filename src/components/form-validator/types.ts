@@ -1,17 +1,11 @@
 import * as Yup from 'yup';
 
 type YupStringType = Yup.StringSchema<string | undefined>
-type YupBooleanType = Yup.BooleanSchema<boolean | undefined>
-
-export type YupPasswordType = ((isRequired: boolean | undefined) => YupStringType);
 
 export type YupShapeTypes = {
-  // TODO: убрать boolean
-  [key: string] : YupStringType | boolean | YupPasswordType;
+  [key: string] : YupStringType;
 }
 
 export type SchemaTypes = (
   inputs: string[]
 ) => Yup.ObjectSchema<Record<string, unknown> | undefined>
-
-export type ValidateHandlerTypes = { [key: string ]: string }

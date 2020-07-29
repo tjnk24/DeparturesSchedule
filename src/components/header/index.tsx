@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/esm/Button';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 import { showLogin } from '@store/actions/modals';
-import { removeAll } from '@store/actions/constructor';
+import { removeState } from '@store/actions/constructor';
 
 import style from './style.scss';
 
@@ -32,7 +32,7 @@ const Header: FC = () => {
   };
 
   const logOutHandler = () => {
-    dispatch(removeAll());
+    dispatch(removeState());
     auth.signOut();
   };
 

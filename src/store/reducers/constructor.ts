@@ -2,9 +2,12 @@ import {
   ADD_LIST_ITEM,
   UPDATE_LIST_ITEM,
   REMOVE_LIST_ITEM,
-  REMOVE_ALL,
+  REMOVE_STATE,
   SET_LOGIN,
+  SAVE_STATE,
 } from '@store/actions/constants';
+import { setLocal, getLocal } from '@utils/helpers';
+
 import { MixedValueTypes, ValueTypes } from '@apptypes/components';
 import { ConstructorReducerTypes } from '@apptypes/store';
 
@@ -14,7 +17,6 @@ let schedule: MixedValueTypes = {
 };
 
 export const constructorReducer: ConstructorReducerTypes = (state, action) => {
-  console.log('constructorReducer', state);
   switch (action.type) {
     case ADD_LIST_ITEM:
       schedule.items = [
@@ -26,7 +28,7 @@ export const constructorReducer: ConstructorReducerTypes = (state, action) => {
       ];
 
       schedule.isLoggedIn
-      && localStorage.setItem('schedule', JSON.stringify(schedule));
+      && setLocal('schedule', schedule);
 
       return schedule;
 
@@ -44,7 +46,7 @@ export const constructorReducer: ConstructorReducerTypes = (state, action) => {
       });
 
       schedule.isLoggedIn
-      && localStorage.setItem('schedule', JSON.stringify(schedule));
+      && setLocal('schedule', schedule);
       return schedule;
 
     case REMOVE_LIST_ITEM: {
@@ -58,13 +60,19 @@ export const constructorReducer: ConstructorReducerTypes = (state, action) => {
       }));
 
       schedule.isLoggedIn
-      && localStorage.setItem('schedule', JSON.stringify(schedule));
+      && setLocal('schedule', schedule);
       return schedule;
     }
+    case SAVE_STATE: {
+      const localSchedule = getLocal('schedule');
 
-    case REMOVE_ALL:
+      !localSchedule && setLocal('schedule', schedule);
+      return state;
+    }
+    case REMOVE_STATE:
       localStorage.removeItem('schedule');
-      return null;
+      schedule.items = [];
+      return schedule;
 
     case SET_LOGIN:
       schedule = {
@@ -78,4 +86,4 @@ export const constructorReducer: ConstructorReducerTypes = (state, action) => {
   }
 };
 
-export const constructorLocalState = JSON.parse(localStorage.getItem('schedule') as string) || schedule;
+export const constructorLocalState = getLocal('schedule') || schedule;

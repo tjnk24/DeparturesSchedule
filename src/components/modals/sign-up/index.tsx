@@ -1,4 +1,9 @@
-import React, { FC, useState, useContext } from 'react';
+import React, {
+  FC,
+  useState,
+  useContext,
+  useEffect,
+} from 'react';
 import {
   showEmailVerify,
   showLogin,
@@ -25,9 +30,12 @@ const SignUp: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 
-  // TODO: при анмаунте, если есть ошибка, она сохраняется
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    modalsState.route !== SIGN_UP && setErrorMessage('');
+  });
 
   const signUp = async (payload: FormValidationTypes) => {
     setButtonDisabled(true);

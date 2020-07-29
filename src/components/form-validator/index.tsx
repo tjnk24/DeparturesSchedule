@@ -36,20 +36,6 @@ const FormValidator: FC<FormValidatorProps> = ({
     return tempInputs;
   };
 
-  // const validate = (values: ValidateHandlerTypes) => {
-  //   try {
-  //     validateYupSchema<ValidateHandlerTypes>(
-  //       values,
-  //       schema,
-  //       true,
-  //       { paswordRequired: requirePassword },
-  //     );
-  //   } catch (err) {
-  //     return yupToFormErrors(err);
-  //   }
-  //   return {};
-  // };
-
   const formikInner: FormikInnerTypes = ({
     values,
     errors,

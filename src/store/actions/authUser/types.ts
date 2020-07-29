@@ -7,5 +7,3 @@ export type authUserUpdateTypes = (
 ) => ConstantType & {
     payload: AuthUserTypes;
 }
-
-export type authUserRemoveTypes = () => ConstantType;

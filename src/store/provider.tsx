@@ -4,33 +4,39 @@ import { auth } from '@utils/firebase';
 import { ContextTypes } from '@apptypes/store';
 
 import fetchProps from './actions/appProps';
-import { authUserUpdate } from './actions/authUser';
+import authUserUpdate from './actions/authUser';
 import { combinedReducer, initialState } from './reducers/rootReducer';
-import { setLoggedIn } from './actions/constructor';
+import { setLoggedIn, saveState } from './actions/constructor';
 
 export const Context = React.createContext<ContextTypes>({} as ContextTypes);
 
 export const Provider: FC = (props): JSX.Element => {
   const [state, dispatch] = useReducer(combinedReducer, initialState);
 
+  const { user } = state.authUserState;
   const { children } = props;
 
   useEffect(() => {
     fetchProps(dispatch, api.appProps);
 
-    const listener = auth.onAuthStateChanged((user) => {
-      dispatch(authUserUpdate(user));
+    const listener = auth.onAuthStateChanged((authUser) => {
+      dispatch(authUserUpdate(authUser));
 
-      user
+      authUser
         ? dispatch(setLoggedIn(true))
         : dispatch(setLoggedIn(false));
 
-      console.log('provider', user);
+      console.log('provider', authUser);
     });
+
     return () => {
       listener();
     };
   }, []);
+
+  useEffect(() => {
+    user && dispatch(saveState());
+  }, [user]);
 
   return (
     <Context.Provider value={{ state, dispatch }}>

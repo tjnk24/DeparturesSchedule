@@ -1,7 +1,8 @@
 export const ADD_LIST_ITEM = 'ADD_LIST_ITEM';
 export const UPDATE_LIST_ITEM = 'UPDATE_LIST_ITEM';
 export const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
-export const REMOVE_ALL = 'REMOVE_ALL';
+export const SAVE_STATE = 'SAVE_STATE';
+export const REMOVE_STATE = 'REMOVE_STATE';
 export const SET_LOGIN = 'SET_LOGIN';
 
 export const FETCH_APP_PROPS_START = 'FETCH_APP_PROPS_START';

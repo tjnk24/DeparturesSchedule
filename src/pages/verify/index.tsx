@@ -14,23 +14,27 @@ import messages from '@components/modals/message/messages';
 import { showMessage, showResetPass } from '@store/actions/modals';
 import { MessagePayloadType, ResetPassPayloadType } from '@apptypes/store';
 
-// TODO: сделать что-то с этим
-const verifySuccessTitle = messages.titles.verifySuccess;
-const verifyFailTitle = messages.titles.verifyFail;
-const resetPassFail = messages.titles.passwordResetFail;
-const restoreSuccessMessage = messages.titles.restoreSuccess;
-const canSignInMessage = messages.messagesText.canSignIn;
-const verifyFailMessage = messages.messagesText.verifyFail;
-const resetPassFailMessage = messages.messagesText.passwordResetFail;
+const {
+  verifySuccess,
+  verifyFail: verifyFailTitle,
+  passwordResetFail: passwordResetFailTitle,
+  restoreSuccess,
+} = messages.titles;
+
+const {
+  canSignIn,
+  verifyFail,
+  passwordResetFail,
+} = messages.messagesText;
 
 
 const Verify: FC = () => {
   const { dispatch } = useContext(Context);
 
-  const [verifySuccess, setVerifySuccess] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const setSuccessAction = (payload: MessagePayloadType | ResetPassPayloadType) => {
-    setVerifySuccess(true);
+    setIsSuccess(true);
 
     const { actionCode } = payload as ResetPassPayloadType;
 
@@ -50,14 +54,14 @@ const Verify: FC = () => {
           auth.applyActionCode(actionCode)
             .then(() => {
               setSuccessAction({
-                title: verifySuccessTitle,
-                messageText: canSignInMessage,
+                title: verifySuccess,
+                messageText: canSignIn,
               });
             })
             .catch(() => {
               setSuccessAction({
                 title: verifyFailTitle,
-                messageText: verifyFailMessage,
+                messageText: verifyFail,
               });
             });
           break;
@@ -67,17 +71,17 @@ const Verify: FC = () => {
             .then(() => {
               auth.applyActionCode(actionCode)
                 .then(() => setSuccessAction({
-                  title: restoreSuccessMessage,
-                  messageText: canSignInMessage,
+                  title: restoreSuccess,
+                  messageText: canSignIn,
                 }))
                 .catch(() => setSuccessAction({
                   title: verifyFailTitle,
-                  messageText: verifyFailMessage,
+                  messageText: verifyFail,
                 }));
             })
             .catch(() => setSuccessAction({
               title: verifyFailTitle,
-              messageText: verifyFailMessage,
+              messageText: verifyFail,
             }));
           break;
         case 'resetPassword':
@@ -86,8 +90,8 @@ const Verify: FC = () => {
               actionCode,
             }))
             .catch(() => setSuccessAction({
-              title: resetPassFail,
-              messageText: resetPassFailMessage,
+              title: passwordResetFailTitle,
+              messageText: passwordResetFail,
             }));
           break;
 
@@ -97,11 +101,10 @@ const Verify: FC = () => {
     }
   }, []);
 
-  // TODO: сделать редирект, если нет экшнкода
   return (
     <>
       {
-        verifySuccess
+        isSuccess || !getUrlParameter('mode')
           ? <Redirect to="/" />
           : null
       }

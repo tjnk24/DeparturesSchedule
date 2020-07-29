@@ -1,6 +1,8 @@
-const capitalize = (value: string): string => value[0].toUpperCase() + value.slice(1);
+import { MixedValueTypes } from '@apptypes/components';
 
-const getUrlParameter = (value: string): string => {
+export const capitalize = (value: string): string => value[0].toUpperCase() + value.slice(1);
+
+export const getUrlParameter = (value: string): string => {
   const name = value.replace(/[\\[]/, '\\[').replace(/[\]]/, '\\]');
   const regex = new RegExp(`[\\?&]${name}=([^&#]*)`);
   const results = regex.exec(window.location.search);
@@ -8,4 +10,13 @@ const getUrlParameter = (value: string): string => {
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
-export { capitalize, getUrlParameter };
+export const getLocal = (
+  value: string,
+): JSON | null => JSON.parse(
+  localStorage.getItem(value) as string,
+);
+
+export const setLocal = (
+  value: string,
+  item: MixedValueTypes,
+): void => localStorage.setItem(value, JSON.stringify(item));

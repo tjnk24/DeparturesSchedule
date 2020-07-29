@@ -15,7 +15,7 @@ import fetchProps from '@store/actions/appProps';
 
 import api from '@utils/api';
 
-import { MixedValueTypes, ValueTypes } from '@apptypes/components';
+import { ValueTypes } from '@apptypes/components';
 
 import classnames from 'classnames/bind';
 import Spinner from 'react-bootstrap/esm/Spinner';

@@ -11,7 +11,8 @@ import {
   ADD_LIST_ITEM,
   UPDATE_LIST_ITEM,
   REMOVE_LIST_ITEM,
-  REMOVE_ALL,
+  SAVE_STATE,
+  REMOVE_STATE,
   SET_LOGIN,
 } from '../constants';
 
@@ -44,8 +45,12 @@ export const removeListItem: removeListItemTypes = (id) => ({
   payload: { id },
 });
 
-export const removeAll = (): ConstantType => ({
-  type: REMOVE_ALL,
+export const saveState = (): ConstantType => ({
+  type: SAVE_STATE,
+});
+
+export const removeState = (): ConstantType => ({
+  type: REMOVE_STATE,
 });
 
 export const setLoggedIn: setLoggedInTypes = (payload) => ({
