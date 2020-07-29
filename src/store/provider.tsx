@@ -6,6 +6,7 @@ import { ContextTypes } from '@apptypes/store';
 import fetchProps from './actions/appProps';
 import { authUserUpdate } from './actions/authUser';
 import { combinedReducer, initialState } from './reducers/rootReducer';
+import { setLoggedIn } from './actions/constructor';
 
 export const Context = React.createContext<ContextTypes>({} as ContextTypes);
 
@@ -19,6 +20,11 @@ export const Provider: FC = (props): JSX.Element => {
 
     const listener = auth.onAuthStateChanged((user) => {
       dispatch(authUserUpdate(user));
+
+      user
+        ? dispatch(setLoggedIn(true))
+        : dispatch(setLoggedIn(false));
+
       console.log('provider', user);
     });
     return () => {

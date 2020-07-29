@@ -1,9 +1,13 @@
-import { AppPropsTypes, MixedValueTypes } from '@apptypes/components';
+import {
+  AppPropsTypes,
+  ValueTypes,
+  PayloadType,
+} from '@apptypes/components';
 import { ActionType } from '@apptypes/store';
 
 type ConstantType = { type: string }
 
-type DispatchType = ConstantType | ActionType<MixedValueTypes>
+type DispatchType = ConstantType | ActionType<boolean | ValueTypes[] | PayloadType>
 
 export type FetchPropsStartTypes = () => ConstantType
 

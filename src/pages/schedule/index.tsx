@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useContext,
 } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import ScheduleItem from '@components/schedule-item';
 import { Transition, CSSTransition } from 'react-transition-group';
@@ -15,7 +15,7 @@ import fetchProps from '@store/actions/appProps';
 
 import api from '@utils/api';
 
-import { MixedValueTypes } from '@apptypes/components';
+import { MixedValueTypes, ValueTypes } from '@apptypes/components';
 
 import classnames from 'classnames/bind';
 import Spinner from 'react-bootstrap/esm/Spinner';
@@ -25,9 +25,10 @@ const cn = classnames.bind(style);
 
 const Schedule: FC = (): JSX.Element => {
   const { state, dispatch } = useContext(Context);
-  const { constructorState, appPropsState } = state;
+  const { appPropsState } = state;
+  const { items } = state.constructorState;
 
-  const screens: MixedValueTypes[][] = chunk(constructorState, 6);
+  const screens: ValueTypes[][] = chunk(items, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
@@ -59,7 +60,7 @@ const Schedule: FC = (): JSX.Element => {
     return appPropsState.flagsImages[`${countryLowerCase}`];
   };
 
-  const mapScreen = (screen: MixedValueTypes[]) => screen.map(
+  const mapScreen = (screen: ValueTypes[]) => screen.map(
     (item) => (
       <ScheduleItem
         key={item.id as number}
@@ -81,52 +82,56 @@ const Schedule: FC = (): JSX.Element => {
   };
 
   return (
-    <>
-      {loading ? preloader : null}
-      <div className={cn('schedule')}>
-        <div className={cn('schedule__background')}>
-          <img
-            src={require('./img/bg.jpg')}
-            alt="background"
-            onLoad={() => setLoading(false)}
-          />
-        </div>
-        <Link to="/">
-          <Button variant="link">
-          Edit schedule
-          </Button>
-        </Link>
-        <Transition in={scheduleIn} timeout={1500} onEntered={() => setScreenIn(true)}>
-          <div
-            className={cn('screenwrap')}
-          >
-            <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
-              <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
-                <div className={cn('screen__heading')}>
-                  <div>Country</div>
-                  <div>Gate</div>
-                  <div>Time remaining</div>
-                </div>
-                <div className={cn('screen__schedule-wrap')}>
-                  {screens.length
-                    ? screens.map((screen, index) => (
-                      <div
-                        key={screen[0].id as number}
-                        className={cn('screen__schedule-item',
-                          index === screenIndex && 'screen__schedule-item-visible',
-                          screens.length > 1 && 'screen__schedule-item-multiple')}
-                      >
-                        { appPropsState.flagsImages && mapScreen(screen) }
-                      </div>
-                    ))
-                    : null}
-                </div>
+    items.length
+      ? (
+        <>
+          {loading ? preloader : null}
+          <div className={cn('schedule')}>
+            <div className={cn('schedule__background')}>
+              <img
+                src={require('./img/bg.jpg')}
+                alt="background"
+                onLoad={() => setLoading(false)}
+              />
+            </div>
+            <Link to="/">
+              <Button variant="link">
+                Edit schedule
+              </Button>
+            </Link>
+            <Transition in={scheduleIn} timeout={1500} onEntered={() => setScreenIn(true)}>
+              <div
+                className={cn('screenwrap')}
+              >
+                <CSSTransition in={screenIn} timeout={2000} classNames={screenClasses}>
+                  <div className={cn('screen', screens.length === 1 && 'screen__single-screen')}>
+                    <div className={cn('screen__heading')}>
+                      <div>Country</div>
+                      <div>Gate</div>
+                      <div>Time remaining</div>
+                    </div>
+                    <div className={cn('screen__schedule-wrap')}>
+                      {screens.length
+                        ? screens.map((screen, index) => (
+                          <div
+                            key={screen[0].id as number}
+                            className={cn('screen__schedule-item',
+                              index === screenIndex && 'screen__schedule-item-visible',
+                              screens.length > 1 && 'screen__schedule-item-multiple')}
+                          >
+                            { appPropsState.flagsImages && mapScreen(screen) }
+                          </div>
+                        ))
+                        : null}
+                    </div>
+                  </div>
+                </CSSTransition>
               </div>
-            </CSSTransition>
+            </Transition>
           </div>
-        </Transition>
-      </div>
-    </>
+        </>
+      )
+      : <Redirect to="/" />
   );
 };
 

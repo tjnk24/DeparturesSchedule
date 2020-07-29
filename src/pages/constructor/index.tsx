@@ -8,16 +8,15 @@ import ConstructorComposer from '@components/constructor-composer';
 
 import { Context } from '@store/provider';
 
-import { ValueTypes } from '@apptypes/components';
-
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
 const Constructor: FC = (): JSX.Element => {
   const { state } = useContext(Context);
-  const { constructorState, appPropsState, authUserState } = state;
-  const { user } = authUserState;
+  const { loading, countries, gates } = state.appPropsState;
+  const { user } = state.authUserState;
+  const { items } = state.constructorState;
 
   return (
     <>
@@ -25,8 +24,8 @@ const Constructor: FC = (): JSX.Element => {
         <h5>Сompose your schedule here</h5>
         <Link to="/schedule">
           <Button
-            variant={constructorState.length ? 'success' : 'secondary'}
-            disabled={!constructorState.length}
+            variant={items?.length ? 'success' : 'secondary'}
+            disabled={!items.length}
           >
             Compose
           </Button>
@@ -40,12 +39,12 @@ const Constructor: FC = (): JSX.Element => {
           </p>
         )
       }
-      <ConstructorTable state={constructorState as ValueTypes[]} />
-      { appPropsState.loading === false
+      <ConstructorTable state={items} />
+      { loading === false
         ? (
           <ConstructorComposer
-            countries={appPropsState.countries}
-            gates={appPropsState.gates}
+            countries={countries}
+            gates={gates}
           />
         )
         : <Spinner className={cn('preloader')} animation="border" />}

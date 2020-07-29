@@ -27,7 +27,10 @@ export type AuthUserTypes = {
 
 export type PayloadType = { [index: string]: string | number | boolean }
 
-export type MixedValueTypes = ValueTypes | PayloadType;
+export type MixedValueTypes = {
+  items: ValueTypes[];
+  isLoggedIn: boolean | null;
+};
 
 export type FormInnerProps = {
   name          : string;

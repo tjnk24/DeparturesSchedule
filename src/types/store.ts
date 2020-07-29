@@ -1,4 +1,10 @@
-import { MixedValueTypes, AppPropsTypes, AuthUserTypes } from '@apptypes/components';
+import {
+  MixedValueTypes,
+  AppPropsTypes,
+  AuthUserTypes,
+  ValueTypes,
+  PayloadType,
+} from '@apptypes/components';
 
 export type ActionType<T> = {
     type: string;
@@ -12,7 +18,7 @@ type ModalsStateType = {
 }
 
 type StateType = {
-  constructorState : MixedValueTypes[];
+  constructorState : MixedValueTypes;
   appPropsState    : AppPropsTypes;
   authUserState    : AuthUserTypes;
   modalsState      : ModalsStateType;
@@ -28,9 +34,9 @@ export type MessagePayloadType = {
 }
 
 export type ConstructorReducerTypes = (
-  state  : MixedValueTypes[],
-  action : ActionType<MixedValueTypes>
-) => MixedValueTypes[];
+  state  : MixedValueTypes,
+  action : ActionType<ValueTypes | boolean>
+) => MixedValueTypes | null;
 
 export type AppPropsReducerTypes = (
   state  : AppPropsTypes,
@@ -49,5 +55,5 @@ export type ModalsReducerTypes = (
 
 export type ContextTypes = {
   state: StateType;
-  dispatch: React.Dispatch<ActionType<MixedValueTypes>>;
+  dispatch: React.Dispatch<ActionType<MixedValueTypes['items'] | boolean | PayloadType>>;
 }

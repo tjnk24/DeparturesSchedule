@@ -14,6 +14,7 @@ import Button from 'react-bootstrap/esm/Button';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 import { showLogin } from '@store/actions/modals';
+import { removeAll } from '@store/actions/constructor';
 
 import style from './style.scss';
 
@@ -30,6 +31,11 @@ const Header: FC = () => {
     setInputValue(event.target.value);
   };
 
+  const logOutHandler = () => {
+    dispatch(removeAll());
+    auth.signOut();
+  };
+
   const loginSignUpButton = (
     <Button
       variant="link"
@@ -44,7 +50,7 @@ const Header: FC = () => {
       <Link to="/profile" className={cn('edit-profile')}>
         <Dropdown.Item as="span">Edit profile</Dropdown.Item>
       </Link>
-      <Dropdown.Item onClick={() => auth.signOut()}>Log out</Dropdown.Item>
+      <Dropdown.Item onClick={() => logOutHandler()}>Log out</Dropdown.Item>
     </DropdownButton>
   );
 

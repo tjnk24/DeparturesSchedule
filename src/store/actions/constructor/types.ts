@@ -1,8 +1,8 @@
 import { StringObjectType, ValueTypes } from '@apptypes/components';
 
-type ConstantType = { type: string }
-
 type ValueType<K extends keyof ValueTypes> = Pick<ValueTypes, K>
+
+export type ConstantType = { type: string }
 
 export type addListItemTypes = (values: StringObjectType) => ConstantType & {
     payload: StringObjectType | ValueType<'isEditing'>;
@@ -21,4 +21,8 @@ export type setItemEditingTypes = (id: number, isEditing: boolean) => ConstantTy
       id: number;
       isEditing: boolean;
     };
+}
+
+export type setLoggedInTypes = (payload: boolean) => ConstantType & {
+    payload: boolean;
 }
