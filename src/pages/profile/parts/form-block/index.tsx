@@ -1,41 +1,29 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { FC, useState, useRef } from 'react';
-import classnames from 'classnames/bind';
+import React, { FC, useState } from 'react';
 import Form from 'react-bootstrap/esm/Form';
 import Row from 'react-bootstrap/esm/Row';
-import Col from 'react-bootstrap/esm/Col';
-import Button from 'react-bootstrap/esm/Button';
 
-// TODO: вынести иконки в отдельную директорию
-import { ShowPassIcon, HidePassIcon } from '@components/modals/inner-form/icons';
 import FormValidator from '@components/form-validator';
-import SubmitButton from '@components/submit-button';
 import { FormValidationTypes } from '@apptypes/components';
-import AuthPopover from '../auth-popover';
+import RepeatPass from './parts/repeat-pass';
+import InputBlock from './parts/input-block';
+import ButtonBlock from './parts/button-block';
 
 import { FormBlockProps, SubmitActionType, ResetFormType } from './types';
 
-import style from './style.scss';
-
-const cn = classnames.bind(style);
-
-// TODO: отрефакторить этот компонент, разбить на части
 const FormBlock: FC<FormBlockProps> = ({
   type,
   action,
+  reauth,
   disabled,
   startValue,
   startMessage,
-  reauth,
 }) => {
+  const [message, setMessage] = useState('');
   const [editing, setEditing] = useState(false);
   const [readOnly, setReadOnly] = useState(true);
-  const [message, setMessage] = useState('');
-  const [showPopover, setShowPopover] = useState(false);
   const [formPayload, setFormPayload] = useState({});
+  const [showPopover, setShowPopover] = useState(false);
   const [resetFormHandler, setResetFormHandler] = useState<ResetFormType | null | undefined>(null);
-
-  const buttonRef = useRef<HTMLDivElement | null>(null);
 
   const validationInputs = type !== 'password'
     ? [type]
@@ -44,12 +32,6 @@ const FormBlock: FC<FormBlockProps> = ({
   const isPassword = type === 'password';
 
   const [inputType, setInputType] = useState(isPassword ? 'password' : type);
-
-  const showPassHandler = () => {
-    inputType === 'password'
-      ? setInputType('text')
-      : setInputType('password');
-  };
 
   const submitAction: SubmitActionType = (payload, { resetForm }) => {
     const isSameValue = payload[type] === startValue?.[type];
@@ -98,6 +80,39 @@ const FormBlock: FC<FormBlockProps> = ({
           delete repeatPassProps.type;
         }
 
+        const InputBlockProps = {
+          type,
+          errors,
+          message,
+          editing,
+          readOnly,
+          inputType,
+          isPassword,
+          setInputType,
+          validationRest,
+        };
+
+        const ButtonBlockProps = {
+          type,
+          reauth,
+          editing,
+          disabled,
+          setEditing,
+          setMessage,
+          setReadOnly,
+          showPopover,
+          startMessage,
+          authSubmitAction,
+        };
+
+        const RepeatBlockProps = {
+          editing,
+          message,
+          readOnly,
+          inputType,
+          repeatPassProps,
+        };
+
         return (
           <Form
             onSubmit={handleSubmit}
@@ -107,106 +122,13 @@ const FormBlock: FC<FormBlockProps> = ({
               <Form.Label column sm={2}>
                 { labeltext }
               </Form.Label>
-              <Col sm={7} className={cn('input-wrap')}>
-                <Form.Control
-                  className={isPassword && !!errors ? cn('password-error') : undefined}
-                  type={inputType}
-                  isInvalid={editing && !!errors}
-                  required
-                  plaintext={!editing}
-                  readOnly={readOnly}
-                  {...validationRest}
-                />
-                {
-                  isPassword && editing
-                    ? (
-                      <button
-                        type="button"
-                        onClick={showPassHandler}
-                      >
-                        {
-                        inputType === 'password'
-                          ? ShowPassIcon
-                          : HidePassIcon
-                      }
-                      </button>
-                    )
-                    : null
-                }
-                <Form.Control.Feedback type="invalid">
-                  { errors }
-                </Form.Control.Feedback>
-                {
-                  type !== 'password' && message !== ''
-                  && (
-                  <Form.Text>
-                    { message }
-                  </Form.Text>
-                  )
-                }
-              </Col>
-              <Col sm={3} className={cn('button-wrap')}>
-                {
-                  editing
-                    ? (
-                      <>
-                        <div ref={buttonRef}>
-                          <SubmitButton
-                            disabled={disabled}
-                            innerText="Submit!"
-                          />
-                        </div>
-                        { reauth && (
-                          <AuthPopover
-                            target={buttonRef}
-                            show={showPopover}
-                            action={authSubmitAction}
-                            disabled={disabled}
-                          />
-                        )}
-                      </>
-                    )
-                    : (
-                      <Button
-                        variant="secondary"
-                        onClick={() => {
-                          setEditing(true);
-                          setReadOnly(false);
-                          setMessage(startMessage || '');
-                        }}
-                      >
-                        {`Change ${type}`}
-                      </Button>
-                    )
-                }
-              </Col>
+              <InputBlock {...InputBlockProps} />
+              <ButtonBlock {...ButtonBlockProps} />
             </Form.Group>
             {
               type === 'password'
               && (
-                <Form.Group as={Row}>
-                  <Col sm={{ span: 7, offset: 2 }}>
-                    <Form.Control
-                      type={inputType}
-                      isInvalid={editing && !!repeatPassProps?.errors}
-                      required
-                      plaintext={!editing}
-                      readOnly={readOnly}
-                      {...repeatPassProps}
-                    />
-                    <Form.Control.Feedback type="invalid">
-                      { repeatPassProps?.errors }
-                    </Form.Control.Feedback>
-                    {
-                      message !== ''
-                      && (
-                      <Form.Text>
-                        { message }
-                      </Form.Text>
-                      )
-                    }
-                  </Col>
-                </Form.Group>
+                <RepeatPass {...RepeatBlockProps} />
               )
             }
           </Form>

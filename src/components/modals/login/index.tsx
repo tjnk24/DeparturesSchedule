@@ -11,6 +11,7 @@ import { Context } from '@store/provider';
 import { closeModal, showForgotPass, showSignUp } from '@store/actions/modals';
 import { LOGIN } from '@store/actions/constants';
 
+import FormErrorMessage from '@components/error-message';
 import SubmitButton from '@components/submit-button';
 import InnerForm from '../inner-form';
 
@@ -81,16 +82,9 @@ const Login: FC = () => {
                     Forgot your password?
                   </Button>
                 </Form.Group>
-                {
-                  errorMessage !== ''
-                  && (
-                    <Form.Group>
-                      <Form.Text className={cn('error-message')}>
-                        { errorMessage }
-                      </Form.Text>
-                    </Form.Group>
-                  )
-                }
+                <FormErrorMessage
+                  message={errorMessage}
+                />
                 <SubmitButton
                   disabled={buttonDisabled}
                   customCss={() => cn('login-button')}

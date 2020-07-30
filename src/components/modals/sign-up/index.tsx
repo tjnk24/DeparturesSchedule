@@ -13,11 +13,12 @@ import { Context } from '@store/provider';
 import { SIGN_UP } from '@store/actions/constants';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
-import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
+import Modal from 'react-bootstrap/esm/Modal';
 import Button from 'react-bootstrap/esm/Button';
-import FormValidator from '@components/form-validator';
 import SubmitButton from '@components/submit-button';
+import FormValidator from '@components/form-validator';
+import FormErrorMessage from '@components/error-message';
 import { FormValidationTypes } from '@apptypes/components';
 import InnerForm from '../inner-form';
 
@@ -88,16 +89,9 @@ const SignUp: FC = () => {
                   </Form.Group>
                 ))
               }
-              {
-                errorMessage !== ''
-                && (
-                  <Form.Group>
-                    <Form.Text className={cn('error-message')}>
-                      { errorMessage }
-                    </Form.Text>
-                  </Form.Group>
-                )
-              }
+              <FormErrorMessage
+                message={errorMessage}
+              />
               <SubmitButton
                 disabled={buttonDisabled}
                 customCss={() => cn('sign-up-button')}

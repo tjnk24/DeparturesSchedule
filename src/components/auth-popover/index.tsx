@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import FormValidator from '@components/form-validator';
 import InnerForm from '@components/modals/inner-form';
 import SubmitButton from '@components/submit-button';
@@ -14,8 +14,6 @@ const AuthPopover: FC<AuthPopoverProps> = ({
   action,
   disabled,
 }) => {
-  const [errorMessage, seterrorMessage] = useState('');
-
   const popover = () => (
     <Popover
       id="popover-contained"
@@ -35,16 +33,6 @@ const AuthPopover: FC<AuthPopoverProps> = ({
                 <Form.Group>
                   <InnerForm {...password} />
                 </Form.Group>
-                {
-                    errorMessage !== ''
-                    && (
-                    <Form.Group>
-                      <Form.Text>
-                        { errorMessage }
-                      </Form.Text>
-                    </Form.Group>
-                    )
-                }
                 <SubmitButton
                   style={{ width: '100%' }}
                   disabled={disabled}

@@ -1,8 +1,8 @@
 import React, { FC, useState } from 'react';
+import ShowPassButton from '@components/show-pass-button';
 import classnames from 'classnames/bind';
 import Form from 'react-bootstrap/esm/Form';
 import { FormInnerProps } from '@apptypes/components';
-import { ShowPassIcon, HidePassIcon } from './icons';
 
 import style from './style.scss';
 
@@ -18,12 +18,6 @@ const InnerForm: FC<FormInnerProps> = ({
 
   const [inputType, setInputType] = useState(isPassword ? 'password' : type);
 
-  const showPassHandler = () => {
-    inputType === 'password'
-      ? setInputType('text')
-      : setInputType('password');
-  };
-
   return (
     <>
       <Form.Label>{ labelText }</Form.Label>
@@ -38,16 +32,10 @@ const InnerForm: FC<FormInnerProps> = ({
         {
           isPassword
             ? (
-              <button
-                type="button"
-                onClick={showPassHandler}
-              >
-                {
-                inputType === 'password'
-                  ? ShowPassIcon
-                  : HidePassIcon
-              }
-              </button>
+              <ShowPassButton
+                type={inputType}
+                setType={setInputType}
+              />
             )
             : null
         }

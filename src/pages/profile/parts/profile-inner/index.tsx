@@ -75,6 +75,11 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
             setButtonsDisabled(false);
             editingHandler(false);
           });
+      })
+      .catch((error) => {
+        messageHandler(error.message);
+        setButtonsDisabled(false);
+        editingHandler(false);
       });
   };
 
@@ -112,6 +117,11 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
             editingHandler(false);
             resetFormHandler?.({ values: '' });
           });
+      })
+      .catch((error) => {
+        messageHandler(error.message);
+        setButtonsDisabled(false);
+        editingHandler(false);
       });
   };
 
@@ -143,6 +153,8 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
           type="password"
           action={updatePassword}
           disabled={buttonsDisabled}
+          startMessage="We'll need you to re-enter old your
+          password on submit."
         />
       </div>
     </>

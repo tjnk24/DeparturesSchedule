@@ -2,6 +2,7 @@ import React, { FC, useContext, useState } from 'react';
 import { Context } from '@store/provider';
 import { RESET_PASS } from '@store/actions/constants';
 import { closeModal, showMessage } from '@store/actions/modals';
+import FormErrorMessage from '@components/error-message';
 import FormValidator from '@components/form-validator';
 import SubmitButton from '@components/submit-button';
 import Modal from 'react-bootstrap/esm/Modal';
@@ -76,16 +77,9 @@ const ResetPassword: FC = () => {
                 <Form.Group>
                   <InnerForm {...repeatPassword} />
                 </Form.Group>
-                {
-                  errorMessage !== ''
-                  && (
-                    <Form.Group>
-                      <Form.Text>
-                        { errorMessage }
-                      </Form.Text>
-                    </Form.Group>
-                  )
-                }
+                <FormErrorMessage
+                  message={errorMessage}
+                />
                 <SubmitButton
                   style={{ width: '142px' }}
                   disabled={buttonDisabled}

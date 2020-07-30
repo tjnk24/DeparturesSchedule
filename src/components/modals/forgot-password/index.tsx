@@ -10,6 +10,7 @@ import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
 import FormValidator from '@components/form-validator';
 import SubmitButton from '@components/submit-button';
+import FormErrorMessage from '@components/error-message';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
@@ -29,7 +30,6 @@ const ForgotPassword: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { modalsState } = state;
 
-  // TODO: вынести errorMessage в отдельный компонент
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -79,16 +79,11 @@ const ForgotPassword: FC = () => {
                 <Form.Group>
                   <InnerForm {...email} />
                 </Form.Group>
-                {
-                  errorMessage !== ''
-                  && (
-                    <Form.Group>
-                      <Form.Text className={cn('error-message')}>
-                        { errorMessage }
-                      </Form.Text>
-                    </Form.Group>
-                  )
-                }
+
+                <FormErrorMessage
+                  message={errorMessage}
+                />
+
                 <SubmitButton
                   style={{ width: '110px' }}
                   disabled={buttonDisabled}
