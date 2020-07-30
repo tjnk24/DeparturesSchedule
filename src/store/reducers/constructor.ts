@@ -8,8 +8,8 @@ import {
 } from '@store/actions/constants';
 import { setLocal, getLocal } from '@utils/helpers';
 
-import { MixedValueTypes, ValueTypes } from '@apptypes/components';
-import { ConstructorReducerTypes } from '@apptypes/store';
+import { ValueTypes } from '@apptypes/common';
+import { ConstructorReducerTypes, MixedValueTypes } from '@apptypes/store';
 
 let schedule: MixedValueTypes = {
   items: [],

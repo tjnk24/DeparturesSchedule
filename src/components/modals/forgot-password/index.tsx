@@ -17,7 +17,7 @@ import Button from 'react-bootstrap/esm/Button';
 import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 
 import InnerForm from '../inner-form';
 import messages from '../message/messages';
@@ -33,7 +33,7 @@ const ForgotPassword: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const resetEmailHandler = (payload: FormValidationTypes) => {
+  const resetEmailHandler = (payload: StringObjectType) => {
     setButtonDisabled(true);
 
     auth.sendPasswordResetEmail(payload.email)

@@ -1,4 +1,4 @@
-import { FormInnerProps } from '@apptypes/components';
+import { FormInnerProps } from '@apptypes/common';
 
 type RepeatPassProps = {
   inputType       : string;

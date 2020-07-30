@@ -1,4 +1,4 @@
-import { MixedValueTypes } from '@apptypes/components';
+import { MixedValueTypes } from '@apptypes/store';
 
 export const capitalize = (value: string): string => value[0].toUpperCase() + value.slice(1);
 

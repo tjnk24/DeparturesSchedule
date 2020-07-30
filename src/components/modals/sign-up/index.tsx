@@ -19,7 +19,7 @@ import Button from 'react-bootstrap/esm/Button';
 import SubmitButton from '@components/submit-button';
 import FormValidator from '@components/form-validator';
 import FormErrorMessage from '@components/error-message';
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 import InnerForm from '../inner-form';
 
 import style from './style.scss';
@@ -38,7 +38,7 @@ const SignUp: FC = () => {
     modalsState.route !== SIGN_UP && setErrorMessage('');
   });
 
-  const signUp = async (payload: FormValidationTypes) => {
+  const signUp = async (payload: StringObjectType) => {
     setButtonDisabled(true);
 
     await auth

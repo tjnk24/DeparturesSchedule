@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 
 type ButtonBlockProps = {
   type             : string;
@@ -8,7 +8,7 @@ type ButtonBlockProps = {
   disabled         : boolean;
   showPopover      : boolean;
   startMessage?    : string;
-  authSubmitAction : (popoverPayload: FormValidationTypes) => void;
+  authSubmitAction : (popoverPayload: StringObjectType) => void;
   setEditing       : Dispatch<SetStateAction<boolean>>;
   setReadOnly      : Dispatch<SetStateAction<boolean>>;
   setMessage       : Dispatch<SetStateAction<string>>;

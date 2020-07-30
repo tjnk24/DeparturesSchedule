@@ -1,9 +1,9 @@
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 
 type AuthPopoverProps = {
     target   : React.RefObject<HTMLDivElement | null>;
     show     : boolean;
-    action   : (payload: FormValidationTypes) => void;
+    action   : (payload: StringObjectType) => void;
     disabled : boolean;
 }
 

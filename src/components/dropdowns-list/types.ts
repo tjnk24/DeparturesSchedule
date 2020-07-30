@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { StringObjectType } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 
 type GatesType = { [index: string]: number }
 

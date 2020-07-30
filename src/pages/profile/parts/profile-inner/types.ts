@@ -10,13 +10,6 @@ export type ProfileInnerProps = {
     };
 };
 
-export type updateProfileTypes = {
-    username       : string;
-    email          : string;
-    password       : string | null;
-    repeatPassword : string | null;
-}
-
 export type SubmitActionTypes = (
     formPayload       : { [key: string]: string },
     messageHandler    : Dispatch<SetStateAction<string>>,

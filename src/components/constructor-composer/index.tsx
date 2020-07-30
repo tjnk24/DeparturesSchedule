@@ -5,7 +5,7 @@ import { addListItem } from '@store/actions/constructor';
 import { Context } from '@store/provider';
 
 import classnames from 'classnames/bind';
-import { StringObjectType } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 import DropdownsList from '../dropdowns-list';
 import style from './style.scss';
 

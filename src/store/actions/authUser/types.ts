@@ -1,4 +1,4 @@
-import { AuthUserTypes } from '@apptypes/components';
+import { AuthUserTypes } from '@apptypes/store';
 
 type ConstantType = { type: string }
 

@@ -1,14 +1,27 @@
 import {
-  MixedValueTypes,
-  AppPropsTypes,
-  AuthUserTypes,
   ValueTypes,
-  PayloadType,
-} from '@apptypes/components';
+} from '@apptypes/common';
+
+export type AppPropsTypes = {
+  countries   : string[];
+  gates       : { [index: string]: number };
+  flagsImages : { [index: string]: string };
+  loading     : boolean;
+}
+
+export type MixedValueTypes = {
+  items: ValueTypes[];
+  isLoggedIn: boolean | null;
+};
 
 export type ActionType<T> = {
     type: string;
     payload?: T;
+}
+
+export type AuthUserTypes = {
+  authUserLoaded : boolean;
+  user           : firebase.User | null;
 }
 
 type ModalsStateType = {
@@ -52,6 +65,8 @@ export type ModalsReducerTypes = (
   state  : ModalsStateType,
   action : ActionType<MessagePayloadType | ResetPassPayloadType>
 ) => ModalsStateType;
+
+export type PayloadType = { [index: string]: string | number | boolean }
 
 export type ContextTypes = {
   state: StateType;

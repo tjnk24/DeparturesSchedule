@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/esm/Form';
 import Row from 'react-bootstrap/esm/Row';
 
 import FormValidator from '@components/form-validator';
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 import RepeatPass from './parts/repeat-pass';
 import InputBlock from './parts/input-block';
 import ButtonBlock from './parts/button-block';
@@ -48,7 +48,7 @@ const FormBlock: FC<FormBlockProps> = ({
     }
   };
 
-  const authSubmitAction = (popoverPayload: FormValidationTypes) => {
+  const authSubmitAction = (popoverPayload: StringObjectType) => {
     action(
       formPayload,
       setMessage,

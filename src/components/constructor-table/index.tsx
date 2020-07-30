@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import classnames from 'classnames/bind';
 import Table from 'react-bootstrap/esm/Table';
-import TableRow from './parts/table-row';
+import TableRow from './table-row';
 import { ConstructorTableProps, TableRowProps } from './types';
 
 import style from './style.scss';
@@ -16,7 +16,7 @@ const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => 
         : (
           <Table
             size="sm"
-            className={cn('constructor-table')}
+            style={{ width: '100%' }}
           >
             <thead>
               <tr>

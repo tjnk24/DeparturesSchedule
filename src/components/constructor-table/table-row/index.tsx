@@ -16,7 +16,7 @@ import { Context } from '@store/provider';
 import classnames from 'classnames/bind';
 import style from './style.scss';
 
-import { TableRowProps, UpdateListProps } from '../../types';
+import { TableRowProps, UpdateListProps } from '../types';
 
 const cn = classnames.bind(style);
 

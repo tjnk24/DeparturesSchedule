@@ -1,4 +1,4 @@
-import { StringObjectType, ValueTypes } from '@apptypes/components';
+import { StringObjectType, ValueTypes } from '@apptypes/common';
 
 type ValueType<K extends keyof ValueTypes> = Pick<ValueTypes, K>
 

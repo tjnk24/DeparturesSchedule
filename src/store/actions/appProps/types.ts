@@ -1,9 +1,11 @@
 import {
-  AppPropsTypes,
   ValueTypes,
+} from '@apptypes/common';
+import {
+  ActionType,
   PayloadType,
-} from '@apptypes/components';
-import { ActionType } from '@apptypes/store';
+  AppPropsTypes,
+} from '@apptypes/store';
 
 type ConstantType = { type: string }
 

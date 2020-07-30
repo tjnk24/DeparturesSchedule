@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/esm/Form';
 import Button from 'react-bootstrap/esm/Button';
 import FormValidator from '@components/form-validator';
 import { auth } from '@utils/firebase';
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 
 import { Context } from '@store/provider';
 import { closeModal, showForgotPass, showSignUp } from '@store/actions/modals';
@@ -26,7 +26,7 @@ const Login: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const login = async (payload: FormValidationTypes) => {
+  const login = async (payload: StringObjectType) => {
     setButtonDisabled(true);
 
     await auth

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import ShowPassButton from '@components/show-pass-button';
 import classnames from 'classnames/bind';
 import Form from 'react-bootstrap/esm/Form';
-import { FormInnerProps } from '@apptypes/components';
+import { FormInnerProps } from '@apptypes/common';
 
 import style from './style.scss';
 

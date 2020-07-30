@@ -9,7 +9,7 @@ import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
 import { auth } from '@utils/firebase';
 
-import { FormValidationTypes } from '@apptypes/components';
+import { StringObjectType } from '@apptypes/common';
 
 import InnerForm from '../inner-form';
 import messages from '../message/messages';
@@ -24,7 +24,7 @@ const ResetPassword: FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const resetPassHandler = (payload: FormValidationTypes) => {
+  const resetPassHandler = (payload: StringObjectType) => {
     setButtonDisabled(true);
 
     auth.confirmPasswordReset(modalsState.actionCode, payload.password)

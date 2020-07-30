@@ -4,11 +4,9 @@ import { capitalize } from '@utils/helpers';
 
 import {
   StringObjectType,
-  FormikInnerTypes,
   FormInnerProps,
-  FormValidatorProps,
-  FormValidationTypes,
-} from '@apptypes/components';
+} from '@apptypes/common';
+import { FormValidatorProps, FormikInnerTypes } from './types';
 
 import makeSchema from './make-schema';
 
@@ -22,10 +20,10 @@ const FormValidator: FC<FormValidatorProps> = ({
 
   const getInitialValues = () => {
     let tempInputs = inputs.reduce((current, item) => {
-      const tempCurrent: StringObjectType & FormValidationTypes = current;
+      const tempCurrent: StringObjectType = current;
       tempCurrent[item] = '';
       return tempCurrent;
-    }, {} as FormValidationTypes);
+    }, {} as StringObjectType);
 
     if (startValues) {
       tempInputs = {
