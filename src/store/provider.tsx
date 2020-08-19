@@ -25,8 +25,6 @@ export const Provider: FC = (props): JSX.Element => {
       authUser
         ? dispatch(setLoggedIn(true))
         : dispatch(setLoggedIn(false));
-
-      console.log('provider', authUser);
     });
 
     return () => {
