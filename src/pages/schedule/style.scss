@@ -1,9 +1,63 @@
 :local {
-    .schedule {
-        height: calc(100% - 100px);
-        background: url(./img/bg.jpg) center no-repeat;
-        background-size: cover;
+    .preloader-wrap {
+        background-color: #FFF;
+        height: 100%;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        right: 0;
+        z-index: 2;
+    }
+
+    .schedule {
+        position: relative;
+        height: calc(100% - 100px);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+
+        &__background {
+            position: fixed;
+            top: -44%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: -1;
+
+            img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                margin: auto;
+                min-width: 50%;
+                min-height: 50%;
+            }
+        }
+
+        a {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            width: 148px;
+        }
+
+        button {
+            line-height: 1;
+            padding: 0;
+            color: #FFF;
+            font-size: 17px;
+            margin: 10px 20px;
+            letter-spacing: 0.2px;
+
+            &:hover {
+                color: #ccc;
+            }
+        }
     }
 
     .screenwrap {
@@ -12,36 +66,14 @@
         margin: auto;
         background-color: rgba(7, 8, 12, .9);
         animation: screen-in 1.5s ease-in-out;
+        z-index: 1;
 
         @media (max-width: 1240px) {
             width: 700px;
             animation: screen-in-700px 1.5s ease-in-out;
         }
 
-        button {
-            background: transparent;
-            line-height: 1;
-            padding: 0;
-            color: #212529;
-            font-size: 18px;
-            margin-left: 5px;
-            letter-spacing: 0.2px;
-            border: 0;
-            border-bottom: 1px solid #212529;
 
-            &:hover {
-                border-bottom: 0;
-            }
-        }
-
-        &__link-hidden {
-            opacity: 0;
-        }
-
-        &__link-visible {
-            opacity: 1;
-            animation: fade-in .3s ease-in-out;
-        }
     }
 
     .screen {

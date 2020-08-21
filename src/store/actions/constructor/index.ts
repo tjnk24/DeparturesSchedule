@@ -3,11 +3,20 @@ import {
   updateListItemTypes,
   removeListItemTypes,
   setItemEditingTypes,
+  ConstantType,
+  setLoggedInTypes,
 } from './types';
 
-import { ADD_LIST_ITEM, UPDATE_LIST_ITEM, REMOVE_LIST_ITEM } from '../constants';
+import {
+  ADD_LIST_ITEM,
+  UPDATE_LIST_ITEM,
+  REMOVE_LIST_ITEM,
+  SAVE_STATE,
+  REMOVE_STATE,
+  SET_LOGIN,
+} from '../constants';
 
-const addListItem: addListItemTypes = (values) => ({
+export const addListItem: addListItemTypes = (values) => ({
   type: ADD_LIST_ITEM,
   payload: {
     ...values,
@@ -15,7 +24,7 @@ const addListItem: addListItemTypes = (values) => ({
   },
 });
 
-const updateListItem: updateListItemTypes = (id, updatePayload) => ({
+export const updateListItem: updateListItemTypes = (id, updatePayload) => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     id,
@@ -23,12 +32,7 @@ const updateListItem: updateListItemTypes = (id, updatePayload) => ({
   },
 });
 
-const removeListItem: removeListItemTypes = (id) => ({
-  type: REMOVE_LIST_ITEM,
-  payload: { id },
-});
-
-const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
+export const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     id,
@@ -36,9 +40,20 @@ const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
   },
 });
 
-export {
-  addListItem,
-  updateListItem,
-  removeListItem,
-  setItemEditing,
-};
+export const removeListItem: removeListItemTypes = (id) => ({
+  type: REMOVE_LIST_ITEM,
+  payload: { id },
+});
+
+export const saveState = (): ConstantType => ({
+  type: SAVE_STATE,
+});
+
+export const removeState = (): ConstantType => ({
+  type: REMOVE_STATE,
+});
+
+export const setLoggedIn: setLoggedInTypes = (payload) => ({
+  type: SET_LOGIN,
+  payload,
+});

@@ -1,15 +1,22 @@
 :local {
-    .constructor {
-        padding: 20px;
+    .heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
-        &__heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+    .heading h5,
+    .edit-info {
+        color: #808080;
+    }
 
-            h5 {
-                color: #808080;
-            }
-        }
+    .edit-info {
+        font-size: 14px;
+    }
+
+    .preloader {
+        display: block;
+        margin: 0 auto;
+        margin-top: 60px;
     }
 }

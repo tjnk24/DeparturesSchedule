@@ -1,4 +1,4 @@
-import { ValueTypes } from '@apptypes/components';
+import { ValueTypes } from '@apptypes/common';
 
 export type ConstructorTableProps = {
     state: ValueTypes[];

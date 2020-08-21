@@ -1,49 +1,54 @@
 import React, { FC, useContext } from 'react';
+import classnames from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import Button from 'react-bootstrap/esm/Button';
+import Spinner from 'react-bootstrap/esm/Spinner';
 import ConstructorTable from '@components/constructor-table';
 import ConstructorComposer from '@components/constructor-composer';
 
 import { Context } from '@store/provider';
 
-import ConstructedHandlerType from '@apptypes/pages';
-
-import { ValueTypes } from '@apptypes/components';
-
-import classnames from 'classnames/bind';
 import style from './style.scss';
-
-import bootstrap from '@bootstrap-module';
-
 
 const cn = classnames.bind(style);
 
-const Constructor: FC<ConstructedHandlerType> = ({ setConstructed }): JSX.Element => {
+const Constructor: FC = (): JSX.Element => {
   const { state } = useContext(Context);
-  const { constructorState, appPropsState } = state;
+  const { loading, countries, gates } = state.appPropsState;
+  const { user } = state.authUserState;
+  const { items } = state.constructorState;
 
   return (
-    <div className={cn('constructor')}>
-      <div className={cn('constructor__heading')}>
+    <>
+      <div className={cn('heading')}>
         <h5>Сompose your schedule here</h5>
-        <button
-          type="button"
-          className={cn(
-            bootstrap.btn,
-            bootstrap[constructorState.length ? 'btn-success' : 'btn-secondary'],
-          )}
-          disabled={!constructorState.length}
-          onClick={() => setConstructed(true)}
-        >
-          Compose
-        </button>
+        <Link to="/schedule">
+          <Button
+            variant={items?.length ? 'success' : 'secondary'}
+            disabled={!items.length}
+          >
+            Compose
+          </Button>
+        </Link>
       </div>
-      <ConstructorTable state={constructorState as ValueTypes[]} />
-      { appPropsState.loading === false && (
-        <ConstructorComposer
-          countries={appPropsState.countries}
-          gates={appPropsState.gates}
-        />
-      )}
-    </div>
+      {
+        !(user && user.emailVerified)
+        && (
+          <p className={cn('edit-info')}>
+            *Please sign in to edit and save this schedule and the header text above.
+          </p>
+        )
+      }
+      <ConstructorTable state={items} />
+      { loading === false
+        ? (
+          <ConstructorComposer
+            countries={countries}
+            gates={gates}
+          />
+        )
+        : <Spinner className={cn('preloader')} animation="border" />}
+    </>
   );
 };
 

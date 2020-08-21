@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const dotenv = require('dotenv');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -34,6 +35,18 @@ const cssLoaders = [
   },
 ];
 
+const bootstrapLoaders = [
+  {
+    loader: development ? 'style-loader' : MiniCssExtractPlugin.loader,
+  },
+  {
+    loader: 'css-loader',
+    options: {
+      sourceMap: development,
+    },
+  },
+];
+
 module.exports = {
   entry: [
     './src/index.tsx',
@@ -50,6 +63,7 @@ module.exports = {
     port: 8080,
     contentBase: path.resolve(__dirname, 'src'),
     hot: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -61,13 +75,12 @@ module.exports = {
         },
       },
       {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "source-map-loader"
+        test: /\.scss$/,
+        use: cssLoaders,
       },
       {
-        test: /\.(css|scss)$/,
-        use: cssLoaders,
+        test: /\.css$/,
+        use: bootstrapLoaders,
       },
       {
         test: /\.(png|jpg|gif|svg|ttf|woff|woff2|mp4)$/,
@@ -82,7 +95,8 @@ module.exports = {
     ],
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(), // uncomment to analyze the bundle
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       ...envKeys
@@ -109,7 +123,6 @@ module.exports = {
       '@apptypes': path.resolve(__dirname, 'src', 'types'),
       '@utils': path.resolve(__dirname, 'src', 'utils'),
       '@mocks': path.resolve(__dirname, 'mocks'),
-      '@bootstrap-module': path.resolve(__dirname, 'src', 'assets', 'bootstrap.min.module.css'),
     },
   },
 };

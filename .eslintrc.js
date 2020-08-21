@@ -27,6 +27,7 @@ module.exports = {
         'import/no-unresolved': 'off',
         'react/display-name': 'off',
         'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
         'react/jsx-filename-extension': [
             'error',
             {
@@ -53,7 +54,11 @@ module.exports = {
               delimiter: 'comma',
               requireLast: false
             }
-          }]
+          }],
+        'no-warning-comments': ['warn', {
+            "terms": [''],
+            "location": "start"
+        }]
     },
     settings: {
         '@typescript-eslint/parser': ['.ts', '.tsx'],

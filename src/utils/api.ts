@@ -1,6 +1,6 @@
 export default {
-  appProps: '/appProps.json',
+  appProps: 'appProps',
   images: {
-    countryFlags: '/images/countryFlags.json',
+    countryFlags: 'images/countryFlags',
   },
 };

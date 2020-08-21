@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
+import { capitalize } from '@utils/helpers';
 import { CountriesListProps } from '../types';
 
 const CountriesList: FC<CountriesListProps> = ({ countries }) => (
   <>
     {
       countries.map((country) => {
-        const countryValue = country[0].toUpperCase() + country.slice(1);
+        const countryValue = capitalize(country);
 
         return <option key={countryValue} value={countryValue}>{countryValue}</option>;
       })

@@ -1,6 +1,7 @@
+.idea/
+.firebase/
 build/
 node_modules/
-.idea/
 .env
 *.log
 .gitmodules

@@ -1,11 +1,11 @@
-import { appPropsReducerTypes } from '@apptypes/store';
+import { AppPropsReducerTypes } from '@apptypes/store';
 import {
   FETCH_APP_PROPS_START,
   FETCH_APP_PROPS_SUCCESS,
   FETCH_APP_PROPS_ERROR,
 } from '@store/actions/constants';
 
-const appPropsReducer: appPropsReducerTypes = (state, action) => {
+const appPropsReducer: AppPropsReducerTypes = (state, action) => {
   switch (action.type) {
     case FETCH_APP_PROPS_START:
       return {
