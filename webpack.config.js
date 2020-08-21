@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const dotenv = require('dotenv');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -53,7 +54,7 @@ module.exports = {
   output: {
     filename: '[name].[hash].js',
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/',
+    publicPath: '',
   },
   devtool: development ? 'source-map' : undefined,
   mode: development ? 'development' : 'production',
@@ -94,7 +95,8 @@ module.exports = {
     ],
   },
   plugins: [
-    // new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(), // uncomment to analyze the bundle
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       ...envKeys

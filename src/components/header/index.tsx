@@ -31,11 +31,6 @@ const Header: FC = () => {
     setInputValue(event.target.value);
   };
 
-  const logOutHandler = () => {
-    dispatch(removeState());
-    auth.signOut();
-  };
-
   const loginSignUpButton = (
     <Button
       variant="link"
@@ -50,7 +45,7 @@ const Header: FC = () => {
       <Link to="/profile" className={cn('edit-profile')}>
         <Dropdown.Item as="span">Edit profile</Dropdown.Item>
       </Link>
-      <Dropdown.Item onClick={() => logOutHandler()}>Log out</Dropdown.Item>
+      <Dropdown.Item onClick={() => auth.signOut()}>Log out</Dropdown.Item>
     </DropdownButton>
   );
 
