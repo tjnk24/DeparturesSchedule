@@ -5,6 +5,7 @@ import {
   setItemEditingTypes,
   ConstantType,
   setLoggedInTypes,
+  saveHeaderTextTypes,
 } from './types';
 
 import {
@@ -14,6 +15,7 @@ import {
   SAVE_STATE,
   REMOVE_STATE,
   SET_LOGIN,
+  SAVE_HEADER,
 } from '../constants';
 
 export const addListItem: addListItemTypes = (values) => ({
@@ -55,5 +57,10 @@ export const removeState = (): ConstantType => ({
 
 export const setLoggedIn: setLoggedInTypes = (payload) => ({
   type: SET_LOGIN,
+  payload,
+});
+
+export const saveHeaderText: saveHeaderTextTypes = (payload) => ({
+  type: SAVE_HEADER,
   payload,
 });

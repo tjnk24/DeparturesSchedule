@@ -4,6 +4,7 @@ export const REMOVE_LIST_ITEM = 'REMOVE_LIST_ITEM';
 export const SAVE_STATE = 'SAVE_STATE';
 export const REMOVE_STATE = 'REMOVE_STATE';
 export const SET_LOGIN = 'SET_LOGIN';
+export const SAVE_HEADER = 'SAVE_HEADER';
 
 export const FETCH_APP_PROPS_START = 'FETCH_APP_PROPS_START';
 export const FETCH_APP_PROPS_SUCCESS = 'FETCH_APP_PROPS_SUCCESS';

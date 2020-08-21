@@ -14,7 +14,7 @@ import Button from 'react-bootstrap/esm/Button';
 import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 
 import { showLogin } from '@store/actions/modals';
-import { removeState } from '@store/actions/constructor';
+import { saveHeaderText } from '@store/actions/constructor';
 
 import style from './style.scss';
 
@@ -23,8 +23,9 @@ const cn = classnames.bind(style);
 const Header: FC = () => {
   const { state, dispatch } = useContext(Context);
   const { user } = state.authUserState;
+  const { headerText } = state.constructorState;
 
-  const [inputValue, setInputValue] = useState('Your Airport Schedule');
+  const [inputValue, setInputValue] = useState(headerText);
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -49,6 +50,10 @@ const Header: FC = () => {
     </DropdownButton>
   );
 
+  const saveHeaderState = () => {
+    dispatch(saveHeaderText(inputValue));
+  };
+
   useEffect(() => {
     !user && setInputValue('Your Airport Schedule');
   }, [user]);
@@ -58,6 +63,7 @@ const Header: FC = () => {
       <input
         value={inputValue}
         onChange={inputHandler}
+        onBlur={saveHeaderState}
         disabled={!(user && user.emailVerified) || undefined}
       />
       <div className={cn('header__buttons-wrap')}>

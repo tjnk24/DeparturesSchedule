@@ -10,6 +10,7 @@ export type AppPropsTypes = {
 }
 
 export type MixedValueTypes = {
+  headerText: string;
   items: ValueTypes[];
   isLoggedIn: boolean | null;
 };
@@ -48,7 +49,7 @@ export type MessagePayloadType = {
 
 export type ConstructorReducerTypes = (
   state  : MixedValueTypes,
-  action : ActionType<ValueTypes | boolean>
+  action : ActionType<ValueTypes | boolean | string>
 ) => MixedValueTypes | null;
 
 export type AppPropsReducerTypes = (
@@ -70,5 +71,5 @@ export type PayloadType = { [index: string]: string | number | boolean }
 
 export type ContextTypes = {
   state: StateType;
-  dispatch: React.Dispatch<ActionType<MixedValueTypes['items'] | boolean | PayloadType>>;
+  dispatch: React.Dispatch<ActionType<MixedValueTypes['items'] | boolean | string | PayloadType>>;
 }

@@ -67,6 +67,7 @@ const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
               title       : messages.titles.emailSent,
               messageText : messages.messagesText.emailVerifySent,
             }));
+            auth.signOut();
             return <Redirect to="/" />;
           })
           .catch((error) => {
