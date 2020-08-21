@@ -5,6 +5,7 @@ import {
   REMOVE_STATE,
   SET_LOGIN,
   SAVE_STATE,
+  SAVE_HEADER,
 } from '@store/actions/constants';
 import { setLocal, getLocal } from '@utils/helpers';
 
@@ -12,6 +13,7 @@ import { ValueTypes } from '@apptypes/common';
 import { ConstructorReducerTypes, MixedValueTypes } from '@apptypes/store';
 
 let schedule: MixedValueTypes = {
+  headerText: 'Your Airport Schedule',
   items: [],
   isLoggedIn: null,
 };
@@ -76,11 +78,21 @@ export const constructorReducer: ConstructorReducerTypes = (state, action) => {
 
     case SET_LOGIN:
       schedule = {
+        ...state,
         items: state.items,
         isLoggedIn: action.payload as boolean,
       };
       return schedule;
 
+    case SAVE_HEADER:
+      schedule = {
+        ...state,
+        headerText: action.payload as string,
+      };
+
+      schedule.isLoggedIn
+      && setLocal('schedule', schedule);
+      return schedule;
     default:
       return state;
   }

@@ -26,3 +26,7 @@ export type setItemEditingTypes = (id: number, isEditing: boolean) => ConstantTy
 export type setLoggedInTypes = (payload: boolean) => ConstantType & {
     payload: boolean;
 }
+
+export type saveHeaderTextTypes = (payload: string) => ConstantType & {
+    payload: string;
+}
