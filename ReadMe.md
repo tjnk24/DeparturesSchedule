@@ -1,8 +1,16 @@
-Departure Schedule
+# Departure Schedule
 
 Sample airplanes' departures schedule constructor.
 
-Stack:
+# Usage:
+
+- Composing schedule with tabs. You can pick country, gate and time, modify items and delete them.
+- Pushing "Compose" button.
+- A schedule is up and running.
+
+You can register an account via email and you be able to save your schedule to browser's local storage and modifying title inside the site's header.
+
+# Stack:
 
 - TypeScript;
 - SCSS;
@@ -10,4 +18,4 @@ Stack:
 - Webpack;
 - Firebase;
 
-1.0 version is available, working demo [here](https://departure-schedule.web.app/)
+Working demo [here](https://departure-schedule.web.app/)
