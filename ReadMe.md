@@ -10,4 +10,4 @@ Stack:
 - Webpack;
 - Firebase;
 
-1.0 version is available
+1.0 version is available, working demo [here](https://departure-schedule.web.app/)
