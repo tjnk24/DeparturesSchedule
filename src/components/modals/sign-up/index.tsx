@@ -24,7 +24,6 @@ import InnerForm from '../inner-form';
 
 import style from './style.scss';
 
-
 const cn = classnames.bind(style);
 
 const SignUp: FC = () => {

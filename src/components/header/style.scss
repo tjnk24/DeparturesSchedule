@@ -1,52 +1,51 @@
 :local {
-    .header {
-        position: relative;
-        height: 100px;
-        background: url('./header-bg.jpg') center no-repeat;
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+  .header {
+    align-items: center;
+    background: url('./header-bg.jpg') center no-repeat;
+    background-size: cover;
+    display: flex;
+    height: 100px;
+    justify-content: space-evenly;
+    position: relative;
 
-        input {
-            color: #FFF;
-            font-size: 40px;
-            width: 80%;
-            background-color: transparent;
-            text-align: center;
-            border: none;
-        }
-
-        &__buttons-wrap {
-            position: absolute;
-            right: 20px;
-
-            button,
-            button:hover,
-            button:active,
-            button:focus {
-                background-color: transparent!important;
-                border: 0;
-                box-shadow: 0 0 0 0!important;
-                padding: 0;
-                outline: none;
-                color: #FFF;
-            }
-
-            button {
-
-                &:hover {
-                    color: #ccc;
-                }
-
-                &:after {
-                    display: none;
-                }
-            }
-        }
+    input {
+      background-color: transparent;
+      border: 0;
+      color: #fff;
+      font-size: 40px;
+      text-align: center;
+      width: 80%;
     }
 
-    .edit-profile:hover {
-        text-decoration: none;
+    &__buttons-wrap {
+      position: absolute;
+      right: 20px;
+
+      button,
+      button:hover,
+      button:active,
+      button:focus {
+        background-color: transparent !important;
+        border: 0;
+        box-shadow: 0 0 0 0 !important;
+        color: #fff;
+        outline: none;
+        padding: 0;
+      }
+
+      button {
+        &:hover {
+          color: #ccc;
+        }
+
+        &::after {
+          display: none;
+        }
+      }
     }
+  }
+
+  .edit-profile:hover {
+    text-decoration: none;
+  }
 }

@@ -6,8 +6,8 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack",
-    "lint": "eslint ./src/**/*.ts & eslint ./src/**/*.tsx",
-    "lint-fix": "eslint ./src/**/*.ts --fix & eslint ./src/**/*.tsx --fix"
+    "lint": "eslint ./src/**/*.ts & eslint ./src/**/*.tsx & stylelint ./src/**/*.scss",
+    "lint-fix": "eslint ./src/**/*.ts --fix & eslint ./src/**/*.tsx --fix & stylelint ./src/**/*.scss --fix"
   },
   "dependencies": {
     "@babel/runtime": "^7.7.6",
@@ -52,11 +52,11 @@
     "cross-env": "^5.2.0",
     "css-loader": "^2.1.1",
     "dotenv": "^8.2.0",
-    "eslint": "^6.8.0",
+    "eslint": "^7.16.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-import-resolver-typescript": "^2.0.0",
-    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.14.3",
     "eslint-plugin-react-hooks": "^2.3.0",
@@ -67,6 +67,8 @@
     "sass-loader": "^8.0.2",
     "source-map-loader": "^1.0.0",
     "style-loader": "^0.23.1",
+    "stylelint": "^13.8.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5",
     "webpack": "^4.29.6",

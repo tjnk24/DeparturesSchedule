@@ -20,7 +20,6 @@ const EmailVerify: FC = () => {
 
   const user = auth.currentUser;
 
-
   const resendEmail = () => {
     user?.sendEmailVerification();
     setResendTimer(5);

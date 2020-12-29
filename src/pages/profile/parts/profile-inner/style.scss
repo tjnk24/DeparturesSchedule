@@ -1,13 +1,12 @@
 :local {
+  .link {
+    display: flex;
+    justify-content: flex-end;
+  }
 
-    .link {
-        display: flex;
-        justify-content: flex-end;
-    }
-
-    .profile-form {
-        min-width: 600px;
-        max-width: 1024px;
-        margin: 30px auto;
-    }
+  .profile-form {
+    margin: 30px auto;
+    max-width: 1024px;
+    min-width: 600px;
+  }
 }

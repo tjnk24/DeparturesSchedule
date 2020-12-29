@@ -27,7 +27,6 @@ const {
   passwordResetFail,
 } = messages.messagesText;
 
-
 const Verify: FC = () => {
   const { dispatch } = useContext(Context);
 

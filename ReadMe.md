@@ -13,6 +13,7 @@ You can register an account via email and you be able to save your schedule to b
 # Stack:
 
 - TypeScript;
+- Eslint, Stylelint
 - SCSS;
 - React;
 - Webpack;
