@@ -1,9 +1,9 @@
-import { AuthUserTypes } from '@apptypes/store';
+import { AuthUserState } from '@store/reducers/authUser/types';
+import { AUTH_USER_UPDATE } from '../constants';
 
-type ConstantType = { type: string }
-
-export type authUserUpdateTypes = (
-    user: firebase.User | null
-) => ConstantType & {
-    payload: AuthUserTypes;
+export type AuthUserUpdate = {
+    type: typeof AUTH_USER_UPDATE;
+    payload: AuthUserState;
 }
+
+export type AuthUserActions = AuthUserUpdate;

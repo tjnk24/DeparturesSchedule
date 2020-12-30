@@ -3,11 +3,16 @@ import React from 'react';
 import { render } from 'react-dom';
 import App from '@components/app';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from '@store/provider';
+import { Provider } from 'react-redux';
+import getProps from '@store/actions/appProps';
+import api from '@utils/api';
+import store from './store';
+
+store.dispatch(getProps(api.appProps));
 
 const app = (
   <BrowserRouter>
-    <Provider>
+    <Provider store={store}>
       <App />
     </Provider>
   </BrowserRouter>

@@ -15,7 +15,7 @@ import fetchProps from '@store/actions/appProps';
 
 import api from '@utils/api';
 
-import { ValueTypes } from '@apptypes/common';
+import { Items } from '@apptypes/common';
 
 import classnames from 'classnames/bind';
 import Spinner from 'react-bootstrap/esm/Spinner';
@@ -28,7 +28,7 @@ const Schedule: FC = (): JSX.Element => {
   const { appPropsState } = state;
   const { items } = state.constructorState;
 
-  const screens: ValueTypes[][] = chunk(items, 6);
+  const screens: Items[][] = chunk(items, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
@@ -60,7 +60,7 @@ const Schedule: FC = (): JSX.Element => {
     return appPropsState.flagsImages[`${countryLowerCase}`];
   };
 
-  const mapScreen = (screen: ValueTypes[]) => screen.map(
+  const mapScreen = (screen: Items[]) => screen.map(
     (item) => (
       <ScheduleItem
         key={item.id as number}

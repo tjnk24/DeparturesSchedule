@@ -1,11 +1,13 @@
+import { Items } from '@apptypes/common';
 import {
-  addListItemTypes,
-  updateListItemTypes,
-  removeListItemTypes,
-  setItemEditingTypes,
-  ConstantType,
-  setLoggedInTypes,
-  saveHeaderTextTypes,
+  AddListItem,
+  UpdateListItem,
+  RemoveListItem,
+  SetItemEditing,
+  SetLoggedIn,
+  SaveHeaderText,
+  SaveState,
+  RemoveState,
 } from './types';
 
 import {
@@ -18,7 +20,7 @@ import {
   SAVE_HEADER,
 } from '../constants';
 
-export const addListItem: addListItemTypes = (values) => ({
+export const addListItem = (values: Items): AddListItem => ({
   type: ADD_LIST_ITEM,
   payload: {
     ...values,
@@ -26,15 +28,20 @@ export const addListItem: addListItemTypes = (values) => ({
   },
 });
 
-export const updateListItem: updateListItemTypes = (id, updatePayload) => ({
+export const updateListItem = (id: Items['id'], updatePayload: Items): UpdateListItem => ({
   type: UPDATE_LIST_ITEM,
   payload: {
-    id,
     ...updatePayload,
+    id,
   },
 });
 
-export const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
+export const removeListItem = (id: Items['id']): RemoveListItem => ({
+  type: REMOVE_LIST_ITEM,
+  payload: { id },
+});
+
+export const setItemEditing = (id: Items['id'], isEditing: Items['isEditing']): SetItemEditing => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     id,
@@ -42,25 +49,20 @@ export const setItemEditing: setItemEditingTypes = (id, isEditing) => ({
   },
 });
 
-export const removeListItem: removeListItemTypes = (id) => ({
-  type: REMOVE_LIST_ITEM,
-  payload: { id },
-});
-
-export const saveState = (): ConstantType => ({
+export const saveState = (): SaveState => ({
   type: SAVE_STATE,
 });
 
-export const removeState = (): ConstantType => ({
+export const removeState = (): RemoveState => ({
   type: REMOVE_STATE,
 });
 
-export const setLoggedIn: setLoggedInTypes = (payload) => ({
+export const setLoggedIn = (payload: boolean): SetLoggedIn => ({
   type: SET_LOGIN,
   payload,
 });
 
-export const saveHeaderText: saveHeaderTextTypes = (payload) => ({
+export const saveHeaderText = (payload: string): SaveHeaderText => ({
   type: SAVE_HEADER,
   payload,
 });

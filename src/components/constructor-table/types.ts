@@ -1,11 +1,11 @@
-import { ValueTypes } from '@apptypes/common';
+import { Items } from '@apptypes/common';
 
 export type ConstructorTableProps = {
-    state: ValueTypes[];
+    state: Items[];
 }
 
 export type TableRowProps = {
-    value: ValueTypes;
+    value: Items;
     index: number;
 }
 

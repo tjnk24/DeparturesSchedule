@@ -1,10 +1,10 @@
-import React, {
+import react, {
   FC,
   useContext,
   useState,
   useEffect,
 } from 'react';
-import { Context } from '@store/provider';
+// import { Context } from '@store/provider';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
 
@@ -21,57 +21,57 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const Header: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { user } = state.authUserState;
-  const { headerText } = state.constructorState;
+  // const { state, dispatch } = useContext(Context);
+  // const { user } = state.authUserState;
+  // const { headerText } = state.constructorState;
 
-  const [inputValue, setInputValue] = useState(headerText);
+  // const [inputValue, setInputValue] = useState(headerText);
 
-  const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setInputValue(event.target.value);
-  };
+  // const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   event.preventDefault();
+  //   setInputValue(event.target.value);
+  // };
 
-  const loginSignUpButton = (
-    <Button
-      variant="link"
-      onClick={() => dispatch(showLogin())}
-    >
-      Login / Sign up
-    </Button>
-  );
+  // const loginSignUpButton = (
+  //   <Button
+  //     variant="link"
+  //     // onClick={() => dispatch(showLogin())}
+  //   >
+  //     Login / Sign up
+  //   </Button>
+  // );
 
-  const profileMenu = (
-    <DropdownButton title={user?.displayName || ''} id="dropdown-basic-button">
-      <Link to="/profile" className={cn('edit-profile')}>
-        <Dropdown.Item as="span">Edit profile</Dropdown.Item>
-      </Link>
-      <Dropdown.Item onClick={() => auth.signOut()}>Log out</Dropdown.Item>
-    </DropdownButton>
-  );
+  // const profileMenu = (
+  //   <DropdownButton title={user?.displayName || ''} id="dropdown-basic-button">
+  //     <Link to="/profile" className={cn('edit-profile')}>
+  //       <Dropdown.Item as="span">Edit profile</Dropdown.Item>
+  //     </Link>
+  //     <Dropdown.Item onClick={() => auth.signOut()}>Log out</Dropdown.Item>
+  //   </DropdownButton>
+  // );
 
-  const saveHeaderState = () => {
-    dispatch(saveHeaderText(inputValue));
-  };
+  // const saveHeaderState = () => {
+  //   dispatch(saveHeaderText(inputValue));
+  // };
 
-  useEffect(() => {
-    !user && setInputValue('Your Airport Schedule');
-  }, [user]);
+  // useEffect(() => {
+  //   !user && setInputValue('Your Airport Schedule');
+  // }, [user]);
 
   return (
     <header className={cn('header')}>
       <input
-        value={inputValue}
-        onChange={inputHandler}
-        onBlur={saveHeaderState}
-        disabled={!(user && user.emailVerified) || undefined}
+        // value={inputValue}
+        // onChange={inputHandler}
+        // onBlur={saveHeaderState}
+        // disabled={!(user && user.emailVerified) || undefined}
       />
       <div className={cn('header__buttons-wrap')}>
-        {
+        {/* {
           user !== null && user.emailVerified
             ? profileMenu
             : loginSignUpButton
-        }
+        } */}
       </div>
     </header>
   );

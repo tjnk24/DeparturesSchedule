@@ -6,6 +6,7 @@ import {
   withRouter,
   RouteComponentProps,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import RouteWrap from '@components/route-wrap';
 import Layout from '@components/layout';
@@ -23,7 +24,8 @@ import Login from '@components/modals/login';
 import ForgotPassword from '@components/modals/forgot-password';
 import ResetPassword from '@components/modals/reset-password';
 
-import { Context } from '@store/provider';
+import { AuthUserState } from '@store/reducers/authUser/types';
+import { RootState } from '@store/reducers/rootReducer/types';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';
@@ -31,24 +33,25 @@ import style from './style.scss';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cn = classnames.bind(style);
 
-const App: FC<RouteComponentProps> = (): JSX.Element => {
-  const { state } = useContext(Context);
-  const { authUserLoaded } = state.authUserState;
+const App: FC = (): JSX.Element => {
+  const rootState = useSelector((state: RootState) => state);
 
-  const setModals = (
-    <Backdrop>
-      <Login />
-      <SignUp />
-      <EmailVerify />
-      <Message />
-      <ForgotPassword />
-      <ResetPassword />
-    </Backdrop>
-  );
+  console.log(rootState);
 
-  return (
+  // const setModals = (
+  //   <Backdrop>
+  //     <Login />
+  //     <SignUp />
+  //     <EmailVerify />
+  //     <Message />
+  //     <ForgotPassword />
+  //     <ResetPassword />
+  //   </Backdrop>
+  // );
+
+  (
     <>
-      {
+      {/* {
         authUserLoaded
           ? (
             <>
@@ -66,7 +69,7 @@ const App: FC<RouteComponentProps> = (): JSX.Element => {
               </Switch>
             </>
           ) : null
-      }
+      } */}
     </>
   );
 };

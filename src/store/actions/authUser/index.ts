@@ -1,7 +1,8 @@
+import { AuthUserState } from '@store/reducers/authUser/types';
 import { AUTH_USER_UPDATE } from '../constants';
-import { authUserUpdateTypes } from './types';
+import { AuthUserUpdate } from './types';
 
-const authUserUpdate: authUserUpdateTypes = (user) => ({
+const authUserUpdate = (user: AuthUserState['user']): AuthUserUpdate => ({
   type: AUTH_USER_UPDATE,
   payload: {
     authUserLoaded: true,

@@ -1,6 +1,6 @@
 export type StringObjectType = { [key: string]: string }
 
-export type ValueTypes = {
+export type Items = {
     country   : string;
     gate      : string;
     hours     : string;
