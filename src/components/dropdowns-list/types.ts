@@ -1,17 +1,15 @@
 import { Dispatch, SetStateAction } from 'react';
-import { StringObjectType } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 
 type GatesType = { [index: string]: number }
 
-type UseStateType = Dispatch<SetStateAction<StringObjectType>>
+type UseStateType = Dispatch<SetStateAction<Item>>
 
-type DispatchFunctionType = (
-    param: StringObjectType
-) => void;
+type DispatchFunctionType = (param: Item) => void;
 
 export type DropdownsListProps = {
     countries: string[];
-    values   : StringObjectType;
+    values   : Item;
     gates    : GatesType;
     handler  : UseStateType;
 }
@@ -19,8 +17,8 @@ export type DropdownsListProps = {
 export type DropdownProps = {
     name           : string;
     value          : string;
-    prevValues?    : StringObjectType;
-    onChangeHandler: DispatchFunctionType | UseStateType;
+    prevValues?    : Item;
+    onChangeHandler: DispatchFunctionType | Dispatch<SetStateAction<Item>>;
 }
 
 export type CountriesListProps = {

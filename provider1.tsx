@@ -1,3 +1,4 @@
+export {};
 // export const Context = React.createContext<ContextTypes>({} as ContextTypes);
 
 // export const Provider: FC = (props): JSX.Element => {

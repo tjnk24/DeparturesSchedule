@@ -1,4 +1,4 @@
-import { Items } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 import {
   AddListItem,
   UpdateListItem,
@@ -20,7 +20,7 @@ import {
   SAVE_HEADER,
 } from '../constants';
 
-export const addListItem = (values: Items): AddListItem => ({
+export const addListItem = (values: Item): AddListItem => ({
   type: ADD_LIST_ITEM,
   payload: {
     ...values,
@@ -28,7 +28,7 @@ export const addListItem = (values: Items): AddListItem => ({
   },
 });
 
-export const updateListItem = (id: Items['id'], updatePayload: Items): UpdateListItem => ({
+export const updateListItem = (id: Item['id'], updatePayload: Item): UpdateListItem => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     ...updatePayload,
@@ -36,12 +36,12 @@ export const updateListItem = (id: Items['id'], updatePayload: Items): UpdateLis
   },
 });
 
-export const removeListItem = (id: Items['id']): RemoveListItem => ({
+export const removeListItem = (id: Item['id']): RemoveListItem => ({
   type: REMOVE_LIST_ITEM,
   payload: { id },
 });
 
-export const setItemEditing = (id: Items['id'], isEditing: Items['isEditing']): SetItemEditing => ({
+export const setItemEditing = (id: Item['id'], isEditing: Item['isEditing']): SetItemEditing => ({
   type: UPDATE_LIST_ITEM,
   payload: {
     id,

@@ -12,7 +12,10 @@ import { DropdownsListProps } from './types';
 const cn = classnames.bind(style);
 
 const DropdownsList: FC<DropdownsListProps> = ({
-  values, handler, countries, gates,
+  values,
+  handler,
+  countries,
+  gates,
 }) => {
   const {
     country,

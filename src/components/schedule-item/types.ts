@@ -1,7 +1,7 @@
-import { Items } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 
 type ScheduleItemProps = {
-    value: Items;
+    value: Item;
     image: string;
 }
 

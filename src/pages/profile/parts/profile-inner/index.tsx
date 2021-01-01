@@ -1,5 +1,5 @@
-import React, { FC, useState, useContext } from 'react';
-import { Context } from '@store/provider';
+import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import { showMessage } from '@store/actions/modals';
@@ -16,7 +16,7 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const ProfileInner: FC<ProfileInnerProps> = ({ componentProps }) => {
-  const { dispatch } = useContext(Context);
+  const dispatch = useDispatch();
 
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
   const { user } = componentProps;

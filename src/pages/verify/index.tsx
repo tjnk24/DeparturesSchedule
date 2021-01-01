@@ -2,17 +2,15 @@ import React, {
   FC,
   useEffect,
   useState,
-  useContext,
 } from 'react';
 import { Redirect } from 'react-router-dom';
 import { auth } from '@utils/firebase';
 import { getUrlParameter } from '@utils/helpers';
 
-import { Context } from '@store/provider';
-
 import messages from '@components/modals/message/messages';
 import { showMessage, showResetPass } from '@store/actions/modals';
-import { MessagePayloadType, ResetPassPayloadType } from '@apptypes/store';
+import { useDispatch } from 'react-redux';
+import { MessagePayload, ResetPassPayload } from '@store/actions/modals/types';
 
 const {
   verifySuccess,
@@ -28,18 +26,18 @@ const {
 } = messages.messagesText;
 
 const Verify: FC = () => {
-  const { dispatch } = useContext(Context);
+  const dispatch = useDispatch();
 
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const setSuccessAction = (payload: MessagePayloadType | ResetPassPayloadType) => {
-    setIsSuccess(true);
+  const setSuccessAction = (payload: MessagePayload | ResetPassPayload) => {
+    setSuccess(true);
 
-    const { actionCode } = payload as ResetPassPayloadType;
+    const { actionCode } = payload as ResetPassPayload;
 
     actionCode
       ? dispatch(showResetPass({ actionCode }))
-      : dispatch(showMessage({ ...payload }));
+      : dispatch(showMessage({ ...payload as MessagePayload }));
   };
 
   useEffect(() => {
@@ -103,7 +101,7 @@ const Verify: FC = () => {
   return (
     <>
       {
-        isSuccess || !getUrlParameter('mode')
+        success || !getUrlParameter('mode')
           ? <Redirect to="/" />
           : null
       }

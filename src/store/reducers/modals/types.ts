@@ -4,4 +4,4 @@ export type ModalsState = Partial<{
   route: ModalsActions['type'];
   message: MessagePayload;
   actionCode: string;
-}> | undefined
+}>

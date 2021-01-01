@@ -23,6 +23,8 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
   ],
   rules: {
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': ['error'],
     'jsx-a11y/no-onchange': 'off',
     'import/extensions': 'off',
     'import/no-unresolved': 'off',

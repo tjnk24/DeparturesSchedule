@@ -1,12 +1,11 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useEffect } from 'react';
 import {
   Switch,
   Route,
   Redirect,
   withRouter,
-  RouteComponentProps,
 } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import RouteWrap from '@components/route-wrap';
 import Layout from '@components/layout';
@@ -24,34 +23,58 @@ import Login from '@components/modals/login';
 import ForgotPassword from '@components/modals/forgot-password';
 import ResetPassword from '@components/modals/reset-password';
 
-import { AuthUserState } from '@store/reducers/authUser/types';
+import { auth } from '@utils/firebase';
+
+import { removeState, saveState, setLoggedIn } from '@store/actions/constructor';
+import authUserUpdate from '@store/actions/authUser';
 import { RootState } from '@store/reducers/rootReducer/types';
 
 import classnames from 'classnames/bind';
+
 import style from './style.scss';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const cn = classnames.bind(style);
 
 const App: FC = (): JSX.Element => {
-  const rootState = useSelector((state: RootState) => state);
+  const dispatch = useDispatch();
+  const { authUserLoaded, user } = useSelector((state: RootState) => state.authUser);
 
-  console.log(rootState);
+  useEffect(() => {
+    const listener = auth.onAuthStateChanged((authUser) => {
+      dispatch(authUserUpdate(authUser));
 
-  // const setModals = (
-  //   <Backdrop>
-  //     <Login />
-  //     <SignUp />
-  //     <EmailVerify />
-  //     <Message />
-  //     <ForgotPassword />
-  //     <ResetPassword />
-  //   </Backdrop>
-  // );
+      if (authUser) {
+        dispatch(setLoggedIn(true));
+      } else {
+        dispatch(removeState());
+        dispatch(setLoggedIn(false));
+      }
+    });
 
-  (
+    return () => {
+      listener();
+    };
+  }, []);
+
+  useEffect(() => {
+    user && dispatch(saveState());
+  }, [user]);
+
+  const setModals = (
+    <Backdrop>
+      <Login />
+      <SignUp />
+      <EmailVerify />
+      <Message />
+      <ForgotPassword />
+      <ResetPassword />
+    </Backdrop>
+  );
+
+  return (
     <>
-      {/* {
+      {
         authUserLoaded
           ? (
             <>
@@ -69,7 +92,7 @@ const App: FC = (): JSX.Element => {
               </Switch>
             </>
           ) : null
-      } */}
+      }
     </>
   );
 };

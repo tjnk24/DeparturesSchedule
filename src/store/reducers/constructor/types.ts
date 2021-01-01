@@ -1,7 +1,7 @@
-import { Items } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 
 export type ConstructorState = {
   headerText: string;
-  items: Items[];
+  items: Item[];
   isLoggedIn: boolean | null;
 };

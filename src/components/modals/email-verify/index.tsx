@@ -1,11 +1,13 @@
-import React, { FC, useState, useContext } from 'react';
+import React, { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/esm/Modal';
 import Button from 'react-bootstrap/esm/Button';
 import { auth } from '@utils/firebase';
 
-import { Context } from '@store/provider';
 import { EMAIL_VERIFY } from '@store/actions/constants';
 import { closeModal } from '@store/actions/modals';
+
+import { RootState } from '@store/reducers/rootReducer/types';
 
 import classnames from 'classnames/bind';
 import style from './style.scss';
@@ -13,8 +15,8 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const EmailVerify: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { modalsState } = state;
+  const dispatch = useDispatch();
+  const { route } = useSelector((state: RootState) => state.modals);
 
   const [resendTimer, setResendTimer] = useState(0);
 
@@ -36,7 +38,7 @@ const EmailVerify: FC = () => {
 
   return (
     <Modal
-      show={modalsState.route === EMAIL_VERIFY}
+      show={route === EMAIL_VERIFY}
       onHide={() => dispatch(closeModal())}
       backdrop={false}
     >

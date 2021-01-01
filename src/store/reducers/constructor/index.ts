@@ -9,7 +9,7 @@ import {
 } from '@store/actions/constants';
 import { setLocal, getLocal } from '@utils/helpers';
 
-import { Items } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 import { Reducer } from 'redux';
 import { ConstructorActions } from '@store/actions/constructor/types';
 import { ConstructorState } from './types';
@@ -27,19 +27,19 @@ export const constructorReducer:
           schedule.items = [
             ...state.items,
             {
-              ...action.payload as Items,
+              ...action.payload as Item,
               id: state.items.length,
             },
           ];
 
           schedule.isLoggedIn
-      && setLocal('schedule', schedule);
+            && setLocal('schedule', schedule);
 
-          return schedule;
+          return { ...schedule };
 
         case UPDATE_LIST_ITEM:
           schedule.items = state.items.map((item, index) => {
-            const payload = action.payload as Items;
+            const payload = action.payload as Item;
 
             if (index !== payload.id) {
               return item;
@@ -51,11 +51,12 @@ export const constructorReducer:
           });
 
           schedule.isLoggedIn
-      && setLocal('schedule', schedule);
-          return schedule;
+            && setLocal('schedule', schedule);
+
+          return { ...schedule };
 
         case REMOVE_LIST_ITEM: {
-          const payload = action.payload as Items;
+          const payload = action.payload as Item;
 
           schedule.items = state.items.filter(
             (item, index) => index !== payload.id,
@@ -65,19 +66,22 @@ export const constructorReducer:
           }));
 
           schedule.isLoggedIn
-      && setLocal('schedule', schedule);
-          return schedule;
+            && setLocal('schedule', schedule);
+
+          return { ...schedule };
         }
         case SAVE_STATE: {
           const localSchedule = getLocal('schedule');
 
           !localSchedule && setLocal('schedule', schedule);
-          return state;
+
+          return { ...state };
         }
         case REMOVE_STATE:
           localStorage.removeItem('schedule');
           schedule.items = [];
-          return schedule;
+
+          return { ...schedule };
 
         case SET_LOGIN:
           schedule = {
@@ -85,7 +89,8 @@ export const constructorReducer:
             items: state.items,
             isLoggedIn: action.payload as boolean,
           };
-          return schedule;
+
+          return { ...schedule };
 
         case SAVE_HEADER:
           schedule = {
@@ -94,8 +99,9 @@ export const constructorReducer:
           };
 
           schedule.isLoggedIn
-      && setLocal('schedule', schedule);
-          return schedule;
+            && setLocal('schedule', schedule);
+
+          return { ...schedule };
         default:
           return state;
       }

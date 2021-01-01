@@ -1,15 +1,14 @@
 import React, {
   FC,
   useState,
-  useContext,
   useEffect,
 } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   showEmailVerify,
   showLogin,
   closeModal,
 } from '@store/actions/modals';
-import { Context } from '@store/provider';
 import { SIGN_UP } from '@store/actions/constants';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
@@ -20,6 +19,7 @@ import SubmitButton from '@components/submit-button';
 import FormValidator from '@components/form-validator';
 import FormErrorMessage from '@components/error-message';
 import { StringObjectType } from '@apptypes/common';
+import { RootState } from '@store/reducers/rootReducer/types';
 import InnerForm from '../inner-form';
 
 import style from './style.scss';
@@ -27,14 +27,14 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const SignUp: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { modalsState } = state;
+  const dispatch = useDispatch();
+  const { route } = useSelector((state: RootState) => state.modals);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
   useEffect(() => {
-    modalsState.route !== SIGN_UP && setErrorMessage('');
+    route !== SIGN_UP && setErrorMessage('');
   });
 
   const signUp = async (payload: StringObjectType) => {
@@ -48,11 +48,11 @@ const SignUp: FC = () => {
         user?.updateProfile({
           displayName: payload.username,
         })
-        .then(() => {
-          user?.sendEmailVerification();
-          dispatch(showEmailVerify());
-          setButtonDisabled(false);
-        });
+          .then(() => {
+            user?.sendEmailVerification();
+            dispatch(showEmailVerify());
+            setButtonDisabled(false);
+          });
       })
       .catch((error) => {
         setErrorMessage(error.message);
@@ -62,7 +62,7 @@ const SignUp: FC = () => {
 
   return (
     <Modal
-      show={modalsState.route === SIGN_UP}
+      show={route === SIGN_UP}
       onHide={() => dispatch(closeModal())}
       backdrop={false}
     >

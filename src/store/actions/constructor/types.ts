@@ -1,4 +1,4 @@
-import { Items } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 import {
   ADD_LIST_ITEM,
   REMOVE_LIST_ITEM,
@@ -11,24 +11,24 @@ import {
 
 export type AddListItem = {
     type: typeof ADD_LIST_ITEM;
-    payload: Items & { isEditing: Items['isEditing'] };
+    payload: Item & { isEditing: Item['isEditing'] };
 }
 
 export type UpdateListItem = {
     type: typeof UPDATE_LIST_ITEM;
-    payload: Items & { id: Items['id'] };
+    payload: Item & { id: Item['id'] };
 }
 
 export type RemoveListItem = {
     type: typeof REMOVE_LIST_ITEM;
-    payload: { id: Items['id'] };
+    payload: { id: Item['id'] };
 }
 
 export type SetItemEditing = {
     type: typeof UPDATE_LIST_ITEM;
     payload: {
-      id: Items['id'];
-      isEditing: Items['isEditing'];
+      id: Item['id'];
+      isEditing: Item['isEditing'];
     };
 }
 

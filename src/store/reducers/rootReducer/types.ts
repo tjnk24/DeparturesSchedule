@@ -7,6 +7,6 @@ import { ModalsState } from '../modals/types';
 export type RootState = CombinedState<{
   appProps: AppPropsState;
   authUser: AuthUserState;
-  constructor: ConstructorState;
+  constructorState: ConstructorState;
   modals: ModalsState;
 }>;

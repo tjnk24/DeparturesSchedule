@@ -12,7 +12,7 @@ import { ModalsActions } from '@store/actions/modals/types';
 import { ModalsState } from './types';
 
 const initialState: ModalsState = {
-  route: undefined,
+  route: CLOSE_MODAL,
   message: undefined,
   actionCode: undefined,
 };

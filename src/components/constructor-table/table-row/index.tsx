@@ -1,4 +1,6 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import classnames from 'classnames/bind';
 import { TrashIcon, CheckIcon } from '@components/icons';
 import Dropdown from '@components/dropdowns-list/parts/dropdown';
 import CountriesList from '@components/dropdowns-list/parts/countries-list';
@@ -11,12 +13,10 @@ import {
   setItemEditing,
 } from '@store/actions/constructor';
 
-import { Context } from '@store/provider';
-
-import classnames from 'classnames/bind';
-import style from './style.scss';
-
+import { RootState } from '@store/reducers/rootReducer/types';
 import { TableRowProps, UpdateListProps } from '../types';
+
+import style from './style.scss';
 
 const cn = classnames.bind(style);
 
@@ -30,10 +30,10 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
     isEditing,
   } = value;
 
-  const { state, dispatch } = useContext(Context);
-  const { appPropsState } = state;
+  const dispatch = useDispatch();
+  const { loading, countries, gates } = useSelector((state: RootState) => state.appProps);
 
-  const stateLoaded = appPropsState.loading === false;
+  const stateLoaded = loading === false;
 
   const updateList: UpdateListProps = (updatePayload) => {
     dispatch(updateListItem(id, updatePayload));
@@ -71,7 +71,7 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
                       value={country}
                       onChangeHandler={updateList}
                     >
-                      { stateLoaded && <CountriesList countries={appPropsState.countries} /> }
+                      { stateLoaded && <CountriesList countries={countries} /> }
                     </Dropdown>
                   </td>
                   <td className={cn('table-row__gate')}>
@@ -80,7 +80,7 @@ const TableRow: FC<TableRowProps> = ({ value, index }) => {
                       value={gate}
                       onChangeHandler={updateList}
                     >
-                      { stateLoaded && <GatesList gates={appPropsState.gates} /> }
+                      { stateLoaded && <GatesList gates={gates} /> }
                     </Dropdown>
                   </td>
                   <td className={cn('table-row__time')}>

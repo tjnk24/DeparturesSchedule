@@ -3,11 +3,16 @@ import { put, takeLatest } from 'redux-saga/effects';
 import { database } from '@utils/firebase';
 import { FetchPropsStart } from '@store/actions/appProps/types';
 
+const test = async (path: string) => database
+  .ref(path)
+  .once('value')
+  .then((snapshot) => snapshot.val());
+
 function* fetchProps(action: FetchPropsStart) {
   const { path } = action.payload;
 
   try {
-    const snapshotValue = database
+    const snapshotValue = yield database
       .ref(path)
       .once('value')
       .then((snapshot) => snapshot.val());

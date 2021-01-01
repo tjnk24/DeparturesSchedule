@@ -2,33 +2,36 @@ import React, {
   FC,
   useState,
   useEffect,
-  useContext,
 } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
 import ScheduleItem from '@components/schedule-item';
 import { Transition, CSSTransition } from 'react-transition-group';
 import chunk from 'lodash.chunk';
 
-import { Context } from '@store/provider';
-import fetchProps from '@store/actions/appProps';
+import getProps from '@store/actions/appProps';
 
 import api from '@utils/api';
 
-import { Items } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 
 import classnames from 'classnames/bind';
 import Spinner from 'react-bootstrap/esm/Spinner';
+import { RootState } from '@store/reducers/rootReducer/types';
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
 const Schedule: FC = (): JSX.Element => {
-  const { state, dispatch } = useContext(Context);
-  const { appPropsState } = state;
-  const { items } = state.constructorState;
+  const dispatch = useDispatch();
+  const { appProps, constructorState } = useSelector((state: RootState) => state);
+  const { items } = constructorState;
+  const { flagsImages } = appProps;
 
-  const screens: Items[][] = chunk(items, 6);
+  const flagsFetched = Object.keys(flagsImages).length !== 0;
+
+  const screens: Item[][] = chunk(items, 6);
 
   const [scheduleIn, setScheduleIn] = useState(false);
   const [screenIn, setScreenIn] = useState(false);
@@ -36,10 +39,10 @@ const Schedule: FC = (): JSX.Element => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    !appPropsState.flagsImages && fetchProps(dispatch, api.images.countryFlags);
-
-    setScheduleIn(true);
-  }, []);
+    !flagsFetched
+      ? dispatch(getProps(api.images.countryFlags))
+      : setScheduleIn(true);
+  }, [flagsImages]);
 
   useEffect(() => {
     let count = 0;
@@ -57,10 +60,10 @@ const Schedule: FC = (): JSX.Element => {
   const countryName = (name: string) => {
     const countryLowerCase = name[0].toLowerCase() + name.slice(1);
 
-    return appPropsState.flagsImages[`${countryLowerCase}`];
+    return appProps.flagsImages[`${countryLowerCase}`];
   };
 
-  const mapScreen = (screen: Items[]) => screen.map(
+  const mapScreen = (screen: Item[]) => screen.map(
     (item) => (
       <ScheduleItem
         key={item.id as number}
@@ -119,7 +122,7 @@ const Schedule: FC = (): JSX.Element => {
                               index === screenIndex && 'screen__schedule-item-visible',
                               screens.length > 1 && 'screen__schedule-item-multiple')}
                           >
-                            { appPropsState.flagsImages && mapScreen(screen) }
+                            { mapScreen(screen) }
                           </div>
                         ))
                         : null}
