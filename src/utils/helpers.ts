@@ -1,4 +1,4 @@
-import { MixedValueTypes } from '@apptypes/store';
+import { ConstructorState } from '@store/reducers/constructor/types';
 
 export const capitalize = (value: string): string => value[0].toUpperCase() + value.slice(1);
 
@@ -18,5 +18,5 @@ export const getLocal = (
 
 export const setLocal = (
   value: string,
-  item: MixedValueTypes,
+  item: ConstructorState,
 ): void => localStorage.setItem(value, JSON.stringify(item));

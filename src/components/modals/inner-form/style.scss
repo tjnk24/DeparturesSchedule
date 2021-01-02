@@ -1,17 +1,17 @@
 :local {
-    .input-wrap {
-        position: relative;
+  .input-wrap {
+    position: relative;
 
-        button {
-            position: absolute;
-            top: 6px;
-            right: 11px;
-            background: transparent;
-            border: 0;
-        }
+    button {
+      background: transparent;
+      border: 0;
+      position: absolute;
+      right: 11px;
+      top: 6px;
     }
+  }
 
-    .password-error {
-        background-position: right calc(2.375em + .1875rem) center!important;
-    }
+  .password-error {
+    background-position: right calc(2.375em + 0.1875rem) center !important;
+  }
 }

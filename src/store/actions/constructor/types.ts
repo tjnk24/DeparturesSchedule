@@ -1,32 +1,62 @@
-import { StringObjectType, ValueTypes } from '@apptypes/common';
+import { Item } from '@apptypes/common';
+import {
+  ADD_LIST_ITEM,
+  REMOVE_LIST_ITEM,
+  REMOVE_STATE,
+  SAVE_HEADER,
+  SAVE_STATE,
+  SET_LOGIN,
+  UPDATE_LIST_ITEM,
+} from '../constants';
 
-type ValueType<K extends keyof ValueTypes> = Pick<ValueTypes, K>
-
-export type ConstantType = { type: string }
-
-export type addListItemTypes = (values: StringObjectType) => ConstantType & {
-    payload: StringObjectType | ValueType<'isEditing'>;
+export type AddListItem = {
+    type: typeof ADD_LIST_ITEM;
+    payload: Item & { isEditing: Item['isEditing'] };
 }
 
-export type updateListItemTypes = (id: number, updatePayload: StringObjectType) => ConstantType & {
-    payload: StringObjectType | ValueType<'id'>;
+export type UpdateListItem = {
+    type: typeof UPDATE_LIST_ITEM;
+    payload: Item & { id: Item['id'] };
 }
 
-export type removeListItemTypes = (id: number) => ConstantType & {
-    payload: ValueType<'id'>;
+export type RemoveListItem = {
+    type: typeof REMOVE_LIST_ITEM;
+    payload: { id: Item['id'] };
 }
 
-export type setItemEditingTypes = (id: number, isEditing: boolean) => ConstantType & {
+export type SetItemEditing = {
+    type: typeof UPDATE_LIST_ITEM;
     payload: {
-      id: number;
-      isEditing: boolean;
+      id: Item['id'];
+      isEditing: Item['isEditing'];
     };
 }
 
-export type setLoggedInTypes = (payload: boolean) => ConstantType & {
+export type SaveState = {
+    type: typeof SAVE_STATE;
+}
+
+export type RemoveState = {
+    type: typeof REMOVE_STATE;
+}
+
+export type SetLoggedIn = {
+    type: typeof SET_LOGIN;
     payload: boolean;
 }
 
-export type saveHeaderTextTypes = (payload: string) => ConstantType & {
+export type SaveHeaderText = {
+    type: typeof SAVE_HEADER;
     payload: string;
 }
+
+export type ConstructorActions = (
+      AddListItem
+    | UpdateListItem
+    | RemoveListItem
+    | SetItemEditing
+    | SaveState
+    | RemoveState
+    | SetLoggedIn
+    | SaveHeaderText
+)

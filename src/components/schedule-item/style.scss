@@ -1,32 +1,32 @@
 :local {
-    .schedule-row {
-        display: flex;
-        width: 100%;
-        align-items: center;
-        text-align: center;
-        margin: 10px 0;
+  .schedule-row {
+    align-items: center;
+    display: flex;
+    margin: 10px 0;
+    text-align: center;
+    width: 100%;
 
-        > div {
-            width: 35%;
-        }
-
-        > div:nth-child(2) {
-            width: 30%;
-        }
-
-        &__country {
-            display: flex;
-            align-items: center;
-
-            img {
-                width: 50px;
-                margin: 0 10% 0 30%;
-            }
-        }
-
-        &__departed {
-            color: #d01414;
-        }
+    > div {
+      width: 35%;
     }
+
+    > div:nth-child(2) {
+      width: 30%;
+    }
+
+    &__country {
+      align-items: center;
+      display: flex;
+
+      img {
+        margin: 0 10% 0 30%;
+        width: 50px;
+      }
+    }
+
+    &__departed {
+      color: #d01414;
+    }
+  }
 }
 

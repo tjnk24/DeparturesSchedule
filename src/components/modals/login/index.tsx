@@ -1,4 +1,5 @@
-import React, { FC, useState, useContext } from 'react';
+import React, { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classnames from 'classnames/bind';
 import Modal from 'react-bootstrap/esm/Modal';
 import Form from 'react-bootstrap/esm/Form';
@@ -7,9 +8,9 @@ import FormValidator from '@components/form-validator';
 import { auth } from '@utils/firebase';
 import { StringObjectType } from '@apptypes/common';
 
-import { Context } from '@store/provider';
 import { closeModal, showForgotPass, showSignUp } from '@store/actions/modals';
 import { LOGIN } from '@store/actions/constants';
+import { RootState } from '@store/reducers/rootReducer/types';
 
 import FormErrorMessage from '@components/error-message';
 import SubmitButton from '@components/submit-button';
@@ -20,8 +21,8 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const Login: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { modalsState } = state;
+  const dispatch = useDispatch();
+  const { route } = useSelector((state: RootState) => state.modals);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -48,7 +49,7 @@ const Login: FC = () => {
 
   return (
     <Modal
-      show={modalsState.route === LOGIN}
+      show={route === LOGIN}
       onHide={() => dispatch(closeModal())}
       backdrop={false}
     >

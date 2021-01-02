@@ -1,27 +1,29 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Modal from 'react-bootstrap/esm/Modal';
 
-import { Context } from '@store/provider';
 import { MESSAGE } from '@store/actions/constants';
 import { closeModal } from '@store/actions/modals';
 
+import { RootState } from '@store/reducers/rootReducer/types';
+
 const Message: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { modalsState } = state;
+  const dispatch = useDispatch();
+  const { route, message } = useSelector((state: RootState) => state.modals);
 
   return (
     <Modal
-      show={modalsState.route === MESSAGE}
+      show={route === MESSAGE}
       onHide={() => dispatch(closeModal())}
       backdrop={false}
     >
       <Modal.Header closeButton>
         <Modal.Title>
-          {modalsState.message?.title}
+          {message?.title}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {modalsState.message?.messageText}
+        {message?.messageText}
       </Modal.Body>
     </Modal>
   );

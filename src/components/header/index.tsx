@@ -1,10 +1,9 @@
 import React, {
   FC,
-  useContext,
   useState,
   useEffect,
 } from 'react';
-import { Context } from '@store/provider';
+import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '@utils/firebase';
 import classnames from 'classnames/bind';
 
@@ -16,16 +15,20 @@ import DropdownButton from 'react-bootstrap/esm/DropdownButton';
 import { showLogin } from '@store/actions/modals';
 import { saveHeaderText } from '@store/actions/constructor';
 
+import { RootState } from '@store/reducers/rootReducer/types';
+
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
 const Header: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { user } = state.authUserState;
-  const { headerText } = state.constructorState;
+  const dispatch = useDispatch();
+  const { authUser, constructorState } = useSelector((state: RootState) => state);
 
-  const [inputValue, setInputValue] = useState(headerText);
+  const { user } = authUser;
+  const { headerText } = constructorState;
+
+  const [inputValue, setInputValue] = useState(`${headerText}`);
 
   const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();

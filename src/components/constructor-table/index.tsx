@@ -8,10 +8,10 @@ import style from './style.scss';
 
 const cn = classnames.bind(style);
 
-const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => (
+const ConstructorTable: FC<ConstructorTableProps> = ({ items }): JSX.Element => (
   <div className={cn('constructor-list')}>
     {
-      !state.length
+      !items?.length
         ? <p>There&apos;s nothing to show. Add some items to the list!</p>
         : (
           <Table
@@ -27,7 +27,7 @@ const ConstructorTable: FC<ConstructorTableProps> = ({ state }): JSX.Element => 
               </tr>
             </thead>
             <tbody>
-              {state.map((value : TableRowProps['value'], index) => (
+              {items.map((value : TableRowProps['value'], index) => (
                 <TableRow
                   key={value.id}
                   index={index}

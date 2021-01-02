@@ -1,10 +1,9 @@
-import React, { FC, useContext, useState } from 'react';
-
+import React, { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FORGOT_PASS } from '@store/actions/constants';
 import {
   showLogin, showSignUp, showMessage, closeModal,
 } from '@store/actions/modals';
-import { Context } from '@store/provider';
 import { auth } from '@utils/firebase';
 
 import classnames from 'classnames/bind';
@@ -18,6 +17,7 @@ import Container from 'react-bootstrap/esm/Container';
 import Row from 'react-bootstrap/esm/Row';
 
 import { StringObjectType } from '@apptypes/common';
+import { RootState } from '@store/reducers/rootReducer/types';
 
 import InnerForm from '../inner-form';
 import messages from '../message/messages';
@@ -27,8 +27,8 @@ import style from './style.scss';
 const cn = classnames.bind(style);
 
 const ForgotPassword: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { modalsState } = state;
+  const dispatch = useDispatch();
+  const { route } = useSelector((state: RootState) => state.modals);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -52,7 +52,7 @@ const ForgotPassword: FC = () => {
 
   return (
     <Modal
-      show={modalsState.route === FORGOT_PASS}
+      show={route === FORGOT_PASS}
       onHide={() => dispatch(closeModal())}
       backdrop={false}
     >

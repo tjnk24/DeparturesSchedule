@@ -1,4 +1,5 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/esm/Button';
@@ -6,17 +7,17 @@ import Spinner from 'react-bootstrap/esm/Spinner';
 import ConstructorTable from '@components/constructor-table';
 import ConstructorComposer from '@components/constructor-composer';
 
-import { Context } from '@store/provider';
+import { RootState } from '@store/reducers/rootReducer/types';
 
 import style from './style.scss';
 
 const cn = classnames.bind(style);
 
 const Constructor: FC = (): JSX.Element => {
-  const { state } = useContext(Context);
-  const { loading, countries, gates } = state.appPropsState;
-  const { user } = state.authUserState;
-  const { items } = state.constructorState;
+  const { appProps, authUser, constructorState } = useSelector((state: RootState) => state);
+  const { loading, countries, gates } = appProps;
+  const { user } = authUser;
+  const { items } = constructorState;
 
   return (
     <>
@@ -39,7 +40,7 @@ const Constructor: FC = (): JSX.Element => {
           </p>
         )
       }
-      <ConstructorTable state={items} />
+      <ConstructorTable items={items} />
       { loading === false
         ? (
           <ConstructorComposer

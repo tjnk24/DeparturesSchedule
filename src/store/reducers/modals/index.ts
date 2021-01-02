@@ -1,3 +1,4 @@
+import { Reducer } from 'redux';
 import {
   LOGIN,
   SIGN_UP,
@@ -7,13 +8,16 @@ import {
   MESSAGE,
   CLOSE_MODAL,
 } from '@store/actions/constants';
-import {
-  ModalsReducerTypes,
-  MessagePayloadType,
-  ResetPassPayloadType,
-} from '@apptypes/store';
+import { ModalsActions } from '@store/actions/modals/types';
+import { ModalsState } from './types';
 
-const modalsReducer: ModalsReducerTypes = (state, action) => {
+const initialState: ModalsState = {
+  route: CLOSE_MODAL,
+  message: undefined,
+  actionCode: undefined,
+};
+
+const modalsReducer: Reducer<ModalsState, ModalsActions> = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
     case SIGN_UP:
@@ -28,10 +32,10 @@ const modalsReducer: ModalsReducerTypes = (state, action) => {
       return {
         ...state,
         route: action.type,
-        message: action.payload as MessagePayloadType,
+        message: action.payload,
       };
     case RESET_PASS: {
-      const { actionCode } = action.payload as ResetPassPayloadType;
+      const { actionCode } = action.payload;
       return {
         ...state,
         route: action.type,

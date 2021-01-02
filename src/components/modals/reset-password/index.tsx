@@ -1,5 +1,5 @@
-import React, { FC, useContext, useState } from 'react';
-import { Context } from '@store/provider';
+import React, { FC, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RESET_PASS } from '@store/actions/constants';
 import { closeModal, showMessage } from '@store/actions/modals';
 import FormErrorMessage from '@components/error-message';
@@ -10,6 +10,7 @@ import Form from 'react-bootstrap/esm/Form';
 import { auth } from '@utils/firebase';
 
 import { StringObjectType } from '@apptypes/common';
+import { RootState } from '@store/reducers/rootReducer/types';
 
 import InnerForm from '../inner-form';
 import messages from '../message/messages';
@@ -18,8 +19,8 @@ const { passwordResetSuccess } = messages.titles;
 const { canSignIn } = messages.messagesText;
 
 const ResetPassword: FC = () => {
-  const { state, dispatch } = useContext(Context);
-  const { modalsState } = state;
+  const dispatch = useDispatch();
+  const { route, actionCode } = useSelector((state: RootState) => state.modals);
 
   const [errorMessage, setErrorMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -27,7 +28,7 @@ const ResetPassword: FC = () => {
   const resetPassHandler = (payload: StringObjectType) => {
     setButtonDisabled(true);
 
-    auth.confirmPasswordReset(modalsState.actionCode, payload.password)
+    actionCode && auth.confirmPasswordReset(actionCode, payload.password)
       .then(() => {
         dispatch(showMessage({
           title: passwordResetSuccess,
@@ -43,7 +44,7 @@ const ResetPassword: FC = () => {
 
   return (
     <Modal
-      show={modalsState.route === RESET_PASS}
+      show={route === RESET_PASS}
       onHide={() => dispatch(closeModal())}
       backdrop={false}
     >

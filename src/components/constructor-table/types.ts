@@ -1,14 +1,14 @@
-import { ValueTypes } from '@apptypes/common';
+import { Item } from '@apptypes/common';
 
 export type ConstructorTableProps = {
-    state: ValueTypes[];
+    items: Item[];
 }
 
 export type TableRowProps = {
-    value: ValueTypes;
+    value: Item;
     index: number;
 }
 
 export type UpdateListProps = (
-    updatePayload: { [index: string]: string }
+    updatePayload: Item
   ) => void;

@@ -1,12 +1,13 @@
 export type StringObjectType = { [key: string]: string }
 
-export type ValueTypes = {
+export type Item = {
+    [index: string]: string | number | boolean | undefined;
     country   : string;
     gate      : string;
     hours     : string;
     minutes   : string;
-    id        : number;
-    isEditing : boolean;
+    id?        : number;
+    isEditing? : boolean;
 }
 
 export type FormInnerProps = {

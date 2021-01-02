@@ -1,3 +1,4 @@
+import { Item } from '@apptypes/common';
 import React, { FC } from 'react';
 import FormControl from 'react-bootstrap/esm/FormControl';
 
@@ -14,14 +15,14 @@ const Dropdown: FC<DropdownProps> = ({
     as="select"
     name={name}
     value={value}
-    onChange={(e) => {
+    onChange={(event) => {
       if (prevValues) {
         onChangeHandler({
           ...prevValues,
-          [e.target.name]: e.target.value,
+          [event.target.name]: event.target.value,
         });
       } else {
-        onChangeHandler({ [e.target.name]: e.target.value });
+        onChangeHandler({ [event.target.name]: event.target.value } as Item);
       }
     }}
   >

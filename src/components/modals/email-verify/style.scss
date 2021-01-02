@@ -1,16 +1,16 @@
 :local {
-    .footer-wrap {
-        align-items: flex-start;
-        flex-direction: column;
+  .footer-wrap {
+    align-items: flex-start;
+    flex-direction: column;
 
-        button {
-            margin: 0;
-            padding: .375rem 0;
-        }
+    button {
+      margin: 0;
+      padding: 0.375rem 0;
     }
+  }
 
-    .footer-wrap,
-    .footer-wrap button {
-        font-size: 12px;
-    }
+  .footer-wrap,
+  .footer-wrap button {
+    font-size: 12px;
+  }
 }
