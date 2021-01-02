@@ -1,12 +1,11 @@
-import { FETCH_APP_PROPS_ERROR, FETCH_APP_PROPS_START, FETCH_APP_PROPS_SUCCESS } from '@store/actions/constants';
-import { put, takeLatest } from 'redux-saga/effects';
+import {
+  FETCH_APP_PROPS_ERROR,
+  FETCH_APP_PROPS_START,
+  FETCH_APP_PROPS_SUCCESS,
+} from '@store/actions/constants';
+import { ForkEffect, put, takeLatest } from 'redux-saga/effects';
 import { database } from '@utils/firebase';
 import { FetchPropsStart } from '@store/actions/appProps/types';
-
-const test = async (path: string) => database
-  .ref(path)
-  .once('value')
-  .then((snapshot) => snapshot.val());
 
 function* fetchProps(action: FetchPropsStart) {
   const { path } = action.payload;
@@ -31,6 +30,6 @@ function* fetchProps(action: FetchPropsStart) {
   }
 }
 
-export default function* fetchPropsActionWatcher() {
+export default function* fetchPropsActionWatcher(): Generator<ForkEffect<never>, void, unknown> {
   yield takeLatest(FETCH_APP_PROPS_START, fetchProps);
 }

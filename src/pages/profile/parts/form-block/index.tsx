@@ -75,11 +75,6 @@ const FormBlock: FC<FormBlockProps> = ({
 
         const repeatPassProps = inputProps.repeatPassword;
 
-        // if (type === 'password') {
-        //   repeatPassProps = inputProps.repeatPassword;
-        //   delete repeatPassProps.type;
-        // }
-
         const InputBlockProps = {
           type,
           errors,
